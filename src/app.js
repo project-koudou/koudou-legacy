@@ -9,6 +9,7 @@ const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
+const swagger = require('feathers-swagger');
 
 
 const middleware = require('./middleware');
@@ -33,6 +34,18 @@ app.use('/', express.static(app.get('public')));
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio());
+app.configure(swagger({
+  openApiVersion: 3,
+  docsPath: '/docs',
+  uiIndex: true,
+  specs: {
+    info: {
+      title: 'service-backend',
+      description: 'The service backend',
+      version: '0.1.0',
+    },
+  },
+}));
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);

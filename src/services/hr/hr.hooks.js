@@ -1,14 +1,7 @@
 const { validateSchema } = require("feathers-hooks-common");
 const Ajv = require("ajv");
 
-const createSchema = {
-  "properties": {
-    "name": { "type": "string" },
-    "status": { "type": "string" },
-  },
-  required: ["name", "status"],
-  additionalProperties: false,
-};
+const createSchema = require("./hr.definitions").definitions.hr;
 
 module.exports = {
   before: {
