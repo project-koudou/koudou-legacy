@@ -17,10 +17,10 @@ module.exports = function (app) {
   const hr = createService(options);
   hr.id = "_id";
   hr.docs = definitions;
-  app.use('/api/hr', hr);
+  app.use('/api/person', hr);
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('api/hr');
+  const service = app.service('api/person');
 
   service.hooks(hooks);
 };

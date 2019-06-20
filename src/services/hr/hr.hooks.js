@@ -1,7 +1,7 @@
 const { validateSchema } = require("feathers-hooks-common");
 const Ajv = require("ajv");
 
-const createSchema = require("./hr.definitions").definitions.hr;
+const createSchema = require("./hr.definitions").definitions.person;
 
 module.exports = {
   before: {

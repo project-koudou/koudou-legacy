@@ -2,7 +2,7 @@ module.exports = {
   "description": "A service to manage human resources",
   "idType": "string",
   "definitions": {
-    "hr": {
+    "person": {
       "type": "object",
       "properties": {
         "name": {
@@ -17,7 +17,7 @@ module.exports = {
       "required": ["name", "status"],
       "additionalProperties": false,
     },
-    "hr_response": {
+    "person_response": {
       "allOf": [
         {
           "type": "object",
@@ -28,19 +28,19 @@ module.exports = {
             },
           },
         },
-        { $ref: "#/components/schemas/hr" }
+        { $ref: "#/components/schemas/person" }
       ],
     },
-    "hr_list": {
+    "person_list": {
       "type": "array",
-      "items": { $ref: "#/components/schemas/hr" }
+      "items": { $ref: "#/components/schemas/person" }
     },
   },
   "refs": {
-    "getResponse": "hr_response",
-    "createResponse": "hr_response",
-    "updateResponse": "hr_response",
-    "patchResponse": "hr_response",
-    "removeResponse": "hr_response",
+    "getResponse": "person_response",
+    "createResponse": "person_response",
+    "updateResponse": "person_response",
+    "patchResponse": "person_response",
+    "removeResponse": "person_response",
   }
 };
