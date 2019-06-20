@@ -1,11 +1,23 @@
+const { validateSchema } = require("feathers-hooks-common");
+const Ajv = require("ajv");
 
+const createSchema = {
+  "properties": {
+    "name": { "type": "string" },
+    "status": { "type": "string" },
+  },
+  required: ["name", "status"],
+  additionalProperties: false,
+};
 
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [
+      validateSchema(createSchema, Ajv),
+    ],
     update: [],
     patch: [],
     remove: []
