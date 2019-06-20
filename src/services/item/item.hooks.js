@@ -1,17 +1,7 @@
 const { validateSchema } = require("feathers-hooks-common");
 const Ajv = require("ajv");
 
-const createSchema = {
-  "properties": {
-    "itemName": { "type": "string" },
-    "url": { "type": "string" },
-    "tags": { "type": "array" },
-    "count": { "type": "integer", "minimum": 0 },
-    "location": { "type": "array" },
-  },
-  required: ["itemName", "url", "tags", "count", "location"],
-  additionalProperties: false,
-};
+const createSchema = require("./item.definitions").definitions.item;
 
 module.exports = {
   before: {

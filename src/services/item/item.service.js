@@ -2,6 +2,7 @@
 const createService = require('feathers-nedb');
 const createModel = require('../../models/item.model');
 const hooks = require('./item.hooks');
+const definitions = require('./item.definitions');
 
 module.exports = function (app) {
   const Model = createModel(app);
@@ -13,7 +14,10 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/api/item', createService(options));
+  const item = createService(options);
+  item.id = "_id";
+  item.docs = definitions;
+  app.use('/api/item', item);
 
   // Get our initialized service so that we can register hooks
   const service = app.service('api/item');
