@@ -278,7 +278,7 @@ Vue.component('app-flow-list', {
 	<div class="tile is-child card">
 		<div class="card-content">
 			<p class="title">
-				Earthquake Flow (Student)
+				Earthquake Flow (For Student)
 			</p>
 		</div>
 		<div class="card-content">
@@ -295,7 +295,7 @@ Vue.component('app-flow-list', {
 	<div class="tile is-child card">
 		<div class="card-content">
 			<p class="title">
-				Earthquake Flow (Staff)
+				Earthquake Flow (For Staff)
 			</p>
 		</div>
 		<div class="card-content">
@@ -304,7 +304,7 @@ Vue.component('app-flow-list', {
 	<div class="tile is-child card">
 		<div class="card-content">
 			<p class="title">
-				Typhoon Flow (Student)
+				Typhoon Flow (For Student)
 			</p>
 		</div>
 		<div class="card-content">
@@ -342,12 +342,12 @@ Vue.component('app-flow', {
 	<div class="tile is-child card">
 		<div class="card-content">
 			<p class="title">
-				Earthquake Flow (Student)
+				Earthquake Flow (For Student)
 			</p>
 			<p class="content">震災時のワークフロー (学生) です。</p>
 			<div class="field is-grouped">
 			<p class="control">
-			<button v-on:click="" class="button is-info">編集</button>
+			<router-link tag="button" to="/flow-edit" class="button is-info">編集</router-link>
 			</p>
 			<p class="control">
 			<button v-on:click="" class="button is-info">PDFとして出力</button>
@@ -361,7 +361,7 @@ Vue.component('app-flow', {
 			<nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
 				<ul>
 					<li><a href="#">Preparation</a></li>
-					<li><a href="#">Trigger</a></li>
+					<li><a href="#">Trigger Events</a></li>
 					<li><a href="#">Immediately After</a></li>
 					<li><a href="#">Evacuation</a></li>
 					<li><a href="#">Evacuation Life</a></li>
@@ -369,7 +369,7 @@ Vue.component('app-flow', {
 				</ul>
 			</nav>
 			<section class="section">
-			<p class="title is-5">Trigger</p>
+			<p class="title is-5">Trigger Events</p>
 			<article class="message is-danger">
 				<div class="message-body">
 				<p class="title is-5">緊急地震速報</p>
@@ -456,6 +456,306 @@ const Flow = {
 	`
 }
 
+/* FlowEdit */
+Vue.component('app-flow-edit', {
+	data: function () {
+		return {
+			items: [],
+			list1: [],
+			list2: [],
+			flow: [
+				{
+					"name": "Trigger Events",
+					"blocks": [
+						{
+							"id": "eew",
+							"name": "Receive Earthquake Early Warning",
+							"style": "is-danger",
+							"always": false,
+							"message": "現在地で震度5以上",
+						},
+					],
+				},
+				{
+					"name": "Immediately After",
+					"blocks": [
+						{
+							"id": "anpi",
+							"name": "安否確認",
+							"style": "is-warning",
+							"always": "慶應義塾大学により自動追加 (編集不可)",
+							"message": "ページのリンクをメールで受け取る",
+						},
+						{
+							"id": "anpi",
+							"name": "安否確認",
+							"style": "",
+							"always": false,
+							"message": "登録した人物の安否をプッシュ通知で受け取る\n自分の安否をTwitter/Facebookに自動投稿する",
+						},
+						{
+							"id": "hinanjo",
+							"name": "最寄りの避難所",
+							"style": "",
+							"always": false,
+							"message": "地図のリンクを受け取る",
+						},
+						{
+							"id": "manual",
+							"name": "Send Latest Disaster Assitance Manual",
+							"style": "",
+							"always": false,
+							"message": "PDFをメールで受け取る",
+						},
+
+					],
+				},
+				{
+					"name": "Evacuation",
+					"blocks": [
+						{
+							"id": "route",
+							"name": "現在地からの避難経路",
+							"style": "",
+							"always": false,
+							"message": "地図のリンクを受け取る",
+						},
+						{
+							"id": "weather",
+							"name": "天気予報",
+							"style": "",
+							"always": false,
+							"message": "雨の場合プッシュ通知を受け取る",
+						},
+					],
+				},
+				{
+					"name": "Evacuation Life",
+					"blocks": [
+						{
+							"id": "health",
+							"name": "健康チェック",
+							"style": "",
+							"always": false,
+							"message": "家族と自分に送信する",
+						},
+						{
+							"id": "item",
+							"name": "物品リスト",
+							"style": "",
+							"always": false,
+							"message": "リンクを送信",
+						},
+					],
+				},
+				{
+					"name": "Rebuilding Life",
+					"blocks": [],
+				},
+			],
+			blocks: [
+				{
+					"id": "eew",
+					"name": "Received Earthquake Early Warning",
+					"style": "is-danger",
+					"type": "Trigger Event",
+				},
+				{
+					"id": "panic-button",
+					"name": "Dispatched by Administrative Staff",
+					"style": "is-danger",
+					"type": "Trigger Event",
+				},
+				{
+					"id": "iot",
+					"name": "Received Health Alert From IoT Device",
+					"style": "is-danger",
+					"type": "Trigger Event",
+				},
+				{
+					"id": "safety",
+					"name": "安全確保",
+					"style": "is-info",
+					"type": "Note",
+				},
+				{
+					"id": "ev",
+					"name": "避難",
+					"style": "is-info",
+					"type": "Note",
+				},
+				{
+					"id": "ev",
+					"name": "常備薬の確認",
+					"style": "is-info",
+					"type": "Note",
+				},
+				{
+					"id": "manual",
+					"name": "Send Latest Disaster Assitance Manual",
+					"type": "Action",
+				},
+				{
+					"id": "anpi",
+					"name": "安否確認",
+					"type": "Action",
+				},
+				{
+					"id": "hinanjo",
+					"name": "最寄りの避難所",
+					"type": "Action · Map",
+				},
+				{
+					"id": "route",
+					"name": "現在地からの避難経路",
+					"type": "Action · Map",
+				},
+				{
+					"id": "weather",
+					"name": "天気予報",
+					"type": "Action",
+				},
+				{
+					"id": "health",
+					"name": "健康チェック",
+					"type": "Action · Health",
+				},
+				{
+					"id": "item",
+					"name": "物品リスト",
+					"type": "Action",
+				},
+				{
+					"id": "chat",
+					"name": "Chat (IBM Watson Assistant)",
+				},
+				{
+					"id": "node-red",
+					"name": "Node-RED",
+				},
+			],
+		}
+	},
+	methods: {
+		find: function (ev) {
+		},
+		removeAt: function (step, idx) {
+			step.blocks.splice(idx, 1)
+		},
+		toggleModal: function (ev) {
+			let el = ev.target.parentElement.closest(".message")
+			el = el.getElementsByClassName("modal")[0]
+			// console.log(el)
+			el.classList.toggle("is-active")
+		}
+	},
+	mounted: async function () {
+		let items = await client.service('api/item').find()
+		this.items = items.data
+	},
+	template: `
+	<div class="box columns">
+		<div class="column is-narrow">
+		<div class="card" style="position: sticky; top: 10px; width: 400px; height: 90vh; display: flex;">
+			<div class="card-content" style="display: flex; flex-direction: column;">
+				<p class="title is-4">
+					Action Blocks
+				</p>
+				<div class="field">
+				<p class="control">
+					<input class="input" type="text" placeholder="Filter...">
+				</p>
+				<hr/>
+				</div>
+				<draggable style="overflow-y: auto;" :list="blocks" :sort="false" :group="{ name: 'blocks', pull: 'clone', put: false }">
+				<div v-for="block in blocks" v-bind:class="[block.style, 'message', 'item']">
+					<div class="message-body">
+						<p class="title is-6">{{ block.name }}</p>
+						<p class="subtitle is-7">{{ block.type }}</p>
+					</div>
+				</div>
+				</draggable>
+			</div>
+		</div>
+		</div>
+		<div class="column">
+		<div class="card">
+			<div class="card-content">
+				<p class="title">
+					Earthquake Flow (For Student)
+				</p>
+				<div class="field is-grouped">
+				<p class="control">
+				<button v-on:click="" class="button is-success">Test flow</button>
+				</p>
+				<p class="control">
+				<button v-on:click="" class="button is-info">Save</button>
+				</p>
+				</div>
+				<div class="field">
+				<p class="control">
+				<textarea class="textarea">An example workflow.</textarea>
+				</p>
+				</div>
+			</div>
+			<div class="card-content">
+				<nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+					<ul>
+						<li><a href="#">Preparation</a></li>
+						<li><a href="#">Trigger Events</a></li>
+						<li><a href="#">Immediately After</a></li>
+						<li><a href="#">Evacuation</a></li>
+						<li><a href="#">Evacuation Life</a></li>
+						<li><a href="#">Rebuilding Life</a></li>
+					</ul>
+				</nav>
+				<section class="section step" v-for="step in flow">
+				<p class="title is-5" style="position: sticky; top: 0; z-index: 9; padding: 20px 0 40px 0; border-bottom: 1px solid #e3e3e3; height: 50px; display: block; background: #fff;">{{ step.name }}</p>
+				<draggable class="block-list" :list="step.blocks" :sort="false" draggable=".item" group="blocks">
+				<div v-for="(block, idx) in step.blocks" :key="block.id" v-bind:class="['message', 'item', block.style]">
+					<div class="message-body">
+						<div class="message-header" style="margin-bottom: -33px;">
+							<!--<p>{{ block.name }}</p>-->
+							<p>&nbsp;</p>
+							<button class="delete" aria-label="delete" @click="removeAt(step, idx)"></button>
+						</div>
+						<p class="title is-5">{{ block.name }}</p>
+						<p v-if="block.always" class="subtitle is-6">{{ block.always }}</p>
+						<p class="content">{{ block.message }}</p>
+						<div class="field">
+							<p class="control">
+								<button class="button" @click="toggleModal">Edit</button>
+							</p>
+						</div>
+					</div>
+					<div class="modal">
+					<div class="modal-background"></div>
+					<div class="modal-content">
+						<div class="box">
+						設定画面
+						</div>
+					</div>
+					<button class="modal-close is-large" aria-label="close" @click="toggleModal"></button>
+					</div>
+				</div>
+				<!--<div slot="footer" key="footer" style="height: 100px; background: #e3e3e3; text-align: center;"></div>-->
+				</draggable>
+				</section>
+			</div>
+		</div>
+		</div>
+	</div>
+	`
+})
+
+const FlowEdit = {
+	template: `
+	<div class="flow-edit">
+		<app-flow-edit></app-flow-edit>
+	</div>
+	`
+}
+
 const routes = [
 	{ path: '/users-auth', component: UsersAuth },
 	// { path: '/users-profile', component: UsersProfile },
@@ -463,6 +763,7 @@ const routes = [
 	{ path: '/item', component: Item },
 	{ path: '/flow-list', component: FlowList },
 	{ path: '/flow', component: Flow },
+	{ path: '/flow-edit', component: FlowEdit },
 ]
 
 const router = new VueRouter({
