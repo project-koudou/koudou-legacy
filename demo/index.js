@@ -460,180 +460,8 @@ const Flow = {
 Vue.component('app-flow-edit', {
 	data: function () {
 		return {
-			items: [],
-			list1: [],
-			list2: [],
-			flow: [
-				{
-					"name": "Trigger Events",
-					"blocks": [
-						{
-							"id": "eew",
-							"name": "Receive Earthquake Early Warning",
-							"style": "is-danger",
-							"always": false,
-							"message": "現在地で震度5以上",
-						},
-					],
-				},
-				{
-					"name": "Immediately After",
-					"blocks": [
-						{
-							"id": "anpi",
-							"name": "安否確認",
-							"style": "is-warning",
-							"always": "慶應義塾大学により自動追加 (編集不可)",
-							"message": "ページのリンクをメールで受け取る",
-						},
-						{
-							"id": "anpi",
-							"name": "安否確認",
-							"style": "",
-							"always": false,
-							"message": "登録した人物の安否をプッシュ通知で受け取る\n自分の安否をTwitter/Facebookに自動投稿する",
-						},
-						{
-							"id": "hinanjo",
-							"name": "最寄りの避難所",
-							"style": "",
-							"always": false,
-							"message": "地図のリンクを受け取る",
-						},
-						{
-							"id": "manual",
-							"name": "Send Latest Disaster Assitance Manual",
-							"style": "",
-							"always": false,
-							"message": "PDFをメールで受け取る",
-						},
-
-					],
-				},
-				{
-					"name": "Evacuation",
-					"blocks": [
-						{
-							"id": "route",
-							"name": "現在地からの避難経路",
-							"style": "",
-							"always": false,
-							"message": "地図のリンクを受け取る",
-						},
-						{
-							"id": "weather",
-							"name": "天気予報",
-							"style": "",
-							"always": false,
-							"message": "雨の場合プッシュ通知を受け取る",
-						},
-					],
-				},
-				{
-					"name": "Evacuation Life",
-					"blocks": [
-						{
-							"id": "health",
-							"name": "健康チェック",
-							"style": "",
-							"always": false,
-							"message": "家族と自分に送信する",
-						},
-						{
-							"id": "item",
-							"name": "物品リスト",
-							"style": "",
-							"always": false,
-							"message": "リンクを送信",
-						},
-					],
-				},
-				{
-					"name": "Rebuilding Life",
-					"blocks": [],
-				},
-			],
-			blocks: [
-				{
-					"id": "eew",
-					"name": "Received Earthquake Early Warning",
-					"style": "is-danger",
-					"type": "Trigger Event",
-				},
-				{
-					"id": "panic-button",
-					"name": "Dispatched by Administrative Staff",
-					"style": "is-danger",
-					"type": "Trigger Event",
-				},
-				{
-					"id": "iot",
-					"name": "Received Health Alert From IoT Device",
-					"style": "is-danger",
-					"type": "Trigger Event",
-				},
-				{
-					"id": "safety",
-					"name": "安全確保",
-					"style": "is-info",
-					"type": "Note",
-				},
-				{
-					"id": "ev",
-					"name": "避難",
-					"style": "is-info",
-					"type": "Note",
-				},
-				{
-					"id": "ev",
-					"name": "常備薬の確認",
-					"style": "is-info",
-					"type": "Note",
-				},
-				{
-					"id": "manual",
-					"name": "Send Latest Disaster Assitance Manual",
-					"type": "Action",
-				},
-				{
-					"id": "anpi",
-					"name": "安否確認",
-					"type": "Action",
-				},
-				{
-					"id": "hinanjo",
-					"name": "最寄りの避難所",
-					"type": "Action · Map",
-				},
-				{
-					"id": "route",
-					"name": "現在地からの避難経路",
-					"type": "Action · Map",
-				},
-				{
-					"id": "weather",
-					"name": "天気予報",
-					"type": "Action",
-				},
-				{
-					"id": "health",
-					"name": "健康チェック",
-					"type": "Action · Health",
-				},
-				{
-					"id": "item",
-					"name": "物品リスト",
-					"type": "Action",
-				},
-				{
-					"id": "chat",
-					"name": "Chat (IBM Watson Assistant)",
-				},
-				{
-					"id": "node-red",
-					"name": "Node-RED",
-				},
-			],
+			flow: [],
+			blocks: [],
 		}
 	},
 	methods: {
@@ -650,8 +478,10 @@ Vue.component('app-flow-edit', {
 		}
 	},
 	mounted: async function () {
-		let items = await client.service('api/item').find()
-		this.items = items.data
+		let resp = await fetch("/blocks.json")
+		this.blocks = await resp.json()
+		resp = await fetch("/flow1.json")
+		this.flow = await resp.json()
 	},
 	template: `
 	<div class="box columns">
