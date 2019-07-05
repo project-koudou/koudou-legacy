@@ -49,15 +49,18 @@
       <div class="column">
         <div class="tags are-large">
           <router-link to="/users-auth" class="tag">users-auth</router-link>
-          <!-- <router-link to="/users-profile" class="tag">users-profile</router-link> -->
+          <router-link to="/users-profile" class="tag">users-profile</router-link>
           <router-link to="/person" class="tag">person</router-link>
           <router-link to="/item" class="tag">item</router-link>
           <router-link to="/cabinet" class="tag">cabinet</router-link>
           <router-link to="/flow-list" class="tag">flow-list</router-link>
           <router-link to="/flow-edit" class="tag">flow-edit</router-link>
           <router-link to="/flow" class="tag">flow</router-link>
+          <router-link to="/dashboard" class="tag">dashboard</router-link>
         </div>
-        <router-view></router-view>
+        <div class="box">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
   </div>
