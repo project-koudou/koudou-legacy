@@ -1,5 +1,5 @@
 <template>
-	<div class="box tile is-vertical is-ancestor">
+	<div class="box is-shadowless tile is-vertical is-ancestor">
         <h4 class="title is-4">Ongoing response flows</h4>
         <div class="tile is-child card">
             <div class="card-content">
