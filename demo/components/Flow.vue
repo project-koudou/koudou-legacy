@@ -29,81 +29,21 @@
 					<li><a href="#">Rebuilding Life</a></li>
 				</ul>
 			</nav>
-			<section class="section">
-			<p class="title is-5">Trigger Events</p>
-			<article class="message is-danger">
-				<div class="message-body">
-				<p class="title is-5">緊急地震速報</p>
-				<p>現在地で震度5以上</p>
-				</div>
-			</article>
-			</section>
-			<section class="section">
-			<p class="title is-5">Immedeiately After</p>
-			<article class="message is-warning">
-				<div class="message-body">
-				<p class="title is-5">安否確認</p>
-				<p class="subtitle is-6"><b>慶應義塾大学</b>により自動追加 (編集不可)</p>
-				<ul class="">
-				<li>ページのリンクをメールで受け取る</li>
-				</ul>
-				</div>
-			</article>
-			<article class="message">
-				<div class="message-body">
-				<p class="title is-5">安否確認</p>
-				<ul class="">
-				<li>登録した人物の安否をプッシュ通知で受け取る</li>
-				<li>自分の安否をTwitter/Facebookに自動投稿する</li>
-				</ul>
-				</div>
-			</article>
-			<article class="message">
-				<div class="message-body">
-				<p class="title is-5">最寄りの避難所</p>
-				<ul class="">
-				<li>地図のリンクを受け取る</li>
-				</ul>
-				</div>
-			</article>
-			<article class="message">
-				<div class="message-body">
-				<p class="title is-5">防災マニュアル</p>
-				<p>PDFをメールで受け取る</p>
-				</div>
-			</article>
-			</section>
-			<section class="section">
-			<p class="title is-5">Evacuation</p>
-			<article class="message">
-				<div class="message-body">
-				<p class="title is-5">現在地からの避難経路</p>
-				<p>地図のリンクを受け取る</p>
-				</div>
-			</article>
-			<article class="message">
-				<div class="message-body">
-				<p class="title is-5">天気予報</p>
-				<p>雨の場合プッシュ通知を受け取る</p>
-				</div>
-			</article>
-			</section>
-			<section class="section">
-			<p class="title is-5">Evacuation Life</p>
-			<article class="message">
-				<div class="message-body">
-				<p class="title is-5">健康チェック</p>
-				<p>家族と自分に送信する</p>
-				</div>
-			</article>
-			<article class="message">
-				<div class="message-body">
-				<p class="title is-5">物品リスト</p>
-				<p>リンクを送信</p>
-				</div>
-			</article>
-			</section>
-			</div>
+            <section class="section step" v-for="step in flow">
+            <p class="title is-5" style="position: sticky; top: 0; z-index: 9; padding: 20px 0 40px 0; border-bottom: 1px solid #e3e3e3; height: 50px; display: block; background: #fff;">{{ step.name }}</p>
+            <div v-for="(block, idx) in step.blocks" :key="block.id" v-bind:class="['message', 'item', block.style]">
+                <div class="message-body">
+                    <div class="message-header" style="margin-bottom: -33px;">
+                        <!--<p>{{ block.name }}</p>-->
+                    </div>
+                    <p class="title is-5">{{ block.name }}</p>
+                    <p v-if="block.always" class="subtitle is-6">{{ block.always }}</p>
+                    <p class="content">{{ block.message }}</p>
+                </div>
+            </div>
+            <!--<div slot="footer" key="footer" style="height: 100px; background: #e3e3e3; text-align: center;"></div>-->
+            </section>
+		</div>
 	</div>
 	</div>
 </template>
@@ -112,7 +52,7 @@
 module.exports = {
 	data: function () {
 		return {
-			items: [],
+			flow: [],
 		}
 	},
 	methods: {
@@ -120,8 +60,8 @@ module.exports = {
 		}
 	},
 	mounted: async function () {
-		let items = await client.service('api/item').find()
-		this.items = items.data
+		resp = await fetch("/flow1.json")
+		this.flow = await resp.json()
 	},
 }
 </script>

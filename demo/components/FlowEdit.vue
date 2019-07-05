@@ -121,3 +121,12 @@ module.exports = {
 	},
 }
 </script>
+
+  <style>
+  .item {
+    cursor: grab;
+  }
+  .item:active {
+    cursor: grabbing;
+  }
+  </style>
