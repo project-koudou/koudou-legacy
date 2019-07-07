@@ -8,14 +8,14 @@
                 </p>
             </div>
             <div class="card-content">
-                <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+                <!-- <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
                     <ul>
                         <li><a href="#">Preparation</a></li>
                         <li><a href="#">Trigger</a></li>
                         <li><a href="#">Immediately After</a></li>
                         <li><a href="#">Evacuation</a></li>
                     </ul>
-                </nav>
+                </nav> -->
             </div>
         </div>
         <h4 class="title is-4">Manage response flows</h4>

@@ -1,11 +1,13 @@
 <template>
-	<div class="box">
+	<div class="card">
+		<div class="card-content">
 		<pre>{{ message }}</pre>
 		<hr>
 		<div class="field">
 			<p class="control">
 				<button v-on:click="logout()" class="button is-success">Logout</button>
 			</p>
+		</div>
 		</div>
 	</div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-	<div class="box columns">
+	<div class="columns">
 		<div class="column is-narrow">
 		<div class="card" style="position: sticky; top: 10px; width: 400px; height: 90vh; display: flex;">
 			<div class="card-content" style="display: flex; flex-direction: column;">
@@ -24,10 +24,10 @@
 		</div>
 		</div>
 		<div class="column">
-		<div class="card">
+		<div class="card" style="border: none; box-shadow: none;">
 			<div class="card-content">
 				<p class="title">
-					Earthquake Flow (For Student)
+					{{ name }}
 				</p>
 				<div class="field is-grouped">
 				<p class="control">
@@ -39,7 +39,7 @@
 				</div>
 				<div class="field">
 				<p class="control">
-				<textarea class="textarea">An example workflow.</textarea>
+				<textarea class="textarea">{{ description }}</textarea>
 				</p>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 					</ul>
 				</nav>
 				<section class="section step" v-for="step in flow">
-				<p class="title is-5" style="position: sticky; top: 0; z-index: 9; padding: 20px 0 40px 0; border-bottom: 1px solid #e3e3e3; height: 50px; display: block; background: #fff;">{{ step.name }}</p>
+				<p class="title is-5" style="position: sticky; top: -1px; z-index: 9; padding: 20px 0 40px 0; border-bottom: 1px solid #e3e3e3; height: 50px; display: block; background: #fff;">{{ step.name }}</p>
 				<draggable class="block-list" :list="step.blocks" :sort="false" draggable=".item" group="blocks">
 				<div v-for="(block, idx) in step.blocks" :key="block.id" v-bind:class="['message', 'item', block.style]">
 					<div class="message-body">
@@ -96,7 +96,9 @@
 module.exports = {
 	data: function () {
 		return {
-			flow: [],
+            name: "",
+            description: "",
+            flow: [],
 			blocks: [],
 		}
 	},
@@ -116,8 +118,11 @@ module.exports = {
 	mounted: async function () {
 		let resp = await fetch("/blocks.json")
 		this.blocks = await resp.json()
-		resp = await fetch("/flow1.json")
-		this.flow = await resp.json()
+        resp = await fetch("/flow1.json")
+        let flow1 = await resp.json()
+        this.name = flow1.name
+        this.description = flow1.description
+		this.flow = flow1.flow
 	},
 }
 </script>
