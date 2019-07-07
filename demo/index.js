@@ -22,6 +22,7 @@ const routes = [
 	{ path: '/flow', component: Flow },
 	{ path: '/flow-edit', component: FlowEdit },
 	{ path: '/dashboard', component: Dashboard },
+	{ path: '/', redirect: '/dashboard' },
 ]
 
 const router = new VueRouter({
