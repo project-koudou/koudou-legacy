@@ -1,41 +1,115 @@
 <template>
-	<div class="box is-shadowless tile is-vertical is-ancestor">
-        <h4 class="title is-4">Ongoing response flows</h4>
-        <div class="tile is-child card">
-            <div class="card-content">
-                <p class="title is-4">
-                    Earthquake Flow (For Student)
-                </p>
-            </div>
-            <div class="card-content">
-                <!-- <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
-                    <ul>
-                        <li><a href="#">Preparation</a></li>
-                        <li><a href="#">Trigger</a></li>
-                        <li><a href="#">Immediately After</a></li>
-                        <li><a href="#">Evacuation</a></li>
+	<div class="box is-shadowless">
+        <div class="box is-shadowless tile is-vertical is-ancestor" style="padding: 10px; padding-top: 0px; margin-bottom: 20px; border-radius: 4px;">
+            <h4 class="title is-4">Ongoing</h4>
+            <router-link to="/flow" tag="div" class="tile is-child card flow">
+            <!-- <div class="tile is-child card"> -->
+                <div class="card-header is-shadowless">
+                    <p class="card-header-title">
+                        Earthquake Response Flow
+                    </p>
+                </div>
+                <div class="card-content">
+                    <ul class="steps is-thin has-content-centered">
+                        <li class="steps-segment">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Preparation</p>
+                            <p></p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Alarm Events</p>
+                            <p></p>
+                            </div>
+                        </li>
+                        <li class="steps-segment is-active">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Evacuation</p>
+                            <p></p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Evacuation Life</p>
+                            <p></p>
+                            </div>
+                        </li>
                     </ul>
-                </nav> -->
+                </div>
+            <!-- </div> -->
+            </router-link>
+        </div>
+        <div class="box is-shadowless tile is-vertical is-ancestor" style="padding: 10px; margin-bottom: 20px; border-radius: 4px;">
+            <h4 class="title is-4">In Preparation</h4>
+            <div class="tile is-child card">
+                <div class="card-header is-shadowless">
+                    <p class="card-header-title">
+                        Typhoon Response Flow
+                    </p>
+                </div>
+                <div class="card-content">
+                <ul class="steps is-thin has-content-centered">
+                        <li class="steps-segment is-active">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Preparation</p>
+                            <p></p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Alarm Events</p>
+                            <p></p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Evacuation</p>
+                            <p></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tile is-child card">
+                <div class="card-header is-shadowless">
+                    <p class="card-header-title">
+                        Thunderstorm Response Flow
+                    </p>
+                </div>
+                <div class="card-content">
+                <ul class="steps is-thin has-content-centered">
+                        <li class="steps-segment is-active">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Preparation</p>
+                            <p></p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                            <p class="is-size-5">Alarm Events</p>
+                            <p></p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                            <span class="steps-marker"></span>
+                            <div class="steps-content">
+                        <p class="is-size-5">Evacuation</p>
+                        <p></p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-        <h4 class="title is-4">Manage response flows</h4>
-        <div class="tile is-child card">
-            <div class="card-content">
-                <p class="title is-4">
-                    Earthquake Flow (For Staff)
-                </p>
-            </div>
-            <div class="card-content">
-            </div>
-        </div>
-        <div class="tile is-child card">
-            <div class="card-content">
-                <p class="title is-4">
-                    Typhoon Flow (For Student)
-                </p>
-            </div>
-            <div class="card-content">
-            </div>
         </div>
 	</div>
 </template>
@@ -58,3 +132,11 @@ module.exports = {
 	},
 }
 </script>
+
+
+<style>
+.card.flow:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+</style>

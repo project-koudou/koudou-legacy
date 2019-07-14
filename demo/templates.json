@@ -1,0 +1,148 @@
+[
+    {
+        "name": "Earthquakes",
+        "isEnabled": true,
+        "image": "/assets/brick-2205882_640.jpg",
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events",
+                "detail": "EEW"
+            },
+            {
+                "name": "Immediately After"
+            },
+            {
+                "name": "Evacuation"
+            },
+            {
+                "name": "Evacuation Life"
+            }
+        ]
+    },
+    {
+        "name": "Floods",
+        "isEnabled": false,
+        "image": "/assets/flood-62785_640.jpg",
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events",
+                "detail": "Flood Warning"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    },
+    {
+        "name": "Typhoons / Hurricanes",
+        "isEnabled": false,
+        "image": "/assets/cyclone-62957_640.jpg",
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    },
+    {
+        "name": "Thunderstorms",
+        "isEnabled": false,
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    },
+    {
+        "name": "Extreme Heat",
+        "isEnabled": false,
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    },
+    {
+        "name": "Winter Storms",
+        "isEnabled": false,
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    },
+    {
+        "name": "Tornadoes",
+        "isEnabled": false,
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    },
+    {
+        "name": "Tsunamis",
+        "isEnabled": false,
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    },
+    {
+        "name": "Volcanoes",
+        "isEnabled": false,
+        "phases": [
+            {
+                "name": "Preparation"
+            },
+            {
+                "name": "Alarm Events"
+            },
+            {
+                "name": "Evacuation"
+            }
+        ]
+    }
+]

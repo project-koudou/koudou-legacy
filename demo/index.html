@@ -43,15 +43,21 @@
     font-weight: bold;
     content: "⋮";
   }
+  /* a.navbar-item:hover {
+    background: #001d62 !important;
+  }
+  a.navbar-item.is-active, a.navbar-item:focus {
+    background: #001e62 !important;
+  } */
   </style>
 </head>
 <body>
   <div id="app">
-  <nav class="navbar" role="navigation" aria-label="main navigation" style="border-bottom: 1px solid rgba(0, 40, 100, 0.12);">
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation" style="border-bottom: 1px solid rgba(0, 40, 100, 0.12);">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        <h1 class="title is-4">DemoBCP</h1>
-      </a>
+      <span class="navbar-item">
+        <h1 class="title is-4 has-text-white">️️DemoBCP</h1>
+      </span>
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -60,6 +66,19 @@
     </div>
     <div class="navbar-menu">
         <div class="navbar-start">
+          <router-link to="/" class="navbar-item">
+            <span class="icon"><i class="fas fa-tachometer-alt"></i></span>&nbsp;
+            Home
+          </router-link>
+          <router-link to="/flow-wizard" class="navbar-item">
+            <span class="icon"><i class="fas fa-plus"></i></span>&nbsp;
+            Prepare a new flow
+          </router-link>
+          <!-- <div class="navbar-item">
+            <a class="navbar-link" href="/flo">
+              Create New Flow
+            </a>
+          </div> -->
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
               Kitchen Sink
@@ -70,8 +89,10 @@
               <router-link to="/person" class="navbar-item">person</router-link>
               <router-link to="/item" class="navbar-item">item</router-link>
               <router-link to="/cabinet" class="navbar-item">cabinet</router-link>
-              <router-link to="/flow-list" class="navbar-item">flow-list</router-link>
+              <router-link to="/flow-wizard" class="navbar-item">flow-wizard</router-link>
+              <router-link to="/flow-select" class="navbar-item">flow-select</router-link>
               <router-link to="/flow-edit" class="navbar-item">flow-edit</router-link>
+              <router-link to="/flow-list" class="navbar-item">flow-list</router-link>
               <router-link to="/flow" class="navbar-item">flow</router-link>
               <router-link to="/dashboard" class="navbar-item">dashboard</router-link>
               <router-link to="/panic-button" class="navbar-item">panic-button</router-link>

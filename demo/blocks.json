@@ -3,29 +3,29 @@
     "id": "eew",
     "name": "Received Earthquake Early Warning",
     "style": "is-danger",
-    "type": "Trigger Event"
+    "type": "Alarm Event"
   },
   {
     "id": "panic-button",
     "name": "Dispatched by Administrative Staff",
     "style": "is-danger",
-    "type": "Trigger Event"
+    "type": "Alarm Event"
   },
   {
     "id": "iot",
-    "name": "Received Health Alert From IoT Device",
+    "name": "Received Health Alert From Wearables",
     "style": "is-danger",
-    "type": "Trigger Event"
+    "type": "Alarm Event"
   },
   {
     "id": "safety",
-    "name": "安全確保",
+    "name": "Confirm safety",
     "style": "is-info",
     "type": "Note"
   },
   {
     "id": "ev",
-    "name": "避難",
+    "name": "Start evacuation",
     "style": "is-info",
     "type": "Note"
   },
@@ -52,27 +52,23 @@
   },
   {
     "id": "route",
-    "name": "現在地からの避難経路",
+    "name": "Evacuation Route from Here",
     "type": "Action · Map"
   },
   {
     "id": "weather",
-    "name": "天気予報",
+    "name": "Weather forecast",
     "type": "Action"
   },
   {
     "id": "health",
-    "name": "健康チェック",
+    "name": "Health Check",
     "type": "Action · Health"
   },
   {
     "id": "item",
-    "name": "物品リスト",
+    "name": "Items",
     "type": "Action"
-  },
-  {
-    "id": "chat",
-    "name": "Chat (IBM Watson Assistant)"
   },
   {
     "id": "node-red",
