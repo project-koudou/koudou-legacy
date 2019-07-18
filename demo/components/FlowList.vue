@@ -6,7 +6,7 @@
             <!-- <div class="tile is-child card"> -->
                 <div class="card-header is-shadowless">
                     <p class="card-header-title">
-                        Earthquake Response Flow
+                        Earthquake Response Plan
                     </p>
                 </div>
                 <div class="card-content">
@@ -49,7 +49,7 @@
             <div class="tile is-child card">
                 <div class="card-header is-shadowless">
                     <p class="card-header-title">
-                        Typhoon Response Flow
+                        Typhoon Response Plan
                     </p>
                 </div>
                 <div class="card-content">
@@ -81,7 +81,7 @@
             <div class="tile is-child card">
                 <div class="card-header is-shadowless">
                     <p class="card-header-title">
-                        Thunderstorm Response Flow
+                        Thunderstorm Response Plan
                     </p>
                 </div>
                 <div class="card-content">

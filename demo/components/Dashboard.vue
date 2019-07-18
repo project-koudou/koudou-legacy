@@ -8,6 +8,12 @@
         <p class="menu-label has-text-centered">Apps</p>
         <ul class="menu-list">
           <li>
+            <router-link to="/feed">
+              <span class="icon is-large"><i class="fas fa-2x fa-stream"></i></span>
+              <span class="is-size-6">Feed</span>
+            </router-link>
+          </li>
+          <li>
             <router-link to="/person">
               <span class="icon is-large"><i class="fas fa-2x fa-user-friends"></i></span>
               <span class="is-size-6">Person</span>
@@ -23,6 +29,18 @@
             <router-link to="/cabinet">
               <span class="icon is-large"><i class="fas fa-2x fa-file-alt"></i></span>
               <span class="is-size-6">Cabinet</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/map">
+              <span class="icon is-large"><i class="fas fa-2x fa-map-marked"></i></span>
+              <span class="is-size-6">Map</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/control">
+              <span class="icon is-large"><i class="fas fa-2x fa-directions"></i></span>
+              <span class="is-size-6">Control</span>
             </router-link>
           </li>
         </ul>

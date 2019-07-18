@@ -10,7 +10,7 @@
 						<p class="content">{{ description }}</p>
 						<div class="field is-grouped">
 							<p class="control">
-							<button v-on:click="" class="button is-primary">Test-run flow</button>
+							<button v-on:click="" class="button is-primary">Simulate Plan</button>
 							</p>
 							<p class="control">
 							<button v-on:click="save" class="button is-link">Save</button>
@@ -148,7 +148,7 @@ module.exports = {
 	},
 	methods: {
 		save: function (ev) {
-			this.$router.push("/")
+			this.$router.push("/flow")
 		},
 		removeAt: function (step, idx) {
 			step.blocks.splice(idx, 1)
@@ -161,9 +161,9 @@ module.exports = {
 		}
 	},
 	mounted: async function () {
-		let resp = await fetch("/blocks.json")
+		let resp = await fetch("/api/_plan/blocks")
 		this.blocks = await resp.json()
-        resp = await fetch("/flow1.json")
+        resp = await fetch("/api/_plan/plan1")
         let flow1 = await resp.json()
         this.name = flow1.name
         this.description = flow1.description

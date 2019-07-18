@@ -1,6 +1,6 @@
 <template>
 	<div>
-    <h4 class="title is-4">Templates for Crisis Response Flow</h4>
+    <h4 class="title is-4">Templates for Crisis Response Plan</h4>
     <div class="columns is-multiline">
       <div class="column is-6" v-for="template in templates">
         <div class="card template" @click="toEdit" v-bind:class="{ 'is-enabled': template.isEnabled }" v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }">
@@ -49,7 +49,7 @@ module.exports = {
 		}
 	},
 	mounted: async function () {
-    resp = await fetch("/templates.json")
+    resp = await fetch("/api/_plan/templates")
     let templates = await resp.json()
 		this.templates = templates
 	},

@@ -15,12 +15,18 @@ const FlowWizard = window.httpVueLoader('/components/FlowWizard.vue')
 const FlowList = window.httpVueLoader('/components/FlowList.vue')
 const Flow = window.httpVueLoader('/components/Flow.vue')
 const Dashboard = window.httpVueLoader('/components/Dashboard.vue')
+const Control = window.httpVueLoader('/components/Control.vue')
+const Feed = window.httpVueLoader('/components/Feed.vue')
+const Cabinet = window.httpVueLoader('/components/Cabinet.vue')
 
 const routes = [
 	{ path: '/users-auth', component: UsersAuth },
 	{ path: '/users-profile', component: UsersProfile },
 	{ path: '/person', component: Person },
 	{ path: '/item', component: Item },
+	{ path: '/control', component: Control },
+	{ path: '/feed', component: Feed },
+	{ path: '/cabinet', component: Cabinet },
 	{ path: '/flow-select', component: FlowSelect },
 	{ path: '/flow-edit', component: FlowEdit },
 	{ path: '/flow-wizard', component: FlowWizard, children: [

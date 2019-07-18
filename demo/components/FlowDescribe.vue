@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h4 class="title is-4">Flow Description</h4>
+		<h4 class="title is-4">Plan Description</h4>
 		<div class="columns">
 			<div class="column is-12">
 				<div class="card">
@@ -78,7 +78,6 @@ module.exports = {
             name: "",
             description: "",
             flow: [],
-			blocks: [],
 		}
 	},
 	methods: {
@@ -91,9 +90,7 @@ module.exports = {
 		}
 	},
 	mounted: async function () {
-		let resp = await fetch("/blocks.json")
-		this.blocks = await resp.json()
-        resp = await fetch("/flow1.json")
+        resp = await fetch("/api/_plan/plan1")
         let flow1 = await resp.json()
         this.name = flow1.name
         this.description = flow1.description
