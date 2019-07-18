@@ -35,6 +35,7 @@
     "feathers-nedb": "^4.0.1",
     "feathers-swagger": "^1.1.0",
     "helmet": "^3.18.0",
+    "jsonata": "^1.6.5",
     "nedb": "^1.8.0",
     "serve-favicon": "^2.5.0",
     "winston": "^3.2.1"
