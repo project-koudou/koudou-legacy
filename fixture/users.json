@@ -1,7 +1,16 @@
-{
-    "email": "plgs@example.com",
-    "password": "plgs",
-    "name": "慶應太郎",
-    "organization": "慶應義塾大学大学院理工学研究科",
-    "role": "学生"
+[
+  {
+    "email": "taro@example.com",
+    "password": "taro",
+    "name": "Yagami Taro",
+    "organization": "ABC Univ.",
+    "role": "Student"
+  },
+  {
+    "email": "hanako@example.com",
+    "password": "hanako",
+    "name": "Mita Hanako",
+    "organization": "ABC Univ.",
+    "role": "Staff"
   }
+]

@@ -4,37 +4,46 @@
     "version": 1,
     "name": "Earthquake Early Warning",
     "style": "is-danger",
-    "type": "Alarm Event",
-    "endpoint": "/flows/trigger/eew",
-    "schema": {
-      "magnitude": "float"
+    "category": ["Alarm Event"],
+    "always": null,
+    "message": "An earthquake with a magnitude over 6.0 hits the current location",
+    "endpoint": "/nrf/trigger/panicbutton",
+    "params": {
+      "magnitude": 6.0
     }
   },
   {
     "id": "panic-button",
     "version": 1,
-    "name": "Manual Alert by Administrative Staff",
+    "name": "Manual Alert by Operator",
     "style": "is-danger",
-    "type": "Alarm Event",
-    "endpoint": "/nrf/trigger/panicbutton",
-    "schema": {
-      "info": "string"
-    }
+    "category": ["Alarm Event"],
+    "always": null,
+    "message": "",
+    "endpoint": "/nrf/trigger/panicbutton"
   },
   {
-    "id": "announcement",
+    "id": "announce",
     "version": 1,
-    "name": "Listen to Announcements",
-    "style": "is-info",
-    "type": "Action",
-    "endpoint": "/flows/action/announcement"
+    "name": "Check Announcements",
+    "style": null,
+    "category": ["Action"],
+    "always": "Automatically added by ABC Univ. (uneditable)",
+    "message": "",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Announcement",
+      "content": "",
+      "speakContent": "An Earthquake Early Warning went out. Ensure your safety. Follow instructions."
+    },
+    "output": [ "demo_speaker" ]
   },
   {
     "id": "anpi",
     "version": 1,
     "name": "Respond Personal Safety Confirmation",
     "style": "is-info",
-    "type": "Action",
+    "category": ["Action"],
     "endpoint": "/flows/action/person"
   },
   {
@@ -90,17 +99,5 @@
     "version": 1,
     "name": "Check Health Condition",
     "type": "Action · Healthcare"
-  },
-  {
-    "id": "item",
-    "version": 1,
-    "name": "Request Necessities",
-    "type": "Action",
-    "endpoint": "/flows/action/weather"
-  },
-  {
-    "id": "node-red",
-    "version": 1,
-    "name": "Custom Node-RED Flow (Advanced)"
   }
 ]
