@@ -5,7 +5,7 @@
         <input class="input" type="text" placeholder="Filter..." />
       </p>
       <p class="control">
-        <button v-on:click="find()" class="button is-success">Find</button>
+        <button v-on:click="find()" class="button is-primary">Find</button>
       </p>
     </div>
     <table class="table is-fullwidth">
@@ -36,25 +36,25 @@
 </template>
 
 <script>
-module.exports = {
-  data: function() {
+export default {
+  data() {
     return {
       items: [
         {
-          title: "Disaster Assitance Manual",
-          uid: "disasiter-assistance-manual",
-          location: "https://anpi.keio.ac.jp/bcp/link/m/index.html",
-          tags: ["manual", "official"]
-        }
-      ]
+          title: 'Disaster Assitance Manual',
+          uid: 'disasiter-assistance-manual',
+          location: 'https://anpi.keio.ac.jp/bcp/link/m/index.html',
+          tags: ['manual', 'official'],
+        },
+      ],
     };
   },
   methods: {
-    find: function(ev) {}
+    find(ev) {},
   },
-  mounted: async function() {
+  async mounted() {
     // let items = await client.service('api/item').find()
     // this.items = items.data
-  }
+  },
 };
 </script>

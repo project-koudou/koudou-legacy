@@ -1,18 +1,24 @@
 <template>
-	<div>
+  <div>
     <h4 class="title is-4">Templates for Crisis Response Plan</h4>
     <div class="columns is-multiline">
       <div class="column is-6" v-for="template in templates">
-        <div class="card template" @click="toEdit" v-bind:class="{ 'is-enabled': template.isEnabled }" v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }">
+        <div
+          class="card template"
+          @click="toEdit"
+          v-bind:class="{ 'is-enabled': template.isEnabled }"
+          v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }"
+        >
           <div class="card-image">
             <figure class="image is-3by1">
-              <img :src="template.image">
+              <img :src="template.image" />
             </figure>
           </div>
           <div class="card-header is-shadowless">
-            <p class="card-header-title" v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }">
-              {{ template.name }}
-            </p>
+            <p
+              class="card-header-title"
+              v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }"
+            >{{ template.name }}</p>
           </div>
           <div class="card-content">
             <ul class="steps is-thin has-content-centered is-horizontal">
@@ -33,30 +39,30 @@
 
 
 <script>
-module.exports = {
-	data: function () {
-		return {
-			templates: [],
-		}
-	},
-	methods: {
-		toEdit: function (ev) {
-      if (this.$router.currentRoute.path.startsWith("/flow-wizard/")) {
-        this.$router.push("/flow-wizard/describe")
+export default {
+  data() {
+    return {
+      templates: [],
+    };
+  },
+  methods: {
+    toEdit() {
+      if (this.$router.currentRoute.path.startsWith('/plan-wizard/')) {
+        this.$router.push('/plan-wizard/describe');
       } else {
-        this.$router.push("/flow-describe")
+        this.$router.push('/plan-describe');
       }
-		}
-	},
-	mounted: async function () {
-    resp = await fetch("/api/_plan/templates")
-    let templates = await resp.json()
-		this.templates = templates
-	},
-}
+    },
+  },
+  async mounted() {
+    const resp = await fetch('//localhost:3030/api/_plan/templates');
+    const templates = await resp.json();
+    this.templates = templates;
+  },
+};
 </script>
 
-<style>
+<style scoped>
 .card-image .image {
   filter: brightness(75%);
 }

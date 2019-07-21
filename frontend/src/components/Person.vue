@@ -1,0 +1,48 @@
+<template>
+  <div>
+    <div class="box">
+      <div class="field is-grouped">
+        <p class="control is-expanded">
+          <input class="input" type="text" placeholder="Filter..." />
+        </p>
+        <p class="control">
+          <button v-on:click="find()" class="button is-primary">Find</button>
+        </p>
+      </div>
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in items">
+            <th scope="row">{{ index+1 }}</th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      items: [],
+    };
+  },
+  methods: {
+    find() {
+    },
+  },
+  async mounted() {
+    const items = await $client.service('api/person').find();
+    this.items = items.data;
+  },
+};
+</script>
