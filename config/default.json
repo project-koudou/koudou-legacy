@@ -3,6 +3,7 @@
   "port": 3030,
   "public": "../public/",
   "demo": "../demo/",
+  "frontend": "../frontend/dist/",
   "paginate": {
     "default": 10,
     "max": 50
