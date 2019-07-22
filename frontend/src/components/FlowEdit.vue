@@ -37,7 +37,7 @@
                   </li>
                   <li>
                     <a>Checkpoint</a>
-                  </li> -->
+                  </li>-->
                 </ul>
               </div>
             </div>
@@ -45,12 +45,17 @@
               id="blocks"
               :list="blocks"
               :sort="false"
+              :move="checkMove"
               :group="{ name: 'blocks', pull: 'clone', put: false }"
             >
-              <div v-for="block in blocks" v-bind:class="[block.style, 'message', 'item']">
+              <div
+                v-for="block in blocks"
+                :key="block.name"
+                :class="[block.style, 'message', 'item']"
+              >
                 <div class="message-body">
                   <p class="title is-6">{{ block.name }}</p>
-                   <p class="subtitle is-7">{{ block.category ? block.category.join(' · ') : '' }}</p>
+                  <p class="subtitle is-7">{{ block.category ? block.category.join(' · ') : '' }}</p>
                 </div>
               </div>
             </draggable>
@@ -63,44 +68,31 @@
             class="steps has-content-centered is-small is-vertical is-light"
             style="position: relative; left: 25px;"
           >
-            <template v-for="step in flow">
-              <li class="steps-segment" v-if="step.trigger.name">
+            <template v-for="(step, stepIdx) in flow">
+              <li class="steps-segment" v-if="step.trigger.name" :key="`${stepIdx}-trigger`">
                 <span class="steps-marker"></span>
                 <div class="steps-content">
                   <p class="is-size-4">{{ step.trigger.name }}</p>
                   <div
                     style="margin: 10px 0px; position: relative; left: -50px; right: -50px; z-index: 9;"
                   >
-                    <draggable
-                      class="block-list"
-                      :list="[step.trigger.subscribeTo]"
-                      :sort="false"
-                      draggable=".item"
-                      group="blocks"
+                    <div
+                      v-for="(block, idx) in [step.trigger.subscribeTo]"
+                      :key="idx"
+                      :class="['message', 'item', block.style]"
                     >
-                      <div
-                        v-for="(block, idx) in [step.trigger.subscribeTo]"
-                        :class="['message', 'item', block.style]"
-                      >
-                        <div class="message-body">
-                          <p class="title is-5">{{ block.name }}</p>
-                          <p v-if="block.always" class="subtitle is-6">{{ block.always }}</p>
-                          <p class="content" style="white-space: pre-line;">{{ block.message }}</p>
-                          <div class="field is-grouped">
-                            <p class="control">
-                              <button
-                                class="button is-small is-light is-inverted is-outlined"
-                                @click="toggleModal"
-                              >Edit</button>
-                            </p>
-                          </div>
-                        </div>
+                      <div class="message-body">
+                        <p class="title is-5">{{ block.name }}</p>
+                        <p v-if="block.always" class="subtitle is-6">{{ block.always }}</p>
+                        <p class="content">
+                          <span v-html="block.message"></span>
+                        </p>
                       </div>
-                    </draggable>
+                    </div>
                   </div>
                 </div>
               </li>
-              <li class="steps-segment">
+              <li class="steps-segment" :key="stepIdx">
                 <span class="steps-marker"></span>
                 <div class="steps-content">
                   <p class="is-size-4">{{ step.name }}</p>
@@ -108,36 +100,62 @@
                     <draggable
                       class="block-list"
                       :list="step.blocks"
-                      :sort="false"
+                      :sort="true"
+                      filter="textarea"
+                      :preventOnFilter="false"
                       draggable=".item"
                       group="blocks"
                     >
                       <div
                         v-for="(block, idx) in step.blocks"
                         :key="block.id"
-                        v-bind:class="['message', 'item', block.style]"
+                        :class="['message', 'item', block.style]"
                       >
                         <div class="message-body">
                           <p class="title is-5">{{ block.name }}</p>
-                          <p v-if="block.always" class="subtitle is-6">{{ block.always }}</p>
-                          <p class="content" style="white-space: pre-line;">{{ block.message }}</p>
+                          <p v-if="block.always" class="subtitle is-6 is-size-7">{{ block.always }}</p>
+                          <p class="content">
+                            <span v-html="block.message"></span>
+                          </p>
                           <p class="content">
                             <b>On:</b>
-                            {{ block.output.join(' · ') }}
+                            {{ block.output.map(x => x.name).join(' · ') }}
                           </p>
                           <div class="field is-grouped">
-                            <p class="control">
+                            <p class="control" v-if="block.editableParamKeys">
                               <button
-                                class="button is-small is-light is-inverted is-outlined"
-                                @click="toggleModal"
+                                class="button is-small is-text"
+                                :class="{ 'is-active': block.isEditing }"
+                                @click="toggleEdit(block)"
                               >Edit</button>
                             </p>
-                            <p class="control">
+                            <p class="control" v-else>
+                              <button class="button is-small is-text" disabled>No editable settings</button>
+                            </p>
+                            <p class="control" v-show="!block.always">
                               <button
-                                class="button is-small is-light is-inverted is-outlined"
+                                class="button is-small is-text"
                                 @click="removeAt(step, idx)"
                               >Remove</button>
                             </p>
+                          </div>
+                          <div v-show="block.isEditing">
+                            <div class="field" v-for="name in block.editableParamKeys" :key="name">
+                              <label class="label is-small">{{ name }}</label>
+                              <div class="content" v-if="Array.isArray(block.params[name])">
+                                <ul>
+                                  <textarea
+                                    class="textarea"
+                                    placeholder="Check X, Do Y, ..."
+                                    :value="stringify(block.params[name])"
+                                    @input="block.params[name] = destringify($event.target.value, block.params[name])"
+                                  ></textarea>
+                                </ul>
+                              </div>
+                              <div class="control" v-else>
+                                <textarea class="textarea" v-model="block.params[name]"></textarea>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -170,16 +188,32 @@ export default {
   },
   methods: {
     save() {
+      console.log(JSON.stringify(this.flow, null, '  '));
       this.$router.push('/flow');
+    },
+    checkMove(evt) {
+      return !evt.relatedContext.list.map(x => x.id).includes(evt.draggedContext.element.id);
     },
     removeAt(step, idx) {
       step.blocks.splice(idx, 1);
     },
-    toggleModal(ev) {
-      let el = ev.target.parentElement.closest('.message');
-      [el] = el.getElementsByClassName('modal');
-      // console.log(el)
-      el.classList.toggle('is-active');
+    toggleEdit(block) {
+      this.$set(block, 'isEditing', !block.isEditing);
+    },
+    log(block, name) {
+      console.log(block.params[name]);
+    },
+    stringify(obj) {
+      if (Array.isArray(obj)) {
+        return obj.join(', ');
+      }
+      return '';
+    },
+    destringify(text, refObj) {
+      if (Array.isArray(refObj)) {
+        return text.split(', ');
+      }
+      return null;
     },
   },
   async mounted() {
@@ -211,6 +245,7 @@ export default {
   overflow-y: scroll !important;
   /* padding: 20px 30px 10px 0px; */
   padding-right: 25px;
+  padding-top: 5px;
 }
 .item {
   cursor: grab;

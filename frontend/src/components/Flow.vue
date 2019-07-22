@@ -24,13 +24,13 @@
               <router-link tag="button" to="/flow-edit" class="button is-link">Edit</router-link>
             </p>
             <p class="control">
-              <router-link tag="button" to="/flow-edit" class="button is-link">Disable</router-link>
+              <button v-on:click class="button is-light">Export as PDF</button>
             </p>
             <p class="control">
-              <button v-on:click class="button is-link">Export as PDF</button>
+              <button v-on:click class="button is-light">Export as JSON</button>
             </p>
             <p class="control">
-              <button v-on:click class="button is-link">Export as JSON</button>
+              <router-link tag="button" to="/flow-edit" class="button is-text">Remove</router-link>
             </p>
             <!-- <p class="control">
 			<button v-on:click="" class="button is-link">Publish online</button>
@@ -65,8 +65,8 @@
                     >
                       <div class="message-body">
                         <p class="title is-5">{{ block.name }}</p>
-                        <p v-if="block.always" class="subtitle is-6">{{ block.always }}</p>
-                        <p class="content" style="white-space: pre-line;">{{ block.message }}</p>
+                        <p v-if="block.always" class="subtitle is-6 is-size-7">{{ block.always }}</p>
+                        <p class="content"><span v-html="block.message"></span></p>
                       </div>
                     </div>
                   </div>
@@ -84,11 +84,11 @@
                     >
                       <div class="message-body">
                         <p class="title is-5">{{ block.name }}</p>
-                        <p v-if="block.always" class="subtitle is-6">{{ block.always }}</p>
-                        <p class="content" style="white-space: pre-line;">{{ block.message }}</p>
+                        <p v-if="block.always" class="subtitle is-6 is-size-7">{{ block.always }}</p>
+                        <p class="content"><span v-html="block.message"></span></p>
                         <p class="content">
                           <b>On:</b>
-                          {{ block.output.join(' · ') }}
+                          {{ block.output.map(x => x.name).join(' · ') }}
                         </p>
                       </div>
                     </div>

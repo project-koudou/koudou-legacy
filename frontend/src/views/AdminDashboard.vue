@@ -5,7 +5,16 @@
         <div style="margin-bottom: 30px;">
           <user-profile></user-profile>
         </div>
-        <p class="menu-label has-text-centered">Apps</p>
+      </aside>
+    </div>
+    <div class="column">
+      <transition>
+        <router-view name="view"></router-view>
+      </transition>
+    </div>
+    <div class="column is-2">
+      <aside class="menu">
+        <p class="menu-label has-text-centered">Operations</p>
         <ul class="menu-list">
           <li>
             <router-link to="/feed">
@@ -57,11 +66,6 @@
           </li>
         </ul>
       </aside>
-    </div>
-    <div class="column">
-      <transition>
-        <router-view name="view"></router-view>
-      </transition>
     </div>
   </div>
 </template>
