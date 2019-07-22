@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Taro Yagami",
+    "status": "Safe",
+    "location": {
+      "timestamp": "2019-03-01T12:34:00+09:00",
+      "latitude": 35.681236,
+      "longitude": 139.767125
+    }
+  },
+  {
+    "name": "Tricia McMillan",
+    "status": "Safe"
+  },
+  {
+    "name": "Ford Prefect",
+    "status": "In Trouble",
+    "location": {
+      "timestamp": "2019-03-02T10:09:00+09:00",
+      "latitude": 51.507351,
+      "longitude": -0.127758
+    }
+  }
+]

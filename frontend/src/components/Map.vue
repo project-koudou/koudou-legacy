@@ -69,111 +69,105 @@ export default {
       stocks: [],
       chaseLayer: [],
       show: false,
-      infoUserId: 0,
-      infoHeader: "userName",
+      info_id: 0,
+      infoHeader: "name",
       infoTitle: "cardTitle",
       infoText: "Safe"
     };
   },
   methods: {
-    getNewestPin: function() {
+    getNewestPin: async function() {
       console.log(this.peopleList);
-      axios
-        .get("http://studiol-dev.sakura.ne.jp/sano-test/map.php")
-        .then(response => {
-          console.log(response.data);
-          var vueComponent = this; // this のスコープを回避するため
-          Object.keys(response.data).forEach(function(key) {
-            if (!(response.data[key].userId in vueComponent.peopleList)) {
-              // ユーザId がない
-              var createdMarker = L.marker([
-                response.data[key].latitude,
-                response.data[key].longitude
-              ])
-                .bindPopup(response.data[key].userName)
-                .bindTooltip(response.data[key].userName)
-                .openTooltip()
-                .addTo(vueComponent.people)
-                .on("click", function() {
-                  vueComponent.clickMarker(response.data[key].userId, key);
-                });
-              vueComponent.peopleList[response.data[key].userId] = {
-                name: response.data[key].userName,
-                marker: createdMarker,
-                positionList: {}
-              };
-              vueComponent.peopleList[response.data[key].userId].positionList[
-                key
-              ] = {
-                createdAt: response.data[key].createdAt,
-                latitude: response.data[key].latitude,
-                longitude: response.data[key].longitude,
-                marker: createdMarker
-              };
-            } else {
-              if (
-                !(
-                  key in
-                  vueComponent.peopleList[response.data[key].userId]
-                    .positionList
-                )
-              ) {
-                vueComponent.map.removeLayer(
-                  vueComponent.peopleList[response.data[key].userId].marker
-                );
-                var createdMarker = L.marker([
-                  response.data[key].latitude,
-                  response.data[key].longitude
-                ])
-                  .bindPopup(response.data[key].userName)
-                  .bindTooltip(response.data[key].userName)
-                  .openTooltip()
-                  .addTo(vueComponent.people)
-                  .on("click", function() {
-                    vueComponent.clickMarker(response.data[key].userId, key);
-                  });
-                vueComponent.peopleList[
-                  response.data[key].userId
-                ].marker = createdMarker;
-                vueComponent.peopleList[response.data[key].userId].positionList[
-                  key
-                ] = {
-                  createdAt: response.data[key].createdAt,
-                  latitude: response.data[key].latitude,
-                  longitude: response.data[key].longitude,
-                  marker: createdMarker
-                };
-              }
-            }
-          });
-        })
-        .catch(reason => {
-          console.log(reason);
-        });
+      let response = await $client.service("api/person").find();
+      console.log(response.data);
+      var vueComponent = this; // this のスコープを回避するため
+      response.data.forEach(function(value, key) {
+        if (!("location" in response.data[key])) {
+          return;
+        }
+        if (!(response.data[key]._id in vueComponent.peopleList)) {
+          // ユーザId がない
+          var createdMarker = L.marker([
+            response.data[key].location.latitude,
+            response.data[key].location.longitude
+          ])
+            .bindPopup(response.data[key].name)
+            .bindTooltip(response.data[key].name)
+            .openTooltip()
+            .addTo(vueComponent.people)
+            .on("click", function() {
+              vueComponent.clickMarker(response.data[key]._id, key);
+            });
+          vueComponent.peopleList[response.data[key]._id] = {
+            name: response.data[key].name,
+            marker: createdMarker,
+            positionList: {}
+          };
+          vueComponent.peopleList[response.data[key]._id].positionList[key] = {
+            createdAt: response.data[key].location.timestamp,
+            latitude: response.data[key].location.latitude,
+            longitude: response.data[key].location.longitude,
+            marker: createdMarker
+          };
+        } else {
+          if (
+            !(
+              key in
+              vueComponent.peopleList[response.data[key]._id].positionList
+            )
+          ) {
+            vueComponent.map.removeLayer(
+              vueComponent.peopleList[response.data[key]._id].marker
+            );
+            var createdMarker = L.marker([
+              response.data[key].location.latitude,
+              response.data[key].location.longitude
+            ])
+              .bindPopup(response.data[key].name)
+              .bindTooltip(response.data[key].name)
+              .openTooltip()
+              .addTo(vueComponent.people)
+              .on("click", function() {
+                vueComponent.clickMarker(response.data[key]._id, key);
+              });
+            vueComponent.peopleList[
+              response.data[key]._id
+            ].marker = createdMarker;
+            vueComponent.peopleList[response.data[key]._id].positionList[
+              key
+            ] = {
+              createdAt: response.data[key].location.timestamp,
+              latitude: response.data[key].location.latitude,
+              longitude: response.data[key].location.longitude,
+              marker: createdMarker
+            };
+          }
+        }
+      });
     },
-    clickMarker: function(userId, markerIndex) {
+    clickMarker: function(_id, markerIndex) {
       console.log("open");
       this.closeMapInfo();
       if (!this.show) this.show = true;
-      this.infoUserId = userId;
-      this.infoHeader = this.peopleList[userId].name;
-      this.infoTitle = this.peopleList[userId].positionList[
+      this.info_id = _id;
+      this.infoHeader = this.peopleList[_id].name;
+      this.infoTitle = this.peopleList[_id].positionList[
         markerIndex
-      ].createdAt;
+      ].location.timestamp;
     },
     chaseTimeline: function() {
       var vueComponent = this;
-      console.log("chase: " + this.infoUserId);
+      console.log("chase: " + this.info_id);
       this.map.removeLayer(this.chaseLayer);
       this.chaseLayer = L.layerGroup();
       for (let [key, value] of Object.entries(
-        this.peopleList[this.infoUserId].positionList
+        this.peopleList[this.info_id].positionList
       )) {
         setTimeout(function() {
-          L.marker([value.latitude, value.longitude], {
+          L.marker([value.location.latitude, value.location.longitude], {
             icon: L.divIcon({ className: "chase-marker" })
           })
-            .bindTooltip(value.createdAt)
+            .bindTooltip(value.location.timestamp)
             .openTooltip()
             .addTo(vueComponent.chaseLayer);
         }, key * 200);
@@ -255,7 +249,10 @@ export default {
         this.peopleList[indexPeopleList].positionList
       ).slice(-1)[0][1];
       console.log(tmpPosition);
-      this.map.setView([tmpPosition.latitude, tmpPosition.longitude]);
+      this.map.setView([
+        tmpPosition.location.latitude,
+        tmpPosition.location.longitude
+      ]);
       console.log(this.peopleList);
     }
   },
