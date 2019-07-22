@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav
-      class="navbar is-dark is-transparent"
+      class="navbar is-dark"
       role="navigation"
       aria-label="main navigation"
       v-if="['/login', '/register'].indexOf(this.$router.currentRoute.path) === -1"

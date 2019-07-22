@@ -27,20 +27,16 @@ export default new Router({
       redirect: 'dashboard',
     },
     {
+      path: '/plan/:id/edit',
+      component: FlowEdit,
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
       children: [
         { path: '', components: { view: FlowList } },
-        { path: '/flow', components: { view: Flow } },
-        // { path: 'flow', components: { 'view': Flow } },
-      ],
-    },
-    {
-      path: '/op/dashboard',
-      name: 'admin-dashboard',
-      component: AdminDashboard,
-      children: [
+        { path: '/plan/:id', components: { view: Flow } },
         { path: '', components: { view: FlowList } },
         { path: '/person', components: { view: Person } },
         { path: '/map', components: { view: Map } },
@@ -49,8 +45,24 @@ export default new Router({
         { path: '/feed', components: { view: Feed } },
         { path: '/control', components: { view: Control } },
         { path: '/flow', components: { view: Flow } },
+        // { path: 'flow', components: { 'view': Flow } },
       ],
     },
+    // {
+    //   path: '/op/dashboard',
+    //   name: 'admin-dashboard',
+    //   component: AdminDashboard,
+    //   children: [
+    //     { path: '', components: { view: FlowList } },
+    //     { path: '/person', components: { view: Person } },
+    //     { path: '/map', components: { view: Map } },
+    //     { path: '/cabinet', components: { view: Cabinet } },
+    //     { path: '/item', components: { view: Item } },
+    //     { path: '/feed', components: { view: Feed } },
+    //     { path: '/control', components: { view: Control } },
+    //     { path: '/flow', components: { view: Flow } },
+    //   ],
+    // },
     {
       path: '/plan-wizard',
       name: 'plan-wizard',

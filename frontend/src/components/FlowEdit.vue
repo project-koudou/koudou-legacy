@@ -1,17 +1,45 @@
 <template>
   <div>
+    <nav
+      v-if="this.$route.query.wizard"
+      class="breadcrumb has-arrow-separator"
+      aria-label="breadcrumbs"
+    >
+      <ul>
+        <li>
+          <router-link to="/plan-wizard/select">Select a plan template</router-link>
+        </li>
+        <li>
+          <router-link to="/plan-wizard/describe">Name & describe your plan</router-link>
+        </li>
+        <li class="is-active">
+          <router-link :to="this.$route.path">Edit and save the plan</router-link>
+        </li>
+      </ul>
+    </nav>
+    <nav v-else class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <router-link to="/">
+            <span class="icon">
+              <i class="fas fa-bars"></i>
+            </span>Back to List
+          </router-link>
+        </li>
+      </ul>
+    </nav>
     <div class="columns">
       <div class="column is-12">
         <div class="card">
           <div class="card-content">
-            <p class="title" style="margin-bottom: 15px;">{{ name }}</p>
-            <p class="content">{{ description }}</p>
+            <p class="title" style="margin-bottom: 15px;">{{ plan.name }}</p>
+            <p class="content">{{ plan.description }}</p>
             <div class="field is-grouped">
               <p class="control">
                 <button v-on:click="save" class="button is-link">Save</button>
               </p>
               <p class="control">
-                <button class="button is-text">Cancel</button>
+                <button class="button is-text">Delete</button>
               </p>
             </div>
           </div>
@@ -21,8 +49,8 @@
     <div class="columns">
       <div class="column is-narrow">
         <div class="card is-shadowless sidenav">
-          <div class="card-content">
-            <p class="title is-4">Action Blocks</p>
+          <div class="card-content" style="padding-top: 0;">
+            <!-- <p class="title is-4">Action Blocks</p> -->
             <div>
               <div class="tabs" style="margin-bottom: 0;">
                 <ul>
@@ -68,7 +96,7 @@
             class="steps has-content-centered is-small is-vertical is-light"
             style="position: relative; left: 25px;"
           >
-            <template v-for="(step, stepIdx) in flow">
+            <template v-for="(step, stepIdx) in plan.phases">
               <li class="steps-segment" v-if="step.trigger.name" :key="`${stepIdx}-trigger`">
                 <span class="steps-marker"></span>
                 <div class="steps-content">
@@ -180,16 +208,14 @@ export default {
   },
   data() {
     return {
-      name: '',
-      description: '',
-      flow: [],
       blocks: [],
+      plan: {},
     };
   },
   methods: {
     save() {
-      console.log(JSON.stringify(this.flow, null, '  '));
-      this.$router.push('/flow');
+      console.log(JSON.stringify(this.plan, null, '  '));
+      this.$router.push(`/plan/${this.$route.params.id}`);
     },
     checkMove(evt) {
       return !evt.relatedContext.list.map(x => x.id).includes(evt.draggedContext.element.id);
@@ -217,13 +243,12 @@ export default {
     },
   },
   async mounted() {
-    let resp = await fetch('//localhost:3030/api/_plan/blocks');
-    this.blocks = await resp.json();
-    resp = await fetch('//localhost:3030/api/_plan/plan1');
-    const flow1 = await resp.json();
-    this.name = flow1.name;
-    this.description = flow1.description;
-    this.flow = flow1.phases;
+    const blockResp = await fetch('//localhost:3030/api/_plan/blocks');
+    this.blocks = await blockResp.json();
+    const resp = await fetch(`//localhost:3030/api/plan/${'_plan1'}`);
+    const plan = await resp.json();
+    console.log(plan);
+    this.plan = plan;
   },
 };
 </script>

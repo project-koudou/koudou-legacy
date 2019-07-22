@@ -1,10 +1,16 @@
 <template>
-	<div>
+  <div>
     <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
       <ul>
-        <li :class="{ 'is-active': this.$router.currentRoute.path == '/plan-wizard/select' }"><router-link to="/plan-wizard/select">Select a plan template</router-link></li>
-        <li :class="{ 'is-active': this.$router.currentRoute.path == '/plan-wizard/describe' }"><router-link to="/plan-wizard/describe">Name & describe your plan</router-link></li>
-        <li :class="{ 'is-active': this.$router.currentRoute.path == '/plan-wizard/edit' }"><router-link to="/plan-wizard/edit">Edit and save the plan</router-link></li>
+        <li :class="{ 'is-active': this.$router.currentRoute.path == '/plan-wizard/select' }">
+          <router-link to="/plan-wizard/select">Select a plan template</router-link>
+        </li>
+        <li :class="{ 'is-active': this.$router.currentRoute.path == '/plan-wizard/describe' }">
+          <a href="#">Name & describe your plan</a>
+        </li>
+        <li>
+          <a href="#">Edit and save the plan</a>
+        </li>
       </ul>
     </nav>
     <transition name="wizard" mode="out-in">
@@ -17,14 +23,14 @@
 export default {
   data() {
     return {
-    }
+    };
   },
   methods: {
   },
   async mounted() {
     // this.$router.addRoutes
   },
-}
+};
 </script>
 
 <style>
@@ -34,11 +40,12 @@ export default {
 } */
 
 /* .wizard-enter, .wizard-leave-to { */
-  /* transform: translateX(-100vw) translateX(0px); */
-  /* transform: translateY(100vh) translateY(0px); */
+/* transform: translateX(-100vw) translateX(0px); */
+/* transform: translateY(100vh) translateY(0px); */
 /* } */
 
-.wizard-enter-active, .wizard-leave-active {
+.wizard-enter-active,
+.wizard-leave-active {
   transition-duration: 0.2s;
   transition-property: height, opacity, transform;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
@@ -54,6 +61,4 @@ export default {
   opacity: 0;
   transform: translate(-2em, 0);
 }
-
-
 </style>

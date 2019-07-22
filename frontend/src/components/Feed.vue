@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   data() {
     return {
@@ -62,8 +64,8 @@ export default {
     this.message = JSON.stringify(info, null, '  ');
     this.info = info;
     $client.service('api/feed').on('created', this.addMessage);
-    const feed = await $client.service('api/feed').find();
-    this.feed = feed.data;
+    const feed = await $client.service('api/feed').find({ query: { $sort: { date: -1 } } });
+    this.feed = feed.data.slice().reverse();
   },
 };
 </script>

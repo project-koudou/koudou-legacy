@@ -67,47 +67,49 @@
 
 <script>
 export default {
-  name: "user-auth",
+  name: 'user-auth',
   data() {
     return {
       input: {
-        email: "demo1@example.com",
-        password: "demo1",
-        operatorToken: null
+        email: 'demo1@example.com',
+        password: 'demo1',
+        operatorToken: null,
       },
       demoOperator: {
-        email: "demo2@example.com",
-        password: "demo2",
-        operatorToken: "1234"
+        email: 'demo2@example.com',
+        password: 'demo2',
+        operatorToken: '1234',
       },
       demoUser: {
-        email: "demo1@example.com",
-        password: "demo1",
-        operatorToken: null
+        email: 'demo1@example.com',
+        password: 'demo1',
+        operatorToken: null,
       },
       isOperator: false,
-      message: "",
-      loggedIn: false
+      message: '',
+      loggedIn: false,
     };
   },
   methods: {
     async login() {
-      this.message = "";
+      this.message = '';
       console.log(this.input);
       try {
-        if (this.input.username !== "" && this.input.password !== "") {
-          const credentials = Object.assign({ strategy: "local" }, this.input);
+        if (this.input.username !== '' && this.input.password !== '') {
+          const credentials = Object.assign({ strategy: 'local' }, this.input);
           const resp = await $client.authenticate(credentials);
           const payload = await $client.passport.verifyJWT(resp.accessToken);
           console.log(payload);
-          const info = await $client.service("api/users").get(payload.userId);
+          const info = await $client.service('api/users').get(payload.userId);
           console.log(info);
-          this.message = JSON.stringify(info, null, "  ");
+          this.message = JSON.stringify(info, null, '  ');
           this.loggedIn = true;
           if (this.isOperator) {
-            this.$router.push("/op/dashboard");
+            this.$root.$data.isOperator = true;
+            this.$router.push('/dashboard');
           } else {
-            this.$router.push("/dashboard");
+            this.$root.$data.isOperator = false;
+            this.$router.push('/dashboard');
           }
         } else {
           // await $client.authenticate()
@@ -118,17 +120,17 @@ export default {
     },
     async logout() {
       await $client.logout();
-      this.message = "";
+      this.message = '';
       this.loggedIn = false;
-    }
+    },
   },
   async mounted() {
     const resp = await $client.authenticate();
     console.log(resp);
     const payload = await $client.passport.verifyJWT(resp.accessToken);
-    const info = await $client.service("api/users").get(payload.userId);
-    this.message = JSON.stringify(info, null, "  ");
+    const info = await $client.service('api/users').get(payload.userId);
+    this.message = JSON.stringify(info, null, '  ');
     this.loggedIn = true;
-  }
+  },
 };
 </script>

@@ -16,17 +16,21 @@
         </div>
       </div>
       <div class="has-text-right">
-        <a href="#" v-on:click="logout()" class="button is-text">
+        <a href="#" class="button is-text">
           <span class="icon">
             <i class="fas fa-sliders-h"></i>
           </span>
         </a>
         <a href="#" v-on:click="logout()" class="button is-light">Logout</a>
       </div>
-      <div class="content has-text-centered" style="margin-top: 40px;">
-        <p class="is-size-6 has-text-dark" style="margin-bottom: 0;">Setup mobile client:</p>
-        <qrcode :value="mobileUrl" :options="{ width: 150 }"></qrcode>
-        <p class="is-size-7"><a @click="isShowingSetups = true">More setups</a></p>
+      <div class="content has-text-centered" style="margin-top: 50px;">
+        <div class="tag is-info is-rounded is-uppercase">
+          Mobile client
+        </div>
+        <div>
+          <qrcode :value="mobileUrl" :options="{ width: 150 }"></qrcode>
+        </div>
+        <div class="is-size-7"><a @click="isShowingSetups = true">More setups</a></div>
       </div>
     </div>
   </div>

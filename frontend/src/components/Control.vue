@@ -5,7 +5,7 @@
         <p class="control">
           <button
             v-on:click="fetch('http://localhost:9000/api/nrf/trigger/panicbutton')"
-            class="button is-success"
+            class="button is-danger"
           >Panic</button>
         </p>
       </div>
@@ -13,7 +13,7 @@
         <p class="control">
           <button
             v-on:click="fetch('http://localhost:9000/api/nrf/checkpoint/pressbutton')"
-            class="button is-success"
+            class="button is-danger"
           >Press</button>
         </p>
       </div>
@@ -21,7 +21,7 @@
         <p class="control">
           <button
             v-on:click="fetch('http://localhost:9000/api/nrf/checkpoint/complete')"
-            class="button is-success"
+            class="button is-danger"
           >(Dev) Complete</button>
         </p>
       </div>
