@@ -27,10 +27,10 @@
               <router-link tag="button" :to="editUrl" class="button is-link">Edit</router-link>
             </p>
             <p class="control">
-              <button v-on:click class="button is-light">Export as PDF</button>
+              <button class="button is-light">Export as PDF</button>
             </p>
             <p class="control">
-              <button v-on:click class="button is-light">Export as JSON</button>
+              <button @click="exportJSON" class="button is-light">Export as JSON</button>
             </p>
           </div>
         </div>
@@ -108,8 +108,6 @@ export default {
     };
   },
   methods: {
-    find() {
-    },
     testflow() {
       console.log(this.plan.testTrigger);
       fetch(this.plan.testTrigger);
@@ -117,6 +115,10 @@ export default {
     stopflow() {
       this.plan.stopEndpoint = `//localhost:3030/api/plan/${this.$route.params.id}/complete`;
       fetch(this.plan.stopEndpoint);
+    },
+    exportJSON() {
+      const json = encodeURIComponent(JSON.stringify(this.plan, null, ''));
+      window.open(`data:application/json,${json}`);
     },
   },
   async mounted() {

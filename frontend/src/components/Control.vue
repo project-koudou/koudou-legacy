@@ -14,15 +14,7 @@
           <button
             v-on:click="fetch('http://localhost:9000/api/nrf/checkpoint/pressbutton')"
             class="button is-danger"
-          >Press</button>
-        </p>
-      </div>
-      <div class="field">
-        <p class="control">
-          <button
-            v-on:click="fetch('http://localhost:9000/api/nrf/checkpoint/complete')"
-            class="button is-danger"
-          >(Dev) Complete</button>
+          >Go</button>
         </p>
       </div>
     </section>

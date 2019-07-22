@@ -105,10 +105,10 @@ export default {
           this.message = JSON.stringify(info, null, '  ');
           this.loggedIn = true;
           if (this.isOperator) {
-            this.$root.$data.isOperator = true;
+            localStorage.isOperator = JSON.stringify(true);
             this.$router.push('/dashboard');
           } else {
-            this.$root.$data.isOperator = false;
+            localStorage.isOperator = JSON.stringify(false);
             this.$router.push('/dashboard');
           }
         } else {

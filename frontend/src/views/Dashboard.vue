@@ -10,7 +10,7 @@
         <router-view name="view"></router-view>
       </transition>
     </div>
-    <div v-if="$root.$data.isOperator" class="column is-2">
+    <div v-if="isOperator" class="column is-2">
       <aside class="menu">
         <p class="menu-label has-text-centered">Operations</p>
         <ul class="menu-list">
@@ -76,6 +76,16 @@ export default {
   name: 'dashboard',
   components: {
     UserProfile,
+  },
+  data() {
+    return {
+      isOperator: false,
+    };
+  },
+  methods: {
+  },
+  mounted() {
+    this.isOperator = JSON.parse(localStorage.isOperator);
   },
 };
 </script>
