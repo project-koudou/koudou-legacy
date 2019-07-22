@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in items">
+        <tr v-for="(item, index) in items" :key="index">
           <td>{{ item.title }}</td>
           <td>{{ item.uid }}</td>
           <td>

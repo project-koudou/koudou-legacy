@@ -21,7 +21,7 @@
         <tr v-for="(item, index) in items">
           <td>{{ item.itemName }}</td>
           <td>{{ item.count }}</td>
-          <td>{{ item.location }}</td>
+          <td>{{ item.location.placeName }}</td>
           <td>
             <div class="tags are-small">
               <a href="#" class="tag" v-for="(tag, index) in item.tags">{{ tag }}</a>

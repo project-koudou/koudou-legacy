@@ -16,6 +16,10 @@ module.exports = {
         location: {
           type: 'object',
           properties: {
+            placeName: {
+              type: 'string',
+              description: 'Place Name'
+            },
             timestamp: {
               type: 'string',
               format: 'date-time',
