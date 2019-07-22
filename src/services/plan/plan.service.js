@@ -48,10 +48,10 @@ module.exports = function(app) {
     async get(id, params) {
       if (id === 'templates') {
         return JSON.parse(
-          fs.readFileSync('plan-backend/default/templates.json')
+          fs.readFileSync('data/default/templates.json')
         );
       } else if (id === 'blocks') {
-        return JSON.parse(fs.readFileSync('plan-backend/default/blocks.json'));
+        return JSON.parse(fs.readFileSync('data/default/blocks.json'));
       } else if (id === 'flow') {
         // console.log(params);
         let resp = await app.service('api/plan').find();

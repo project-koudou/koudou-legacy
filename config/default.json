@@ -1,14 +1,12 @@
 {
   "host": "localhost",
   "port": 3030,
-  "public": "../public/",
-  "demo": "../demo/",
   "frontend": "../frontend/dist/",
   "paginate": {
     "default": 10,
     "max": 50
   },
-  "nedb": "../data",
+  "nedb": "../db",
   "authentication": {
     "secret": "465c9809444d0afd2f8f943d745b034f6305379972ceede41a5cba9c88042db9d529137699400361483c33118278e97ef9c97d3162949ab0654712fbe344527fd42be56e817276193414a2e71d737a11127f17fb77812a51f3e6d052e4af6c429dfd056cc683e831d46c65b22f35833539faf3066b83f1a18c7c782110d8a6ecf0395b278054efaccbc437a3f7d2ce91dc641f01a9b09fc2c29e29ccf4ac09088752b474ebbe7941714ee804643dd00d4641a57b67092c3ebf47460e687dcb3d1e2405fc35664c70ee258f114635d71bd94fdb2616e8988297398d0b3bae1b4ef83e7ea7c35ece0debd694a755b54a6b3dca9a45c73d58db377350003e844090",
     "strategies": [
