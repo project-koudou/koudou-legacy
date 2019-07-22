@@ -23,12 +23,12 @@
     "endpoint": "/nrf/trigger/panicbutton"
   },
   {
-    "id": "announce",
+    "id": "announcement",
     "version": 1,
     "name": "Check Announcements",
     "style": null,
     "category": ["Action"],
-    "always": "Automatically added by ABC Univ. (uneditable)",
+    "always": false,
     "message": "",
     "endpoint": "/nrf/action/message",
     "params": {
@@ -36,68 +36,272 @@
       "content": "",
       "speakContent": "An Earthquake Early Warning went out. Ensure your safety. Follow instructions."
     },
-    "output": [ "demo_speaker" ]
+    "output": [
+      {
+        "name": "Smart Speaker (demo)",
+        "endpoint": "/nrf/output/demo_speaker"
+      }
+    ]
+  },
+  {
+    "id": "location-share",
+    "name": "Start Sharing Your Location",
+    "style": "",
+    "category": ["Action"],
+    "always": false,
+    "message": "",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Start Sharing Your Location",
+      "content": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51964.39448180404!2d139.59343731307595!3d35.509849933763036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f7aa399b7cb%3A0xefa06bf3b3934fe3!2z5oW25oeJ576p5aG-5aSn5a2mIOaXpeWQieOCreODo-ODs-ODkeOCueilv-WIpemkqA!5e0!3m2!1sja!2sjp!4v1563592896211!5m2!1sja!2sjp\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>",
+      "footer": "",
+      "choices": [
+        {
+          "text": "Confirm",
+          "action": {
+            "endpointInternal": "api/feed",
+            "params": {
+              "content": "Started sharing the location<br><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51964.39448180404!2d139.59343731307595!3d35.509849933763036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f7aa399b7cb%3A0xefa06bf3b3934fe3!2z5oW25oeJ576p5aG-5aSn5a2mIOaXpeWQieOCreODo-ODs-ODkeOCueilv-WIpemkqA!5e0!3m2!1sja!2sjp!4v1563592896211!5m2!1sja!2sjp\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>"
+            }
+          },
+          "close": true
+        }
+      ]
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
   },
   {
     "id": "anpi",
-    "version": 1,
     "name": "Respond Personal Safety Confirmation",
-    "style": "is-info",
+    "style": "",
     "category": ["Action"],
-    "endpoint": "/flows/action/person"
+    "always": false,
+    "message": "",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Personal Safety Confirmation",
+      "content": "",
+      "choices": [
+        {
+          "text": "I'm Safe",
+          "action": {
+            "endpointInternal": "api/feed",
+            "params": {
+              "content": "Confirmed safety"
+            }
+          },
+          "close": true
+        },
+        {
+          "text": "I'm in Trouble",
+          "action": {
+            "endpointInternal": "api/feed",
+            "params": {
+              "content": "Reported trouble"
+            }
+          },
+          "close": true
+        }
+      ]
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
   },
   {
-    "id": "safety-checklist",
-    "version": 1,
-    "name": "Confirm Safety Checklist",
-    "style": "is-info",
-    "type": "Action",
-    "endpoint": "/nrf/action/checklist_safety"
+    "id": "anpi-share",
+    "name": "Share Personal Safety Confirmation",
+    "category": ["Action"],
+    "style": "",
+    "always": false,
+    "message": "<ul><li>Receive status updates from your friends</li><li>Post your status on Twitter</li></ul>",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Share Personal Safety Confirmation",
+      "content": "<ul><li>Receive status updates from your friends</li><li>Post your status on Twitter</li></ul>",
+      "choices": [
+        {
+          "text": "Start",
+          "action": {
+            "endpointInternal": "api/feed",
+            "params": {
+              "content": "Sharing Personal Safety Confirmation"
+            }
+          },
+          "close": true
+        },
+        {
+          "text": "Cancel",
+          "action": null,
+          "close": true
+        }
+      ]
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
   },
   {
-    "id": "personal-checklist",
-    "version": 1,
+    "id": "evacuation-wait",
+    "name": "Wait Inside until Evacuation Order",
+    "category": ["Note"],
+    "style": "",
+    "always": false,
+    "message": "",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Wait Inside until Evacuation Order",
+      "content": "Please wait inside the building until the evacuation order goes out."
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
+  },
+  {
+    "id": "message-evacuation",
+    "name": "Get Notified Evacuation Order",
+    "category": ["Note"],
+    "style": "",
+    "always": false,
+    "message": "",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Evacuation Order went out",
+      "content": "Please evacuate to the nearest evacuation site now.",
+      "speakContent": "Please evacuate to the nearest evacuation site now."
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      },
+      {
+        "name": "Smart Speaker (demo)",
+        "endpoint": "/nrf/output/demo_speaker"
+      }
+    ]
+  },
+  {
+    "id": "checklist-satefy",
+    "name": "Confirm Safety Instruction",
+    "category": ["Action"],
+    "style": "",
+    "always": false,
+    "message": "Your own todos and checklist before evacuation",
+    "endpoint": "/nrf/action/checklist",
+    "params": {
+      "title": "Safety Instruction Checklist",
+      "items": [
+        "Check the lab equipment",
+        "Turn off the circuit breaker",
+        "Turn off the gas"
+      ],
+      "choices": [
+        {
+          "text": "Confirm",
+          "action": {
+            "endpointInternal": "api/feed",
+            "params": {
+              "content": "Confirmed Safety Instruction"
+            }
+          },
+          "close": true
+        }
+      ]
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
+  },
+  {
+    "id": "checklist-personal",
     "name": "Confirm Personal Checklist",
-    "style": "is-info",
-    "type": "Action",
-    "endpoint": "/flows/action/checklist_generic"
+    "category": ["Action"],
+    "style": "",
+    "always": false,
+    "message": "Your own todos and checklist before evacuation",
+    "endpoint": "/nrf/action/checklist",
+    "params": {
+      "title": "My Todos",
+      "items": ["Bring some Aspirin", "Take my passport"]
+    },
+    "editableParamKeys": ["items"],
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
   },
   {
-    "id": "loc-reminder",
-    "version": 1,
-    "name": "Receive Reminder of To-dos",
-    "style": "is-info",
-    "type": "Action",
-    "endpoint": "/flows/action/location_based_reminder"
+    "id": "evacuation-site",
+    "name": "Navigate to the Nearest Evacuation Site",
+    "category": ["Action"],
+    "style": "",
+    "always": false,
+    "message": "Open the map",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Map to the Nearest Evacuation Site",
+      "content": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3246.0053022015986!2d139.63893845074026!3d35.553571244473154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f7aa399b7cb%3A0xefa06bf3b3934fe3!2z5oW25oeJ576p5aG-5aSn5a2mIOaXpeWQieOCreODo-ODs-ODkeOCueilv-WIpemkqA!5e0!3m2!1sja!2sjp!4v1562352545257!5m2!1sja!2sjp\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>"
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
+  },
+  {
+    "id": "weather",
+    "name": "Check Weather Forecast",
+    "category": ["Action"],
+    "style": "",
+    "always": false,
+    "message": "Notify if it will rain",
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "title": "Weather Alert",
+      "content": "<div style=\"text-align: center;font-size: 30pt;\">☔️</div>"
+    },
+    "output": [
+      {
+        "name": "Mobile client (demo)",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
   },
   {
     "id": "manual",
     "version": 1,
     "name": "Receive Latest Disaster Assitance Manual",
-    "type": "Action",
+    "category": ["Action"],
     "endpoint": "/flows/action/message",
     "params": {
-      "text":"Check out the latest Disaster Assitance Manual: <a href=\"#\">PDF</a>"
+      "text": "Check out the latest Disaster Assitance Manual: <a href=\"#\">PDF</a>"
     }
-  },
-  {
-    "id": "evacuation-spot",
-    "version": 1,
-    "name": "Navigate to the Nearest Evacuation Spot",
-    "type": "Action · Map",
-    "endpoint": "/flows/action/evacuation_spot"
-  },
-  {
-    "id": "weather",
-    "version": 1,
-    "name": "Check Weather Forecast",
-    "type": "Action",
-    "endpoint": "/flows/action/weather"
   },
   {
     "id": "health",
     "version": 1,
     "name": "Check Health Condition",
-    "type": "Action · Healthcare"
+    "category": ["Action", "Healthcare"]
   }
 ]

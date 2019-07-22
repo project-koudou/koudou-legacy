@@ -1,14 +1,14 @@
 [
   {
-    "email": "taro@example.com",
-    "password": "taro",
+    "email": "demo1@example.com",
+    "password": "demo1",
     "name": "Yagami Taro",
     "organization": "ABC Univ.",
     "role": "Student"
   },
   {
-    "email": "hanako@example.com",
-    "password": "hanako",
+    "email": "demo2@example.com",
+    "password": "demo2",
     "name": "Mita Hanako",
     "organization": "ABC Univ.",
     "role": "Staff"

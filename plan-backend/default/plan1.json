@@ -1,13 +1,8 @@
 {
   "id": "crf001",
-  "name": "Response Plan for Earthquake (Demo)",
+  "name": "Response Plan for Earthquake (demo)",
   "description": "A workflow for students in case of earthquake.",
   "testTrigger": "http://localhost:9000/api/nrf/trigger/panicbutton",
-  "prepPhase": {
-    "name": "Preparation",
-    "blocks": [
-    ]
-  },
   "phases": [
     {
       "name": "Preparation",
@@ -15,8 +10,7 @@
         "name": null,
         "subscribeTo": {
           "endpoint": null,
-          "params": {
-          }
+          "params": {}
         }
       },
       "blocks": []
@@ -50,11 +44,11 @@
       },
       "blocks": [
         {
-          "id": "announce",
+          "id": "announcement",
           "name": "Check Announcements",
           "style": "is-warning",
           "category": ["Action"],
-          "always": "Automatically added by ABC Univ. (uneditable)",
+          "always": "Automatically added by ABC Univ.",
           "message": "",
           "endpoint": "/nrf/action/message",
           "params": {
@@ -62,12 +56,18 @@
             "content": "",
             "speakContent": "An Earthquake Early Warning went out. Ensure your safety. Follow instructions."
           },
-          "output": [ "demo_speaker" ]
+          "output": [
+            {
+              "name": "Smart Speaker (demo)",
+              "endpoint": "/nrf/output/demo_speaker"
+            }
+          ]
         },
         {
-          "id": "message-evacuation",
+          "id": "location-share",
           "name": "Start Sharing Your Location",
           "style": "",
+          "category": ["Action"],
           "always": false,
           "message": "",
           "endpoint": "/nrf/action/message",
@@ -88,7 +88,12 @@
               }
             ]
           },
-          "output": ["demo_client"]
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            }
+          ]
         }
       ]
     },
@@ -108,7 +113,7 @@
           "id": "anpi",
           "name": "Respond Personal Safety Confirmation",
           "style": "is-warning",
-          "always": "Automatically added by ABC Univ. (uneditable)",
+          "always": "Automatically added by ABC Univ.",
           "message": "",
           "endpoint": "/nrf/action/message",
           "params": {
@@ -137,14 +142,19 @@
               }
             ]
           },
-          "output": ["demo_client"]
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            }
+          ]
         },
         {
           "id": "anpi-share",
           "name": "Share Personal Safety Confirmation",
           "style": "",
           "always": false,
-          "message": "Receive status updates from your friends\nPost your status on Twitter",
+          "message": "<ul><li>Receive status updates from your friends</li><li>Post your status on Twitter</li></ul>",
           "endpoint": "/nrf/action/message",
           "params": {
             "title": "Share Personal Safety Confirmation",
@@ -167,7 +177,12 @@
               }
             ]
           },
-          "output": ["demo_client"]
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            }
+          ]
         },
         {
           "id": "evacuation-wait",
@@ -180,7 +195,12 @@
             "title": "Wait Inside until Evacuation Order",
             "content": "Please wait inside the building until the evacuation order goes out."
           },
-          "output": ["demo_client"]
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            }
+          ]
         }
       ]
     },
@@ -210,7 +230,16 @@
             "content": "Please evacuate to the nearest evacuation site now.",
             "speakContent": "Please evacuate to the nearest evacuation site now."
           },
-          "output": ["demo_client", "demo_speaker"]
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            },
+            {
+              "name": "Smart Speaker (demo)",
+              "endpoint": "/nrf/output/demo_speaker"
+            }
+          ]
         },
         {
           "id": "checklist-satefy",
@@ -221,7 +250,12 @@
           "endpoint": "/nrf/action/checklist",
           "params": {
             "title": "Safety Instruction Checklist",
-            "items": ["Check the lab equipment", "Turn off the circuit breaker", "Turn off the gas", "Clear Z"],
+            "items": [
+              "Check the lab equipment",
+              "Turn off the circuit breaker",
+              "Turn off the gas",
+              "Clear Z"
+            ],
             "choices": [
               {
                 "text": "Confirm",
@@ -235,7 +269,12 @@
               }
             ]
           },
-          "output": ["demo_client"]
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            }
+          ]
         },
         {
           "id": "checklist-personal",
@@ -248,20 +287,13 @@
             "title": "My Todos",
             "items": ["Bring some Aspirin", "Take my passport"]
           },
-          "output": ["demo_client"]
-        },
-        {
-          "id": "weather",
-          "name": "Check Weather Forecast",
-          "style": "",
-          "always": false,
-          "message": "Notify if it will rain",
-          "endpoint": "/nrf/action/message",
-          "params": {
-            "title": "Weather Alert",
-            "content": "<div style=\"text-align: center;font-size: 30pt;\">☔️</div>"
-          },
-          "output": ["demo_client"]
+          "editableParamKeys": ["items"],
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            }
+          ]
         },
         {
           "id": "evacuation-site",
@@ -274,7 +306,12 @@
             "title": "Map to the Nearest Evacuation Site",
             "content": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3246.0053022015986!2d139.63893845074026!3d35.553571244473154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f7aa399b7cb%3A0xefa06bf3b3934fe3!2z5oW25oeJ576p5aG-5aSn5a2mIOaXpeWQieOCreODo-ODs-ODkeOCueilv-WIpemkqA!5e0!3m2!1sja!2sjp!4v1562352545257!5m2!1sja!2sjp\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>"
           },
-          "output": ["demo_client"]
+          "output": [
+            {
+              "name": "Mobile client (demo)",
+              "endpoint": "/nrf/output/demo_client"
+            }
+          ]
         }
       ]
     },
@@ -293,8 +330,7 @@
       "complete": {
         "name": "Checkpoint: Confirm Flow End"
       },
-      "blocks": [
-      ]
+      "blocks": []
     }
   ]
 }
