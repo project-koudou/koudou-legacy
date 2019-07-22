@@ -31,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
+app.use('/demo-client', express.static('client/mobile-web'));
+app.use('/demo-speaker', express.static('client/smartspeaker-web'));
 app.use('/', express.static(app.get('frontend')));
 // app.get('/', function (req, res) {
 //   res.redirect('/docs');
