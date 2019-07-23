@@ -58,11 +58,6 @@ export default {
     },
   },
   async mounted() {
-    const resp = await $client.authenticate();
-    const payload = await $client.passport.verifyJWT(resp.accessToken);
-    const info = await $client.service('api/users').get(payload.userId);
-    this.message = JSON.stringify(info, null, '  ');
-    this.info = info;
     $client.service('api/feed').on('created', this.addMessage);
     const feed = await $client.service('api/feed').find({ query: { $sort: { date: -1 } } });
     this.feed = feed.data.slice().reverse();

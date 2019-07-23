@@ -36,10 +36,10 @@
             <p class="content">{{ plan.description }}</p>
             <div class="field is-grouped">
               <p class="control">
-                <button v-on:click="save" class="button is-link">Save</button>
+                <button @click="save" class="button is-link">Save</button>
               </p>
               <p class="control">
-                <button class="button is-text">Delete</button>
+                <button @click="remove" class="button is-text">Delete</button>
               </p>
             </div>
           </div>
@@ -213,9 +213,14 @@ export default {
     };
   },
   methods: {
-    save() {
+    async save() {
       console.log(JSON.stringify(this.plan, null, '  '));
+      await $client.service('api/plan').update(this.plan.id, this.plan);
       this.$router.push(`/plan/${this.$route.params.id}`);
+    },
+    async remove() {
+      await $client.service('api/plan').remove(this.plan.id);
+      this.$router.push('/');
     },
     checkMove(evt) {
       return !evt.relatedContext.list.map(x => x.id).includes(evt.draggedContext.element.id);
@@ -245,8 +250,7 @@ export default {
   async mounted() {
     const blockResp = await fetch('//localhost:3030/api/_plan/blocks');
     this.blocks = await blockResp.json();
-    const resp = await fetch(`//localhost:3030/api/plan/${'_plan1'}`);
-    const plan = await resp.json();
+    const plan = await $client.service('api/plan').get(this.$route.params.id);
     console.log(plan);
     this.plan = plan;
   },

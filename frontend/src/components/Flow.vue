@@ -122,11 +122,10 @@ export default {
     },
   },
   async mounted() {
-    const resp = await fetch(`//localhost:3030/api/plan/${this.$route.params.id}`);
-    this.editUrl = `/plan/${this.$route.params.id}/edit`;
-    const plan = await resp.json();
+    const plan = await $client.service('api/plan').get(this.$route.params.id);
     console.log(plan);
     this.plan = plan;
+    this.editUrl = `/plan/${this.$route.params.id}/edit`;
     $client.service('api/plan').on('patched', (msg) => {
       console.log(msg);
       this.plan = msg;

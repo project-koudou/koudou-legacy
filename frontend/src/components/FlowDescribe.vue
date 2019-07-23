@@ -32,7 +32,7 @@
                 <button @click="toNext" class="button is-link">Next</button>
               </p>
               <p class="control">
-                <button class="button is-text">Cancel</button>
+                <button class="button is-text" @click="cancel">Cancel</button>
               </p>
             </div>
           </div>
@@ -54,10 +54,12 @@ export default {
       // if (this.$route.path.startsWith('/plan-wizard/')) {}
       this.$router.push('/plan/_plan1/edit?wizard=1');
     },
+    cancel() {
+      this.$router.go(-1);
+    }
   },
   async mounted() {
-    const resp = await fetch(`//localhost:3030/api/plan/${'_plan1'}`);
-    const plan = await resp.json();
+    const plan = await $client.service('api/plan').get('_plan1');
     console.log(plan);
     this.plan = plan;
   },

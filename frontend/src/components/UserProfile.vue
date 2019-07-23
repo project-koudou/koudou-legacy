@@ -16,11 +16,11 @@
         </div>
       </div>
       <div class="has-text-right">
-        <a href="#" class="button is-text">
+        <!-- <a href="#" class="button is-text">
           <span class="icon">
             <i class="fas fa-sliders-h"></i>
           </span>
-        </a>
+        </a> -->
         <a href="#" v-on:click="logout()" class="button is-light">Logout</a>
       </div>
       <div class="content has-text-centered" style="margin-top: 50px;">
@@ -50,7 +50,7 @@ export default {
     return {
       message: '',
       info: {},
-      mobileUrl: 'http://a602.local:3030/demo-client?host=a602.local:9000',
+      mobileUrl: '',
       isShowingSetups: false,
     };
   },
@@ -66,8 +66,8 @@ export default {
     },
   },
   async mounted() {
-    const resp = await $client.authenticate();
-    const payload = await $client.passport.verifyJWT(resp.accessToken);
+    const jwt = await $client.passport.getJWT();
+    const payload = await $client.passport.verifyJWT(jwt);
     const info = await $client.service('api/users').get(payload.userId);
     this.message = JSON.stringify(info, null, '  ');
     info.seed = crypto
@@ -75,6 +75,10 @@ export default {
       .update(info.email)
       .digest('hex');
     this.info = info;
+    const plans = await $client.service('api/plan').find();
+    console.log(plans.data);
+    let planIds = JSON.stringify(plans.data.map(x => x.id));
+    this.mobileUrl = `http://a602.local:3030/demo-client?host=a602.local:9000&s=${planIds}&name=${this.info.name}`;
   },
 };
 </script>

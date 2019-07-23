@@ -13,11 +13,10 @@ Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
   if (!window.$client) {
-    const client = feathers();
+    window.$client = feathers();
     const socket = io('http://localhost:3030');
-    client.configure(feathers.socketio(socket));
-    client.configure(feathers.authentication({ storage: window.localStorage }));
-    window.$client = client;
+    $client.configure(feathers.socketio(socket));
+    $client.configure(feathers.authentication({ storage: window.localStorage }));
   }
   if (to.matched.some(record => !record.meta.isPublic)) {
     $client

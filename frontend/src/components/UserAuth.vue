@@ -106,6 +106,7 @@ export default {
           this.loggedIn = true;
           if (this.isOperator) {
             localStorage.isOperator = JSON.stringify(true);
+            localStorage.operatorToken = JSON.stringify(this.input.operatorToken);
             this.$router.push('/dashboard');
           } else {
             localStorage.isOperator = JSON.stringify(false);
@@ -125,12 +126,6 @@ export default {
     },
   },
   async mounted() {
-    const resp = await $client.authenticate();
-    console.log(resp);
-    const payload = await $client.passport.verifyJWT(resp.accessToken);
-    const info = await $client.service('api/users').get(payload.userId);
-    this.message = JSON.stringify(info, null, '  ');
-    this.loggedIn = true;
   },
 };
 </script>

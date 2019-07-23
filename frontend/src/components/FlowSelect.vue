@@ -9,7 +9,7 @@
           v-bind:class="{ 'is-enabled': template.isEnabled }"
           v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }"
         >
-          <div class="card-image">
+          <div class="card-image" v-if="template">
             <figure class="image is-3by1">
               <img :src="template.image" />
             </figure>
