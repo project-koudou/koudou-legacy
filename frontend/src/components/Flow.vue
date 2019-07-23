@@ -128,7 +128,9 @@ export default {
     this.editUrl = `/plan/${this.$route.params.id}/edit`;
     $client.service('api/plan').on('patched', (msg) => {
       console.log(msg);
-      this.plan = msg;
+      if (this.plan.id === msg.id) {  // TODO: Secure
+        this.plan = msg;
+      }
     });
   },
 };

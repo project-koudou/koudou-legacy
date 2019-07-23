@@ -11,8 +11,8 @@
                 <input
                   class="input is-large"
                   type="text"
-                  :placeholder="plan.name"
-                  :value="plan.name"
+                  :placeholder="template.name"
+                  :value="template.name"
                 />
               </div>
             </div>
@@ -22,8 +22,7 @@
                 <textarea
                   class="textarea"
                   rows="2"
-                  v-model="plan.description"
-                  :placeholder="plan.description"
+                  :placeholder="template.description"
                 ></textarea>
               </p>
             </div>
@@ -43,25 +42,33 @@
 </template>
 
 <script>
+import nanoid from 'nanoid';
+
 export default {
   data() {
     return {
-      plan: {},
+      template: {},
     };
   },
   methods: {
-    toNext() {
+    async toNext() {
+      const id = nanoid();
+      console.log(id);
+      this.template.id = id;
+      await $client.service('api/plan').create(this.template);
       // if (this.$route.path.startsWith('/plan-wizard/')) {}
-      this.$router.push('/plan/_plan1/edit?wizard=1');
+      this.$router.push(`/plan/${id}/edit?wizard=1`);
     },
     cancel() {
       this.$router.go(-1);
     }
   },
   async mounted() {
-    const plan = await $client.service('api/plan').get('_plan1');
-    console.log(plan);
-    this.plan = plan;
-  },
+    // console.log(this.$route.query);
+    let templateId = this.$route.query.template;
+    const resp = await fetch('//localhost:3030/api/_plan/templates');
+    const templates = await resp.json();
+    this.template = templates.filter(x => x.id === templateId)[0].template;
+},
 };
 </script>

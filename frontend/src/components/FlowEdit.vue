@@ -10,7 +10,7 @@
           <router-link to="/plan-wizard/select">Select a plan template</router-link>
         </li>
         <li>
-          <router-link to="/plan-wizard/describe">Name & describe your plan</router-link>
+          <a href="#">Name & describe your plan</a>
         </li>
         <li class="is-active">
           <router-link :to="this.$route.path">Edit and save the plan</router-link>

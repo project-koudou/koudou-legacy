@@ -5,7 +5,7 @@
       <div class="column is-6" v-for="template in templates">
         <div
           class="card template"
-          @click="toEdit"
+          @click="toEdit(template.id)"
           v-bind:class="{ 'is-enabled': template.isEnabled }"
           v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }"
         >
@@ -21,7 +21,7 @@
             >{{ template.name }}</p>
           </div>
           <div class="card-content">
-            <ul class="steps is-thin has-content-centered is-horizontal">
+            <ul class="steps is-thin has-content-centered">
               <li class="steps-segment" v-for="phase in template.phases">
                 <span href="#" class="steps-marker"></span>
                 <div class="steps-content">
@@ -46,9 +46,9 @@ export default {
     };
   },
   methods: {
-    toEdit() {
+    toEdit(templateId) {
       if (this.$router.currentRoute.path.startsWith('/plan-wizard/')) {
-        this.$router.push('/plan-wizard/describe');
+        this.$router.push(`/plan-wizard/describe?template=${templateId}`);
       } else {
         this.$router.push('/plan-describe');
       }
