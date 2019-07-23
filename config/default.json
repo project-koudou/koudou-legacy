@@ -13,6 +13,7 @@
       "jwt",
       "local"
     ],
+    "operatorToken": "1234",
     "path": "api/authentication",
     "service": "api/users",
     "jwt": {
