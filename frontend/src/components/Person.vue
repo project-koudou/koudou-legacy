@@ -44,6 +44,7 @@ export default {
   },
   async mounted() {
     const items = await $client.service('api/person').find();
+    console.log(items.data);
     this.items = items.data;
   },
 };

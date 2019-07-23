@@ -5,6 +5,10 @@ module.exports = {
     person: {
       type: 'object',
       properties: {
+        clientId: {
+          type: 'string',
+          description: 'Client ID'
+        },
         name: {
           type: 'string',
           description: 'Name'
@@ -36,7 +40,7 @@ module.exports = {
           }
         }
       },
-      required: ['name', 'status'],
+      required: ['clientId'],
       additionalProperties: false
     },
     person_response: {
@@ -46,7 +50,7 @@ module.exports = {
           properties: {
             _id: {
               type: 'string',
-              description: 'The ID'
+              description: 'ID'
             }
           }
         },

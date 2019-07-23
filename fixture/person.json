@@ -1,5 +1,6 @@
 [
   {
+    "clientId": "demo1@example.com",
     "name": "Taro Yagami",
     "status": "Safe",
     "location": {
@@ -10,10 +11,12 @@
     }
   },
   {
+    "clientId": "tricia@example.com",
     "name": "Tricia McMillan",
     "status": "Safe"
   },
   {
+    "clientId": "ford@example.com",
     "name": "Ford Prefect",
     "status": "In Trouble",
     "location": {

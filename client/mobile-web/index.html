@@ -178,7 +178,7 @@
     let ioUri = `http://${host}/`
     let subs = JSON.parse(params.get("s")) || [];
 
-    let tempId = params.get("name") || prompt("Input your name:")
+    let tempId = params.get("id") || prompt("Input your email address:");
 
     new Vue({
       el: '#app',
@@ -213,12 +213,13 @@
           return Math.max(0, this.messages.length - this.messagesToShow);
         },
         async choiceSelected(message, choice) {
-          if (choice.action) {
-            let resp = Object.assign(choice.action.params, {
-              "name": tempId,
+          choice.actions.forEach(action => {
+            console.log(tempId);
+            let resp = Object.assign(action.params, {
+              "clientId": tempId,
               "date": moment().format(),
             })
-            if (choice.action.sendLocation) {
+            if (action.sendLocation) {
               // Location
               let pos = {
                 timestamp: moment().format(),
@@ -229,14 +230,14 @@
                 "location": pos,
               })
             }
-            await client.service(choice.action.endpointInternal).create(resp)
-          }
+            client.service(action.endpointInternal).create(resp)
+          });
           if (choice.close) {
             this.close(message)
           }
         },
         connect() {
-          let socket = io(ioUri, { path: "/socket.io"})
+          let socket = io(ioUri, { path: "/socket.io" })
 
           socket.on('connect', () => {
             this.isReconnecting = false
@@ -275,37 +276,12 @@
             });
           });
 
-          // let ws = new WebSocket(wsUri)
-
-          // ws.onopen = (ev) => {
-          //   this.isReconnecting = false
-          //   this.indicatorValue = "Connected"
-          //   setTimeout(() => { this.indicatorValue = "Standby" }, 3000)
-          // }
-
           // ws.onclose = (ev) => {
           //   if (this.isReconnecting === false) {
           //     this.indicatorValue = "Disconnected"
           //   }
           //   this.isReconnecting = true
           //   setTimeout(() => { this.connect() }, 1000)
-          // }
-
-          // ws.onmessage = (ev) => {
-          //   let payload = JSON.parse(ev.data)
-          //   console.log(payload)
-          //   if (payload.params.items) {
-          //   }
-          //   this.messages.push(
-          //     {
-          //       "title": payload.params.title,
-          //       "content": payload.params.content,
-          //       "items": payload.params.items,
-          //       "footer": payload.params.footer,
-          //       "choices": payload.params.choices,
-          //       "show": true,
-          //     }
-          //   )
           // }
         }
       },

@@ -74,24 +74,26 @@ module.exports = function(app) {
               );
             });
           }
-          let query = `phases.blocks.{
+          let query = `$append([], phases.blocks.{
             "endpoint": "http://localhost:9000/api" & endpoint,
             "payload": {
               "id": $$.id,
               "params": params,
               "output": output
             }
-          }`;
+          })`;
           let res1 = jsonata(query).evaluate(filteredPhases);
-          query = `phases.{
+          query = `$append([], phases.{
             "endpoint": "http://localhost:9000/api" & complete.invoke.endpoint,
             "payload": {
               "id": $$.id,
               "params": complete.invoke.params,
               "output": complete.invoke.output
             }
-          }`;
+          })`;
           let res2 = jsonata(query).evaluate(filteredPhases);
+          console.log('res1', res1);
+          console.log('res2', res2);
           let res = res1.concat(res2);
           resAll = resAll.concat(res);
         });

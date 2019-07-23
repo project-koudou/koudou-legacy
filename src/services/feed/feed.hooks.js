@@ -1,6 +1,24 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const { unless, disallow } = require('feathers-hooks-common');
+const { unless, disallow, fastJoin } = require('feathers-hooks-common');
 const tokenAuth = require('../../hooks/tokenAuth');
+
+const postResolvers = {
+  joins: {
+    name: (...args) => async (post, context) => {
+      if (!('clientId' in post)) {
+        return post;
+      }
+      let resp = await context.app.service('api/users').find({
+        query: { email: post.clientId },
+        paginate: false,
+        authenticated: true
+      });
+      post.name =
+        resp.length > 0 ? resp[0].name : 'Temporary user' + ` (${post.clientId})`;
+      return post;
+    }
+  }
+};
 
 module.exports = {
   before: {
@@ -15,8 +33,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [fastJoin(postResolvers, { name: true })],
+    get: [fastJoin(postResolvers, { name: true })],
     create: [],
     update: [],
     patch: [],
