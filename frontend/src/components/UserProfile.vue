@@ -30,7 +30,8 @@
         <div>
           <qrcode :value="mobileUrl" :options="{ width: 150 }"></qrcode>
         </div>
-        <div class="is-size-7"><a @click="isShowingSetups = true">More setups</a></div>
+        <div class="is-size-7"><a :href="this.mobileUrl" target="_blank">Link</a></div>
+        <div class="is-size-7"><a @click="isShowingSetups = true">More setups...</a></div>
       </div>
     </div>
   </div>
@@ -50,7 +51,7 @@ export default {
     return {
       message: '',
       info: {},
-      mobileUrl: '',
+      mobileUrl: 'about:blank',
       isShowingSetups: false,
     };
   },
@@ -78,7 +79,9 @@ export default {
     const plans = await $client.service('api/plan').find();
     console.log(plans.data);
     let planIds = JSON.stringify(plans.data.map(x => x.id));
-    this.mobileUrl = `http://a602.local:3030/demo-client?host=a602.local:9000&s=${planIds}&name=${this.info.name}`;
+    let hostIp = 'localhost';
+    console.log(hostIp);
+    this.mobileUrl = `http://${hostIp}:3030/demo-client?id=${this.info.email}&host=${hostIp}:9000&s=${planIds}`;
   },
 };
 </script>
