@@ -87,10 +87,18 @@
       <v-container fluid grid-list-lg>
         <v-layout row wrap>
           <v-flex xs12>
-            <!-- <v-progress-linear :indeterminate="!isReconnecting" height="2"></v-progress-linear> -->
-            <v-btn :outline="countUpdates() === 0" block depressed color="info" @click="messagesToShow++">
-              {{ countUpdates() > 0 ? `${countUpdates()} unread updates` : indicatorValue }}
-            </v-btn>
+            <v-layout row>
+              <v-flex grow pa-1>
+                <v-btn :outline="countUpdates() === 0" block depressed color="info" @click="messagesToShow++">
+                  {{ countUpdates() > 0 ? `${countUpdates()} unread updates` : indicatorValue }}
+                </v-btn>
+              </v-flex>
+              <v-flex shrink pa-1>
+                <v-btn depressed color="info" @click="clear">
+                  Clear
+                </v-btn>
+              </v-flex>
+            </v-layout>
           </v-flex>
           <v-flex xs12 v-for="(message, idx) in messages.slice().reverse()"
             v-if="messages.length - idx <= messagesToShow" v-show="message.show">
@@ -119,7 +127,8 @@
                 <v-btn flat @click="close(message)">Confirm</v-btn>
               </v-card-actions>
               <v-card-actions v-if="message.choices">
-                <v-btn flat v-for="choice in message.choices" @click="choiceSelected(message, choice)">{{ choice.text }}
+                <v-btn flat v-for="choice in message.choices" 　:color="choice.color"
+                  @click="choiceSelected(message, choice)">{{ choice.text }}
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -166,8 +175,10 @@
     let params = (new URL(document.location)).searchParams
     let host = params.get("host") || "localhost:9000"
     let wsUri = `ws://${host}/api/ws/demo-client`
+    let ioUri = `http://${host}/`
+    let subs = JSON.parse(params.get("s")) || [];
 
-    const tempId = Math.random().toString(36).substr(2, 9)
+    let tempId = params.get("name") || prompt("Input your name:")
 
     new Vue({
       el: '#app',
@@ -182,6 +193,13 @@
         }
       },
       methods: {
+        clear() {
+          if (this.messagesToShow === 0) {
+            this.archive = [];
+          }
+          this.messages = [];
+          this.messagesToShow = 0;
+        },
         async close(message) {
           this.archive.push(message)
           message.show = false
@@ -197,7 +215,7 @@
         async choiceSelected(message, choice) {
           if (choice.action) {
             let resp = Object.assign(choice.action.params, {
-              "name": "ID: " + tempId,
+              "name": tempId,
               "date": moment().format(),
             })
             if (choice.action.sendLocation) {
@@ -218,38 +236,77 @@
           }
         },
         connect() {
-          let ws = new WebSocket(wsUri)
+          let socket = io(ioUri, { path: "/socket.io"})
 
-          ws.onopen = (ev) => {
+          socket.on('connect', () => {
             this.isReconnecting = false
             this.indicatorValue = "Connected"
             setTimeout(() => { this.indicatorValue = "Standby" }, 3000)
-          }
+          });
 
-          ws.onclose = (ev) => {
+          socket.on('disconnect', () => {
             if (this.isReconnecting === false) {
               this.indicatorValue = "Disconnected"
             }
-            this.isReconnecting = true
-            setTimeout(() => { this.connect() }, 1000)
-          }
+            subs.forEach((v) => {
+              socket.removeAllListeners(v);
+            });
+            socket.removeAllListeners('disconnect');
+            socket.removeAllListeners('reconnect');
+            socket.removeAllListeners('connect');
+          });
 
-          ws.onmessage = (ev) => {
-            let payload = JSON.parse(ev.data)
-            console.log(payload)
-            if (payload.params.items) {
-            }
-            this.messages.push(
-              {
-                "title": payload.params.title,
-                "content": payload.params.content,
-                "items": payload.params.items,
-                "footer": payload.params.footer,
-                "choices": payload.params.choices,
-                "show": true,
+          subs.forEach((v) => {
+            console.log(v);
+            socket.on(v, (payload) => {
+              console.log(payload)
+              if (payload.params.items) {
               }
-            )
-          }
+              this.messages.push(
+                {
+                  "title": payload.params.title,
+                  "content": payload.params.content,
+                  "items": payload.params.items,
+                  "footer": payload.params.footer,
+                  "choices": payload.params.choices,
+                  "show": true,
+                }
+              )
+            });
+          });
+
+          // let ws = new WebSocket(wsUri)
+
+          // ws.onopen = (ev) => {
+          //   this.isReconnecting = false
+          //   this.indicatorValue = "Connected"
+          //   setTimeout(() => { this.indicatorValue = "Standby" }, 3000)
+          // }
+
+          // ws.onclose = (ev) => {
+          //   if (this.isReconnecting === false) {
+          //     this.indicatorValue = "Disconnected"
+          //   }
+          //   this.isReconnecting = true
+          //   setTimeout(() => { this.connect() }, 1000)
+          // }
+
+          // ws.onmessage = (ev) => {
+          //   let payload = JSON.parse(ev.data)
+          //   console.log(payload)
+          //   if (payload.params.items) {
+          //   }
+          //   this.messages.push(
+          //     {
+          //       "title": payload.params.title,
+          //       "content": payload.params.content,
+          //       "items": payload.params.items,
+          //       "footer": payload.params.footer,
+          //       "choices": payload.params.choices,
+          //       "show": true,
+          //     }
+          //   )
+          // }
         }
       },
       mounted: function () {
