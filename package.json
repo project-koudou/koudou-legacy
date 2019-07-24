@@ -41,13 +41,13 @@
     "nedb": "^1.8.0",
     "passport-custom": "^1.0.5",
     "serve-favicon": "^2.5.0",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
     "jest": "^24.8.0",
-    "nodemon": "^1.19.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "nodemon": "^1.19.1"
   }
 }
