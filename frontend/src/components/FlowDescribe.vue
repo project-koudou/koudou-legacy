@@ -66,7 +66,7 @@ export default {
   async mounted() {
     // console.log(this.$route.query);
     let templateId = this.$route.query.template;
-    const resp = await fetch('//localhost:3030/api/_plan/templates');
+    const resp = await fetch('//localhost:3030/api/_plan/templates', { headers: { "Accept": "application/json" } });
     const templates = await resp.json();
     this.template = templates.filter(x => x.id === templateId)[0].template;
 },

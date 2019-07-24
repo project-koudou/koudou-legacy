@@ -20,6 +20,7 @@ const channels = require('./channels');
 const authentication = require('./authentication');
 
 const app = express(feathers());
+const history = require('connect-history-api-fallback');
 
 // Load app configuration
 app.configure(configuration());
@@ -31,6 +32,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
+app.use('/demo-client', express.static('client/mobile-web'));
+app.use('/demo-speaker', express.static('client/smartspeaker-web'));
+app.use(history());
 app.use('/demo-client', express.static('client/mobile-web'));
 app.use('/demo-speaker', express.static('client/smartspeaker-web'));
 app.use('/', express.static(app.get('frontend')));

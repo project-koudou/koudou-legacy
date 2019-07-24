@@ -28,9 +28,9 @@ export default {
   },
   methods: {
     fetch(url) {
-      fetch(url);
-    },
+      fetch(url, { headers: { "Accept": "application/json" } });
+    }
   },
-  async mounted() {},
+  async mounted() {}
 };
 </script>

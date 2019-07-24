@@ -110,11 +110,11 @@ export default {
   methods: {
     testflow() {
       console.log(this.plan.testTrigger);
-      fetch(this.plan.testTrigger);
+      fetch(this.plan.testTrigger, { headers: { "Accept": "application/json" } });
     },
     stopflow() {
       this.plan.stopEndpoint = `//localhost:3030/api/plan/${this.$route.params.id}/complete`;
-      fetch(this.plan.stopEndpoint);
+      fetch(this.plan.stopEndpoint, { headers: { "Accept": "application/json" } });
     },
     exportJSON() {
       const json = encodeURIComponent(JSON.stringify(this.plan, null, ''));
