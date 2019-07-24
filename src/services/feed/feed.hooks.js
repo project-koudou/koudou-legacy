@@ -15,6 +15,7 @@ const postResolvers = {
       });
       post.name =
         resp.length > 0 ? resp[0].name : 'Temporary user' + ` (${post.clientId})`;
+        // console.log(post.name);
       return post;
     }
   }
