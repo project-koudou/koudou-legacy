@@ -1,13 +1,7 @@
-const users = require('../fixture/item.json');
-const request = require('request-promise');
+const app = require('../src/app');
+const data = require('../fixture/item.json');
 
-const BASE_URL = 'http://localhost:3030';
-
-users.forEach(v => {
+data.forEach(v => {
   console.log(v);
-  request
-    .post({ url: `${BASE_URL}/api/item/`, json: true, body: v })
-    .then(res => {
-      console.log(res);
-    });
+  app.service('api/item').create(v);
 });
