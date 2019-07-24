@@ -85,7 +85,7 @@ export default {
         if (!("location" in response.data[key])) {
           return;
         }
-        if (!(response.data[key]._id in vueComponent.peopleList)) {
+        if (!(response.data[key].clientId in vueComponent.peopleList)) {
           // ユーザId がない
           var createdMarker = L.marker([
             response.data[key].location.latitude,
@@ -96,14 +96,14 @@ export default {
             .openTooltip()
             .addTo(vueComponent.people)
             .on("click", function() {
-              vueComponent.clickMarker(response.data[key]._id, key);
+              vueComponent.clickMarker(response.data[key].clientId, key);
             });
-          vueComponent.peopleList[response.data[key]._id] = {
+          vueComponent.peopleList[response.data[key].clientId] = {
             name: response.data[key].name,
             marker: createdMarker,
             positionList: {}
           };
-          vueComponent.peopleList[response.data[key]._id].positionList[key] = {
+          vueComponent.peopleList[response.data[key].clientId].positionList[key] = {
             createdAt: response.data[key].location.timestamp,
             latitude: response.data[key].location.latitude,
             longitude: response.data[key].location.longitude,
@@ -113,11 +113,11 @@ export default {
           if (
             !(
               key in
-              vueComponent.peopleList[response.data[key]._id].positionList
+              vueComponent.peopleList[response.data[key].clientId].positionList
             )
           ) {
             vueComponent.map.removeLayer(
-              vueComponent.peopleList[response.data[key]._id].marker
+              vueComponent.peopleList[response.data[key].clientId].marker
             );
             var createdMarker = L.marker([
               response.data[key].location.latitude,
@@ -128,12 +128,12 @@ export default {
               .openTooltip()
               .addTo(vueComponent.people)
               .on("click", function() {
-                vueComponent.clickMarker(response.data[key]._id, key);
+                vueComponent.clickMarker(response.data[key].clientId, key);
               });
             vueComponent.peopleList[
-              response.data[key]._id
+              response.data[key].clientId
             ].marker = createdMarker;
-            vueComponent.peopleList[response.data[key]._id].positionList[
+            vueComponent.peopleList[response.data[key].clientId].positionList[
               key
             ] = {
               createdAt: response.data[key].location.timestamp,
