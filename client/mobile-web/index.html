@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>demo-client</title>
   <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
-  <link href="//cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <link href="//cdn.jsdelivr.net/npm/vuetify@1.5.16/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <style>
@@ -163,7 +163,7 @@
   </div>
 
   <script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/vuetify@1.5.16/dist/vuetify.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
   <script src="//unpkg.com/@feathersjs/client@^3.0.0/dist/feathers.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -175,7 +175,7 @@
     let params = (new URL(document.location)).searchParams
     let host = params.get("host") || "localhost:9000"
     let wsUri = `ws://${host}/api/ws/demo-client`
-    let ioUri = `http://${host}/`
+    let ioUri = `http://${host}`
     let subs = JSON.parse(params.get("s")) || [];
 
     let tempId = params.get("id") || prompt("Input your email address:");
@@ -237,7 +237,7 @@
           }
         },
         connect() {
-          let socket = io(ioUri, { path: "/socket.io" })
+          let socket = io(ioUri, { path: "/api/red/socket.io" })
 
           socket.on('connect', () => {
             this.isReconnecting = false
