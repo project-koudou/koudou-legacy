@@ -28,7 +28,6 @@ app.configure(configuration());
 app.use(helmet());
 app.use(cors());
 app.use(compress());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
@@ -41,6 +40,11 @@ const px = proxy({
   pathRewrite: { '^/api/red/socket.io': '/socket.io', '^/api/red': '/api' }
 });
 app.use('/api/red', px);
+const px2 = proxy({
+  target: `${app.get('noderedBase')}`,
+  changeOrigin: true,
+});
+app.use('/red', px2);
 app.use(history());
 app.use('/demo-client', express.static('client/mobile-web'));
 app.use('/demo-speaker', express.static('client/smartspeaker-web'));
@@ -50,6 +54,9 @@ app.use('/', express.static(app.get('frontend')));
 // });
 
 app.use('/api/red', px);
+app.use('/red', px2);
+
+app.use(express.json());
 
 // Set up Plugins and providers
 app.configure(express.rest());

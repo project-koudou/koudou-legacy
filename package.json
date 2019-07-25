@@ -13,10 +13,13 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
+    "postinstall": "cd nodered-local/; npm install; cd ..; ./bootstrap-seed.sh",
     "test": "npm run eslint && NODE_ENV= npm run jest",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "dev": "nodemon src/",
-    "start": "node src/",
+    "start:system": "node src/",
+    "start:nodered": "cd nodered-local/; node index.js",
+    "start": "npm run start:system & npm run start:nodered",
     "jest": "jest"
   },
   "dependencies": {

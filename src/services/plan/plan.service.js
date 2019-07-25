@@ -59,7 +59,7 @@ module.exports = function(app) {
         // console.log(plans);
         let resAll = [];
         plans.forEach((json) => {
-          console.log(json);
+          // console.log(json);
           let filteredPhases = json;
           let subscribedTo = params.query.subscribedTo;
           filteredPhases.phases = json.phases.filter(phase => {

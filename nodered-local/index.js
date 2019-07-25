@@ -19,6 +19,10 @@ const settings = {
   functionGlobalContext: {} // enables global context
 };
 
+let PORT = process.env['PORT'] || "3030";
+process.env['SYSTEM_URL'] = process.env['SYSTEM_URL'] || `localhost:${PORT}`;
+console.log("SYSTEM_URL:", process.env['SYSTEM_URL']);
+
 // Initialise the runtime with a server and settings
 RED.init(server, settings);
 
