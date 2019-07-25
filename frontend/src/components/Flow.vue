@@ -153,6 +153,9 @@ export default {
   box-shadow: none !important;
   border: 1px solid #dee2e6;
 }
+.steps-segment.is-active::after {
+  background-color: #23d160 !important;
+}
 /* .steps:not(.is-hollow) .steps-marker:not(.is-hollow) {
   background-color: #23d160;
   color: #fff;
