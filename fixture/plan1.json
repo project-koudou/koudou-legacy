@@ -40,7 +40,7 @@
         "invoke": {
           "endpoint": "/nrf/checkpoint/complete",
           "params": {
-            "phaseId": "_plan1-1"
+            "phaseNum": "1"
           },
           "output": []
         }
@@ -110,7 +110,7 @@
         "subscribeTo": {
           "endpoint": "/nrf/checkpoint/complete",
           "params": {
-            "phaseId": "_plan1-1"
+            "phaseNum": "1"
           }
         }
       },

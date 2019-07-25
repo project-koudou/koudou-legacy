@@ -66,11 +66,11 @@ module.exports = function(app) {
             return phase.trigger.subscribeTo.endpoint === subscribedTo;
           });
           if (subscribedTo === '/nrf/checkpoint/complete') {
-            console.log(params.query.phaseId);
+            // console.log(params.query);
             filteredPhases.phases = filteredPhases.phases.filter(phase => {
               return (
-                phase.trigger.subscribeTo.params.phaseId ===
-                params.query.phaseId
+                (phase.trigger.subscribeTo.params.phaseNum ===
+                params.query.phaseNum) && (json.id === params.query.id)
               );
             });
           }
