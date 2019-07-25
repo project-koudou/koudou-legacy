@@ -4,7 +4,7 @@
       <div class="field">
         <p class="control">
           <button
-            v-on:click="fetch('http://localhost:9000/api/nrf/trigger/panicbutton')"
+            v-on:click="fetch('/api/red/nrf/trigger/panicbutton')"
             class="button is-danger"
           >Panic</button>
         </p>
@@ -12,7 +12,7 @@
       <div class="field">
         <p class="control">
           <button
-            v-on:click="fetch('http://localhost:9000/api/nrf/checkpoint/pressbutton')"
+            v-on:click="fetch('/api/red/nrf/checkpoint/pressbutton')"
             class="button is-danger"
           >Go</button>
         </p>

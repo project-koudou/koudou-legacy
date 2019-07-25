@@ -55,7 +55,7 @@ export default {
     },
   },
   async mounted() {
-    const resp = await fetch('//localhost:3030/api/_plan/templates', { headers: { "Accept": "application/json" } });
+    const resp = await fetch('/api/_plan/templates', { headers: { "Accept": "application/json" } });
     const templates = await resp.json();
     this.templates = templates;
   },

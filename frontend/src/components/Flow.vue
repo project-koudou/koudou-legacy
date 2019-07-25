@@ -113,7 +113,7 @@ export default {
       fetch(this.plan.testTrigger, { headers: { "Accept": "application/json" } });
     },
     stopflow() {
-      this.plan.stopEndpoint = `//localhost:3030/api/plan/${this.$route.params.id}/complete`;
+      this.plan.stopEndpoint = `/api/plan/${this.$route.params.id}/complete`;
       fetch(this.plan.stopEndpoint, { headers: { "Accept": "application/json" } });
     },
     exportJSON() {

@@ -248,7 +248,7 @@ export default {
     },
   },
   async mounted() {
-    const blockResp = await fetch('//localhost:3030/api/_plan/blocks', { headers: { "Accept": "application/json" } });
+    const blockResp = await fetch('/api/_plan/blocks', { headers: { "Accept": "application/json" } });
     this.blocks = await blockResp.json();
     const plan = await $client.service('api/plan').get(this.$route.params.id);
     console.log(plan);

@@ -3,7 +3,7 @@
   "id": "_plan2",
   "name": "Response Plan for Earthquake 2 (demo)",
   "description": "A workflow for staff members in case of earthquake.",
-  "testTrigger": "http://localhost:9000/api/nrf/trigger/panicbutton",
+  "testTrigger": "/api/red/nrf/trigger/panicbutton",
   "phases": [
     {
       "name": "Preparation",

@@ -37,6 +37,7 @@
     "feathers-nedb": "^4.0.1",
     "feathers-swagger": "^1.1.0",
     "helmet": "^3.18.0",
+    "http-proxy-middleware": "^0.19.1",
     "jsonata": "^1.6.5",
     "lodash": "^4.17.15",
     "nedb": "^1.8.0",

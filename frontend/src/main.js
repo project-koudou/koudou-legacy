@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   if (!window.$client) {
     window.$client = feathers();
-    const socket = io('http://localhost:3030');
+    const socket = io();
     $client.configure(feathers.socketio(socket));
     $client.configure(feathers.authentication({ storage: window.localStorage }));
   }

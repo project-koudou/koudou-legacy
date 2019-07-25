@@ -52,9 +52,13 @@ export default {
   },
   methods: {
     find(ev) {},
-    addMessage(data) {
+    async addMessage(data) {
       console.log(data);
-      this.feed.push(data);
+      // TODO: Fix
+      const feed = await $client.service('api/feed').find({ query: { clientId: data.clientId, date: data.date, $sort: { date: -1 } } });
+      if (feed.data) {
+        this.feed.push(feed.data[0]);
+      }
     },
   },
   async mounted() {

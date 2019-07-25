@@ -79,9 +79,9 @@ export default {
     const plans = await $client.service('api/plan').find();
     console.log(plans.data);
     let planIds = JSON.stringify(plans.data.map(x => x.id));
-    let hostIp = 'localhost';
-    console.log(hostIp);
-    this.mobileUrl = `http://${hostIp}:3030/demo-client?id=${this.info.email}&host=${hostIp}:9000&s=${planIds}`;
+    let host = location.host;
+    console.log(host);
+    this.mobileUrl = `http://${host}/demo-client?id=${this.info.email}&host=${host}&s=${planIds}`;
   },
 };
 </script>
