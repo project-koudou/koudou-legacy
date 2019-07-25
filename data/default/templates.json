@@ -1,0 +1,250 @@
+[
+  {
+    "id": "earthquake1",
+    "name": "Earthquakes",
+    "isEnabled": true,
+    "image": "/assets/brick-2205882_640.jpg",
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events",
+        "detail": "EEW"
+      },
+      {
+        "name": "Evacuation"
+      },
+      {
+        "name": "Stay at Evacuation Site"
+      }
+    ],
+    "template": {
+      "_meta": {
+        "status": 0
+      },
+      "id": null,
+      "name": "My Response Plan for Earthquake",
+      "description": "A flow for responding earthquake.",
+      "testTrigger": "/api/red/nrf/trigger/panicbutton",
+      "phases": [
+        {
+          "name": "Preparation",
+          "trigger": {
+            "name": null,
+            "subscribeTo": {
+              "endpoint": null,
+              "params": {}
+            }
+          },
+          "blocks": []
+        },
+        {
+          "name": "Immediately After",
+          "trigger": {
+            "name": "Alarm Events",
+            "subscribeTo": {
+              "id": "eew",
+              "version": 1,
+              "name": "Earthquake Early Warning",
+              "style": "is-danger",
+              "always": false,
+              "message": "An earthquake with a magnitude over 6.0 hits the current location",
+              "endpoint": "/nrf/trigger/panicbutton",
+              "params": {
+                "magnitude": 6.0
+              }
+            }
+          },
+          "complete": {
+            "name": null,
+            "invoke": {
+              "endpoint": "/nrf/checkpoint/complete",
+              "params": {
+                "phaseId": "_plan1-1"
+              },
+              "output": []
+            }
+          },
+          "blocks": []
+        },
+        {
+          "name": "Before Evacuation",
+          "trigger": {
+            "name": null,
+            "subscribeTo": {
+              "endpoint": "/nrf/checkpoint/complete",
+              "params": {
+                "phaseId": "_plan1-1"
+              }
+            }
+          },
+          "blocks": []
+        },
+        {
+          "name": "Evacuation",
+          "trigger": {
+            "name": "Checkpoint",
+            "subscribeTo": {
+              "name": "Evacuation Order",
+              "message": "Evacuation order by administrative staff members",
+              "style": "is-info",
+              "endpoint": "/nrf/checkpoint/pressbutton",
+              "params": {}
+            }
+          },
+          "complete": null,
+          "blocks": []
+        },
+        {
+          "name": "Stay at Evacuation Site",
+          "trigger": {
+            "name": "Checkpoint",
+            "subscribeTo": {
+              "name": "Arrived to Evacuation Site",
+              "message": "",
+              "style": "is-info",
+              "endpoint": "/nrf/checkpoint/location_based_checkpoint",
+              "params": {}
+            }
+          },
+          "complete": {
+            "name": "Checkpoint: Confirm Flow End"
+          },
+          "blocks": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "floods1",
+    "name": "Floods",
+    "isEnabled": false,
+    "image": "/assets/flood-62785_640.jpg",
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events",
+        "detail": "Flood Warning"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  },
+  {
+    "id": "typhoons1",
+    "name": "Typhoons / Hurricanes",
+    "isEnabled": false,
+    "image": "/assets/cyclone-62957_640.jpg",
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  },
+  {
+    "id": "thunderstorms1",
+    "name": "Thunderstorms",
+    "isEnabled": false,
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  },
+  {
+    "id": "extremeHeat1",
+    "name": "Extreme Heat",
+    "isEnabled": false,
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  },
+  {
+    "id": "winterStorms1",
+    "name": "Winter Storms",
+    "isEnabled": false,
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  },
+  {
+    "id": "tornadoes1",
+    "name": "Tornadoes",
+    "isEnabled": false,
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  },
+  {
+    "id": "tsunimis1",
+    "name": "Tsunamis",
+    "isEnabled": false,
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  },
+  {
+    "id": "volcanoes1",
+    "name": "Volcanoes",
+    "isEnabled": false,
+    "phases": [
+      {
+        "name": "Preparation"
+      },
+      {
+        "name": "Alarm Events"
+      },
+      {
+        "name": "Evacuation"
+      }
+    ]
+  }
+]

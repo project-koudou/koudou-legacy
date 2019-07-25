@@ -1,0 +1,19 @@
+version: '3'
+services:
+  system:
+    build: .
+    image: "demo-bcp"
+    container_name: "demo-bcp"
+    ports:
+      - "3030:3030"
+    links:
+      - nodered
+    environment:
+      NODE_ENV: "production"
+      HOST: "localhost"
+      PORT: 3030
+  nodered:
+    image: nodered
+    build: ./nodered-local
+    ports:
+      - "9000:9000"

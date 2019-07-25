@@ -4,70 +4,102 @@ const createModel = require('../../models/plan.model');
 const hooks = require('./plan.hooks');
 
 const fs = require('fs');
-const path = require('path');
 const jsonata = require('jsonata');
 
-module.exports = function (app) {
+module.exports = function(app) {
   const Model = createModel(app);
   const paginate = app.get('paginate');
 
   const options = {
     Model,
-    paginate
+    paginate,
+    id: 'id'
   };
 
   // Initialize our service with any options it requires
   app.use('/api/plan', createService(options));
 
+  app.use('/api/plan/:id/next', {
+    async find(req, params) {
+      let id = req.route.id;
+      console.log(id, 'next');
+      let resp = await app.service('api/plan').get(id);
+      let plan = resp;
+      plan._meta.status += 1;
+      app.service('api/plan').patch(id, plan);
+      return { status: plan._meta.status };
+    }
+  });
+
+  app.use('/api/plan/:id/complete', {
+    async find(req, params) {
+      let id = req.route.id;
+      console.log(id, 'complete');
+      let resp = await app.service('api/plan').get(id);
+      let plan = resp;
+      plan._meta.status = 0;
+      app.service('api/plan').patch(id, plan);
+      return { status: plan._meta.status };
+    }
+  });
+
   app.use('/api/_plan', {
-    async find (params) {
-    },
-    async get (id, params) {
-      if (id === "templates") {
-        return JSON.parse(fs.readFileSync('plan-backend/default/templates.json'));
-      }
-      else if (id === "blocks") {
-        return JSON.parse(fs.readFileSync('plan-backend/default/blocks.json'));
-      }
-      else if (id === "plan1") {
-        return JSON.parse(fs.readFileSync('plan-backend/default/plan1.json'));
-      }
-      else if (id === "flow") {
+    async find(params) {},
+    async get(id, params) {
+      if (id === 'templates') {
+        return JSON.parse(
+          fs.readFileSync('data/default/templates.json')
+        );
+      } else if (id === 'blocks') {
+        return JSON.parse(fs.readFileSync('data/default/blocks.json'));
+      } else if (id === 'flow') {
         // console.log(params);
-        let json = JSON.parse(fs.readFileSync('plan-backend/default/plan1.json'));
-        let filteredPhases = json;
-        let subscribedTo = params.query.subscribedTo;
-        filteredPhases.phases = json.phases.filter(phase => {
-          return phase.trigger.subscribeTo.endpoint === subscribedTo;
-        })
-        if (subscribedTo === "/nrf/checkpoint/complete") {
-          console.log(params.query.phaseId);
-          filteredPhases.phases = filteredPhases.phases.filter(phase => {
-            return phase.trigger.subscribeTo.params.phaseId === params.query.phaseId;
-          })
-        }
-        let query = `phases.blocks.{
-          "endpoint": "http://localhost:9000/api" & endpoint,
-          "payload": {
-            "id": $$.id,
-            "params": params,
-            "output": output
+        let resp = await app.service('api/plan').find();
+        let plans = resp.data;
+        // console.log(plans);
+        let resAll = [];
+        plans.forEach((json) => {
+          // console.log(json);
+          let filteredPhases = json;
+          let subscribedTo = params.query.subscribedTo;
+          filteredPhases.phases = json.phases.filter(phase => {
+            return phase.trigger.subscribeTo.endpoint === subscribedTo;
+          });
+          if (subscribedTo === '/nrf/checkpoint/complete') {
+            // console.log(params.query);
+            filteredPhases.phases = filteredPhases.phases.filter(phase => {
+              return (
+                (phase.trigger.subscribeTo.params.phaseNum ===
+                params.query.phaseNum) && (json.id === params.query.id)
+              );
+            });
           }
-        }`;
-        let res1 = jsonata(query).evaluate(filteredPhases);
-        query = `phases.{
-          "endpoint": "http://localhost:9000/api" & complete.invoke.endpoint,
-          "payload": {
-            "id": $$.id,
-            "params": complete.invoke.params,
-            "output": complete.invoke.output
-          }
-        }`;
-        let res2 = jsonata(query).evaluate(filteredPhases);
-        let res = res1.concat(res2)
-        return res;
-      }
-      else {
+          let query = `$append([], phases.blocks.{
+            "endpoint": "http://localhost:9000/api" & endpoint,
+            "payload": {
+              "id": $$.id,
+              "params": params,
+              "output": output
+            }
+          })`;
+          let res1 = jsonata(query).evaluate(filteredPhases);
+          query = `$append([], phases.{
+            "endpoint": "http://localhost:9000/api" & complete.invoke.endpoint,
+            "payload": {
+              "id": $$.id,
+              "params": complete.invoke.params,
+              "output": complete.invoke.output
+            }
+          })`;
+          let res2 = jsonata(query).evaluate(filteredPhases);
+          console.log('res1', res1);
+          console.log('res2', res2);
+          let res = res1.concat(res2);
+          resAll = resAll.concat(res);
+        });
+        console.log(resAll);
+        return resAll;
+      } else {
         return {};
       }
     }

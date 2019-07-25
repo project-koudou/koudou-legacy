@@ -1,0 +1,14 @@
+[
+  {
+    "itemName": "Toilet Paper",
+    "url": "",
+    "tags": ["sanitary", "necessaries"],
+    "count": 42,
+    "location": {
+      "placeName": "Keio University",
+      "timestamp": "2019-01-01T12:34:00+09:00",
+      "latitude": 35.648964,
+      "longitude": 139.742938
+    }
+  }
+]

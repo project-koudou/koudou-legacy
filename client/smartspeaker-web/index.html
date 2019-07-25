@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>demo-speaker</title>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script>
+        function playAudio (arrBuff) {
+          let src = ctx.createBufferSource()
+          ctx.decodeAudioData(arrBuff, function(buffer) {
+            src.buffer = buffer
+            src.looping = false
+            src.connect(ctx.destination)
+            src.start(0)
+          })
+        }
+
+        let ctx = new(window.AudioContext || window.webkitAudioContext)()
+        let params = (new URL(document.location)).searchParams
+        let host = params.get("host") || "localhost:9000"
+        let wsUri = `ws://${host}/api/ws/demo-speaker`
+
+        function connect() {
+          let ws = new WebSocket(wsUri)
+          ws.binaryType = 'arraybuffer'
+          ws.onopen = (ev) => {
+            document.getElementById("main").innerHTML = "Connected"
+          }
+
+          ws.onclose = (ev) => {
+            document.getElementById("main").innerHTML = "Disonnected"
+            setTimeout(function () { connect() }, 1000)
+          }
+          ws.onmessage = (ev) => {
+            playAudio(ev.data)
+          }
+        }
+
+        connect()
+      </script>
+  </body>
+</html>

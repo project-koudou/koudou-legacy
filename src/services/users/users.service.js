@@ -10,12 +10,13 @@ module.exports = function (app) {
 
   const options = {
     Model,
-    paginate
+    paginate,
+    'id': 'email',
   };
 
   // Initialize our service with any options it requires
   const users = createService(options);
-  users.id = "_id";
+  users.id = "email";
   users.docs = definitions;
   app.use('/api/users', users);
 

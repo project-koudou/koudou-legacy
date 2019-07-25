@@ -1,7 +1,23 @@
-{
-    "email": "plgs@example.com",
-    "password": "plgs",
-    "name": "慶應太郎",
-    "organization": "慶應義塾大学大学院理工学研究科",
-    "role": "学生"
+[
+  {
+    "email": "admin@localhost",
+    "password": "admin",
+    "name": "admin",
+    "organization": "admin",
+    "role": "admin"
+  },
+  {
+    "email": "demo1@example.com",
+    "password": "demo1",
+    "name": "Yagami Taro",
+    "organization": "ABC Univ.",
+    "role": "Student"
+  },
+  {
+    "email": "demo2@example.com",
+    "password": "demo2",
+    "name": "Mita Hanako",
+    "organization": "ABC Univ.",
+    "role": "Staff"
   }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "clientId": "demo1@example.com",
+    "name": "Taro Yagami",
+    "status": "Safe",
+    "location": {
+      "placeName": "Tokyo Station",
+      "timestamp": "2019-03-01T12:34:00+09:00",
+      "latitude": 35.681236,
+      "longitude": 139.767125
+    }
+  },
+  {
+    "clientId": "tricia@example.com",
+    "name": "Tricia McMillan",
+    "status": "Safe"
+  },
+  {
+    "clientId": "ford@example.com",
+    "name": "Ford Prefect",
+    "status": "In Trouble",
+    "location": {
+      "placeName": "London",
+      "timestamp": "2019-03-02T10:09:00+09:00",
+      "latitude": 51.507351,
+      "longitude": -0.127758
+    }
+  }
+]
