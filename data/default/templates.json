@@ -155,6 +155,7 @@
     "id": "thunderstorms1",
     "name": "Thunderstorms",
     "isEnabled": false,
+    "image": "/assets/thunderstorm-3441687_640.jpg",
     "phases": [
       {
         "name": "Preparation"
@@ -171,6 +172,7 @@
     "id": "extremeHeat1",
     "name": "Extreme Heat",
     "isEnabled": false,
+    "image": "/assets/thermometer-4295884_640.jpg",
     "phases": [
       {
         "name": "Preparation"
@@ -187,6 +189,7 @@
     "id": "winterStorms1",
     "name": "Winter Storms",
     "isEnabled": false,
+    "image": "/assets/street-1209401_640.jpg",
     "phases": [
       {
         "name": "Preparation"
@@ -203,6 +206,7 @@
     "id": "tornadoes1",
     "name": "Tornadoes",
     "isEnabled": false,
+    "image": "/assets/tornado-565330_640.jpg",
     "phases": [
       {
         "name": "Preparation"
@@ -216,9 +220,10 @@
     ]
   },
   {
-    "id": "tsunimis1",
+    "id": "tsunamis1",
     "name": "Tsunamis",
     "isEnabled": false,
+    "image": "/assets/shield-1768799_640.jpg",
     "phases": [
       {
         "name": "Preparation"
@@ -235,6 +240,7 @@
     "id": "volcanoes1",
     "name": "Volcanoes",
     "isEnabled": false,
+    "image": "/assets/ashes-1867440_640.jpg",
     "phases": [
       {
         "name": "Preparation"
