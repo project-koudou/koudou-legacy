@@ -37,7 +37,7 @@ $ docker-compose down  # Shutdown
 
 ## Authors
 
-- Okano Tshiaki
-- Ozeki Kentaro
-- Takahashi Takaomi
+- Toshiaki Okano
+- Kentaro Ozeki
 - Takeshi Sano
+- Takaomi Takahashi
