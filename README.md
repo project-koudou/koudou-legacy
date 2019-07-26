@@ -1,4 +1,4 @@
-# DemoBCP
+# KOUDOU
 
 Project description here.
 
@@ -36,3 +36,8 @@ $ docker-compose down  # Shutdown
 ### IBM Cloud (with Watson IoT Platform/Node-RED Starter)
 
 ## Authors
+
+- Okano Tshiaki
+- Ozeki Kentaro
+- Takahashi Takaomi
+- Takeshi Sano
