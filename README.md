@@ -1,6 +1,6 @@
 # KOUDOU
 
-Project description here.
+> KOUDOU supports your flow-based planning and action for crisis response
 
 (Screenshot)
 

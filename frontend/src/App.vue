@@ -5,11 +5,10 @@
       role="navigation"
       aria-label="main navigation"
       v-if="['/login', '/register'].indexOf(this.$router.currentRoute.path) === -1"
-      style="border-bottom: 1px solid rgba(0, 40, 100, 0.12);"
     >
       <div class="navbar-brand">
         <span class="navbar-item">
-          <h1 class="title is-4 has-text-white">DemoBCP</h1>
+          <router-link to="/"><h1 class="title is-4 has-text-white">KOUDOU</h1></router-link>
         </span>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>
