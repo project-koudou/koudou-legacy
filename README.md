@@ -7,19 +7,20 @@
 ## Table of Contents
 
 - Getting Started with Demo
+- [Features](#features)
 - About the Project
-- Features
 - [Install and Set Up](#install-and-set-up)
 - [Authors](#authors)
 
 ## Getting Started with Demo
 
-## About the Project
-
 ## Features
 
 - [x] foo
 - [x] bar
+- [x] Integrated with Node-RED/Watson IoT Platform
+
+## About the Project
 
 ## Install and Set Up
 
@@ -27,13 +28,16 @@
 
 ```
 $ docker-compose build
-$ docker-compose up  # Startup
+$ docker-compose up  # Startup http://localhost:3030/
+```
+
+```
 $ docker-compose down  # Shutdown
 ```
 
 ### IBM Cloud (stand-alone)
 
-### IBM Cloud (with Watson IoT Platform/Node-RED Starter)
+### IBM Cloud (advanced, with Watson IoT Platform/Node-RED Starter)
 
 ## Authors
 
