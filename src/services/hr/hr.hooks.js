@@ -30,11 +30,26 @@ const findProxy = async context => {
           _params
         )).data;
       const location = msgs.length > 0 ? msgs[0].location : null;
+      _params = Object.assign({}, context.params);
+      Object.assign(_params, {
+        query: {
+          clientId: v.clientId,
+          $select: ['status'],
+          $sort: { date: -1 }
+        }
+      });
+      msgs = (await context.app
+        .service('api/feed')
+        .find(
+          _params
+        )).data;
+      const status = msgs.length > 0 ? msgs[0].status : null;
       // console.log(v.clientId, msgs, v.name, location);
       return {
         clientId: v.clientId,
         name: v.name,
-        location: location
+        location: location,
+        status: status,
       };
     })
   );
