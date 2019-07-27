@@ -11,8 +11,8 @@
                 <input
                   class="input is-large"
                   type="text"
+                  v-model="template.name"
                   :placeholder="template.name"
-                  :value="template.name"
                 />
               </div>
             </div>
@@ -22,6 +22,7 @@
                 <textarea
                   class="textarea"
                   rows="2"
+                  @change="template.description = $event.target.value"
                   :placeholder="template.description"
                 ></textarea>
               </p>
@@ -55,6 +56,7 @@ export default {
       const id = nanoid();
       console.log(id);
       this.template.id = id;
+      console.log(this.template);
       await $client.service('api/plan').create(this.template);
       // if (this.$route.path.startsWith('/plan-wizard/')) {}
       this.$router.push(`/plan/${id}/edit?wizard=1`);
