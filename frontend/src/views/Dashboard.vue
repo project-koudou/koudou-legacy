@@ -1,11 +1,11 @@
 <template>
   <div class="columns">
-    <div class="column is-3">
+    <div class="column is-3 column-leftside">
       <aside class="menu">
         <user-profile></user-profile>
       </aside>
     </div>
-    <div class="column">
+    <div class="column column-main">
       <transition>
         <router-view name="view"></router-view>
       </transition>

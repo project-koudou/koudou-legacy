@@ -5,7 +5,7 @@
       <div class="column is-6" v-for="template in templates">
         <div
           class="card template"
-          @click="toEdit(template.id)"
+          @click="toEdit(template)"
           v-bind:class="{ 'is-enabled': template.isEnabled }"
           v-bind:style="template.isEnabled ? {} : { color: '#7a7a7a !important' }"
         >
@@ -46,7 +46,11 @@ export default {
     };
   },
   methods: {
-    toEdit(templateId) {
+    toEdit(template) {
+      if (!template.isEnabled) {
+        return;
+      }
+      let templateId = template.id;
       if (this.$router.currentRoute.path.startsWith('/plan-wizard/')) {
         this.$router.push(`/plan-wizard/describe?template=${templateId}`);
       } else {

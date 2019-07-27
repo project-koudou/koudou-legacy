@@ -58,6 +58,15 @@ $message-background-color: #fcfcfc;
   -moz-osx-font-smoothing: grayscale;
 }
 
+#app > .navbar {
+  // border-top: 3px solid #3273dc;
+  // border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+}
+
+.navbar-item:focus {
+  background-color: transparent !important;
+}
+
 .button {
   justify-content: center;
 }
@@ -69,5 +78,49 @@ $message-background-color: #fcfcfc;
 
 .v-enter, .v-leave-to {
   opacity: 0;
+}
+
+@page {
+  size: A4;
+  margin: 5mm;
+  margin-top: 20mm;
+}
+
+@media print {
+  .navbar, .column-leftside, .buttons, .breadcrumb, .content-output {
+    display: none;
+  }
+  .column-main .card {
+    box-shadow: none;
+    border: none;
+  }
+  .card-content {
+    margin: 0;
+    padding: 0;
+  }
+  .steps-marker {
+    // page-break-inside: avoid-page;
+    // break-inside: avoid-page;
+    // page-break-before: always;
+    // break-before: always;
+    background-color: #23d160 !important;
+  }
+  .steps-segment::after {
+    background-color: #23d160 !important;
+  }
+  .message {
+    page-break-inside: avoid-page;
+    break-inside: avoid-page;
+    // page-break-before: always;
+    // break-before: always;
+    // zoom: 0.75;
+  }
+  .message .subtitle {
+    margin-bottom: 0 !important;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+    zoom: 0.75;
+  }
 }
 </style>

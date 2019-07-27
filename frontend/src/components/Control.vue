@@ -1,5 +1,5 @@
 <template>
-  <div class="box" style="width: 400px;">
+  <div class="box">
     <section>
       <div class="field">
         <p class="control">

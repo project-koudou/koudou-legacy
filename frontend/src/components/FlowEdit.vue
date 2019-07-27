@@ -47,49 +47,6 @@
       </div>
     </div>
     <div class="columns">
-      <div class="column is-narrow">
-        <div class="card is-shadowless sidenav">
-          <div class="card-content" style="padding-top: 0;">
-            <!-- <p class="title is-4">Action Blocks</p> -->
-            <div>
-              <div class="tabs" style="margin-bottom: 0;">
-                <ul>
-                  <li class="is-active">
-                    <a>Blocks</a>
-                  </li>
-                  <!-- <li class="is-active">
-                    <a>Trigger</a>
-                  </li>
-                  <li>
-                    <a>Action</a>
-                  </li>
-                  <li>
-                    <a>Checkpoint</a>
-                  </li>-->
-                </ul>
-              </div>
-            </div>
-            <draggable
-              id="blocks"
-              :list="blocks"
-              :sort="false"
-              :move="checkMove"
-              :group="{ name: 'blocks', pull: 'clone', put: false }"
-            >
-              <div
-                v-for="block in blocks"
-                :key="block.name"
-                :class="[block.style, 'message', 'item']"
-              >
-                <div class="message-body">
-                  <p class="title is-6">{{ block.name }}</p>
-                  <p class="subtitle is-7">{{ block.category ? block.category.join(' · ') : '' }}</p>
-                </div>
-              </div>
-            </draggable>
-          </div>
-        </div>
-      </div>
       <div class="column">
         <div class="box is-shadowless">
           <ul
@@ -100,9 +57,10 @@
               <li class="steps-segment" v-if="step.trigger.name" :key="`${stepIdx}-trigger`">
                 <span class="steps-marker"></span>
                 <div class="steps-content">
-                  <p class="is-size-4">{{ step.trigger.name }}</p>
+                  <p class="title is-4">{{ step.trigger.name }}</p>
                   <div
                     style="margin: 10px 0px; position: relative; left: -50px; right: -50px; z-index: 9;"
+                    class="phase-blocks"
                   >
                     <div
                       v-for="(block, idx) in [step.trigger.subscribeTo]"
@@ -123,10 +81,10 @@
               <li class="steps-segment" :key="stepIdx">
                 <span class="steps-marker"></span>
                 <div class="steps-content">
-                  <p class="is-size-4">{{ step.name }}</p>
+                  <p class="title is-4">{{ step.name }}</p>
                   <div style="margin: 10px 0px; position: relative; left: -50px; z-index: 9;">
                     <draggable
-                      class="block-list"
+                      class="phase-blocks"
                       :list="step.blocks"
                       :sort="true"
                       filter="textarea"
@@ -158,7 +116,7 @@
                               >Edit</button>
                             </p>
                             <p class="control" v-else>
-                              <button class="button is-small is-text" disabled>No editable settings</button>
+                              <button class="button is-small is-text" disabled>No custom settings</button>
                             </p>
                             <p class="control" v-show="!block.always">
                               <button
@@ -193,6 +151,49 @@
               </li>
             </template>
           </ul>
+        </div>
+      </div>
+      <div class="column is-narrow">
+        <div class="card is-shadowless sidenav">
+          <div class="card-content" style="padding-top: 0;">
+            <!-- <p class="title is-4">Action Blocks</p> -->
+            <div>
+              <div class="tabs" style="margin-bottom: 0;">
+                <ul>
+                  <li class="is-active">
+                    <a>Select Blocks</a>
+                  </li>
+                  <!-- <li class="is-active">
+                    <a>Trigger</a>
+                  </li>
+                  <li>
+                    <a>Action</a>
+                  </li>
+                  <li>
+                    <a>Checkpoint</a>
+                  </li>-->
+                </ul>
+              </div>
+            </div>
+            <draggable
+              id="blocks"
+              :list="blocks"
+              :sort="false"
+              :move="checkMove"
+              :group="{ name: 'blocks', pull: 'clone', put: false }"
+            >
+              <div
+                v-for="block in blocks"
+                :key="block.name"
+                :class="[block.style, 'message', 'item']"
+              >
+                <div class="message-body">
+                  <p class="title is-6">{{ block.name }}</p>
+                  <p class="subtitle is-7">{{ block.category ? block.category.join(' · ') : '' }}</p>
+                </div>
+              </div>
+            </draggable>
+          </div>
         </div>
       </div>
     </div>
@@ -250,6 +251,7 @@ export default {
   async mounted() {
     const blockResp = await fetch('/api/_plan/blocks', { headers: { "Accept": "application/json" } });
     this.blocks = await blockResp.json();
+    this.blocks = this.blocks.filter(block => !block.disabled).sort((a, b) => { return a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1 });
     const plan = await $client.service('api/plan').get(this.$route.params.id);
     console.log(plan);
     this.plan = plan;
@@ -262,7 +264,7 @@ export default {
   position: sticky;
   top: 0px;
   width: 400px;
-  height: 100vh;
+  height: 90vh;
 }
 .card.sidenav > .card-content {
   padding-bottom: 0;
@@ -273,8 +275,13 @@ export default {
 #blocks {
   overflow-y: scroll !important;
   /* padding: 20px 30px 10px 0px; */
-  padding-right: 25px;
-  padding-top: 5px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  background: #f5f5f5;
+  border-radius: 0px 0px 4px 4px;
+  border: 1px solid #ebd5d5;
+  border-top: none;
 }
 .item {
   cursor: grab;
@@ -282,10 +289,12 @@ export default {
 .item:active {
   cursor: grabbing;
 }
-.block-list {
-  background: #ffffff99;
+.phase-blocks {
+  background: #f5f5f5;
   z-index: 8;
-  border-radius: 0;
+  border-radius: 4px;
+  border: 1px solid #cecece;
+  padding: 10px 10px 50px 10px;
 }
 .message,
 .message-body {
@@ -296,7 +305,7 @@ export default {
 }
 .message {
   box-shadow: none !important;
-  border: 1px solid #dee2e6;
+  border: 1px solid #cecece;
 }
 .message {
   margin: 10px 0px;

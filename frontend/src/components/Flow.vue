@@ -16,22 +16,12 @@
         <div class="card-content">
           <p class="title">{{ plan.name }}</p>
           <p class="content">{{ plan.description }}</p>
-          <div class="field is-grouped">
-            <p class="control">
-              <button v-on:click="testflow" class="button is-success">Simulate Plan</button>
-            </p>
-            <p class="control">
-              <button v-on:click="stopflow" class="button is-danger">Stop</button>
-            </p>
-            <p class="control">
-              <router-link tag="button" :to="editUrl" class="button is-link">Edit</router-link>
-            </p>
-            <p class="control">
-              <button class="button is-light">Export as PDF</button>
-            </p>
-            <p class="control">
-              <button @click="exportJSON" class="button is-light">Export as JSON</button>
-            </p>
+          <div class="buttons">
+            <button v-on:click="testflow" class="button is-success">Simulate Plan</button>
+            <button v-on:click="stopflow" class="button is-danger">Stop</button>
+            <router-link tag="button" :to="editUrl" class="button is-link">Edit</router-link>
+            <button class="button is-light">Export as PDF</button>
+            <button @click="exportJSON" class="button is-light">Export as JSON</button>
           </div>
         </div>
         <div class="card-content">
@@ -43,7 +33,7 @@
               <li class="steps-segment" v-if="phase.trigger.name">
                 <span class="steps-marker"></span>
                 <div class="steps-content">
-                  <p class="is-size-4">{{ phase.trigger.name }}</p>
+                  <p class="title is-4">{{ phase.trigger.name }}</p>
                   <div
                     style="margin: 10px 0px; position: relative; left: -50px; right: -50px; z-index: 9;"
                   >
@@ -69,7 +59,7 @@
               >
                 <span class="steps-marker"></span>
                 <div class="steps-content">
-                  <p class="is-size-4">{{ phase.name }}</p>
+                  <p class="title is-4">{{ phase.name }}</p>
                   <div style="margin: 10px 0px; position: relative; left: -50px; z-index: 9;">
                     <div
                       v-for="(block, idx) in phase.blocks"
@@ -82,7 +72,7 @@
                         <p class="content">
                           <span v-html="block.message"></span>
                         </p>
-                        <p class="content">
+                        <p class="content content-output">
                           <b>On:</b>
                           {{ block.output.map(x => x.name).join(' · ') }}
                         </p>
@@ -151,7 +141,8 @@ export default {
 }
 .message {
   box-shadow: none !important;
-  border: 1px solid #dee2e6;
+  /* border: 1px solid #dee2e6; */
+  border: 1px solid #cecece;
 }
 .steps-segment.is-active::after {
   background-color: #23d160 !important;
