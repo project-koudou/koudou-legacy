@@ -8,7 +8,7 @@
     >
       <div class="navbar-brand">
         <span class="navbar-item">
-          <router-link to="/"><h1 class="title is-4 has-text-white">KOUDOU</h1></router-link>
+          <router-link to="/"><h1 class="title is-4 has-text-white">KOUDOU flow</h1></router-link>
         </span>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>

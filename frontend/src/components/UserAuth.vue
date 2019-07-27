@@ -25,8 +25,7 @@
               v-model="isOperator"
               :change="input = (isOperator ? demoOperator : demoUser)"
             />
-            Login as an
-            <b>operator</b>
+            Login as <b>operator</b>
           </label>
         </p>
       </div>

@@ -1,9 +1,10 @@
 ---
 applications:
- - name: demo-bcp
-   buildpack: sdk-for-nodejs
-   random-route: true
+ - name: koudou-demo
+   buildpacks:
+    - sdk-for-nodejs
+   random-route: false
    instances: 1
    memory: 256M
    env:
-     NODE_ENV: production
+    NODE_ENV: production

@@ -1,6 +1,6 @@
 <template>
   <div class="container has-text-centered" style="max-width: 360px;">
-    <h1 class="title is-3">KOUDOU</h1>
+    <h1 class="title is-3">KOUDOU flow</h1>
     <user-auth></user-auth>
   </div>
 </template>

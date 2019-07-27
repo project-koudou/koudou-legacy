@@ -25,10 +25,10 @@
       </div>
       <div class="content has-text-centered" style="margin-top: 50px;">
         <div class="tag is-info is-rounded is-uppercase">
-          Mobile client
+          Mobile Assistant
         </div>
         <div>
-          <qrcode :value="mobileUrl" :options="{ width: 150 }"></qrcode>
+          <a :href="this.mobileUrl" target="_blank"><qrcode :value="mobileUrl" :options="{ width: 150 }"></qrcode></a>
         </div>
         <div class="is-size-7"><a :href="this.mobileUrl" target="_blank">Link</a></div>
         <div class="is-size-7"><a @click="isShowingSetups = true">More setups...</a></div>
