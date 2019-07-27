@@ -25,7 +25,7 @@
         "subscribeTo": {
           "id": "eew",
           "version": 1,
-          "name": "Earthquake Early Warning",
+          "name": "Earthquake Early Warning (demo)",
           "style": "is-danger",
           "always": false,
           "message": "An earthquake with a magnitude over 6.0 hits the current location",
@@ -48,7 +48,8 @@
       "blocks": [
         {
           "id": "announcement",
-          "name": "Check Announcements",
+          "version": 1,
+          "name": "Tune in for Announcements",
           "style": "is-warning",
           "category": ["Action"],
           "always": "Automatically added by ABC Univ.",
@@ -61,13 +62,14 @@
           },
           "output": [
             {
-              "name": "Smart Speaker (demo)",
+              "name": "Default Smart Speaker",
               "endpoint": "/nrf/output/demo_speaker"
             }
           ]
         },
         {
           "id": "location-share",
+          "version": 1,
           "name": "Start Sharing Your Location",
           "style": "",
           "category": ["Action"],
@@ -76,7 +78,7 @@
           "endpoint": "/nrf/action/message",
           "params": {
             "title": "Start Sharing Your Location",
-            "content": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51964.39448180404!2d139.59343731307595!3d35.509849933763036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f7aa399b7cb%3A0xefa06bf3b3934fe3!2z5oW25oeJ576p5aG-5aSn5a2mIOaXpeWQieOCreODo-ODs-ODkeOCueilv-WIpemkqA!5e0!3m2!1sja!2sjp!4v1563592896211!5m2!1sja!2sjp\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>",
+            "content": "<iframe v-once src=\"./map.html?getCurrentPosition=1\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen allow=\"geolocation\"></iframe>",
             "footer": "",
             "choices": [
               {
@@ -96,7 +98,7 @@
           },
           "output": [
             {
-              "name": "Mobile client (demo)",
+              "name": "Default Mobile Client",
               "endpoint": "/nrf/output/demo_client"
             }
           ]
@@ -117,6 +119,7 @@
       "blocks": [
         {
           "id": "anpi",
+          "version": 1,
           "name": "Respond Personal Safety Confirmation",
           "style": "is-warning",
           "always": "Automatically added by ABC Univ.",
@@ -158,52 +161,16 @@
           },
           "output": [
             {
-              "name": "Mobile client (demo)",
-              "endpoint": "/nrf/output/demo_client"
-            }
-          ]
-        },
-        {
-          "id": "anpi-share",
-          "name": "Share Personal Safety Confirmation",
-          "style": "",
-          "always": false,
-          "message": "<ul><li>Receive status updates from your friends</li><li>Post your status on Twitter</li></ul>",
-          "endpoint": "/nrf/action/message",
-          "params": {
-            "title": "Share Personal Safety Confirmation",
-            "content": "<ul><li>Receive status updates from your friends</li><li>Post your status on Twitter</li></ul>",
-            "choices": [
-              {
-                "text": "Start",
-                "actions": [
-                  {
-                    "endpointInternal": "api/feed",
-                    "params": {
-                      "content": "Sharing Personal Safety Confirmation"
-                    }
-                  }
-                ],
-                "close": true
-              },
-              {
-                "text": "Cancel",
-                "actions": [],
-                "close": true
-              }
-            ]
-          },
-          "output": [
-            {
-              "name": "Mobile client (demo)",
+              "name": "Default Mobile Client",
               "endpoint": "/nrf/output/demo_client"
             }
           ]
         },
         {
           "id": "evacuation-wait",
+          "version": 1,
           "name": "Wait Inside until Evacuation Order",
-          "style": "",
+          "style": "is-info",
           "always": false,
           "message": "",
           "endpoint": "/nrf/action/message",
@@ -213,7 +180,7 @@
           },
           "output": [
             {
-              "name": "Mobile client (demo)",
+              "name": "Default Mobile Client",
               "endpoint": "/nrf/output/demo_client"
             }
           ]
@@ -236,8 +203,10 @@
       "blocks": [
         {
           "id": "message-evacuation",
-          "name": "Get Notified Evacuation Order",
-          "style": "",
+          "version": 1,
+          "name": "Get Notified of Evacuation Order",
+          "category": ["Note"],
+          "style": "is-info",
           "always": false,
           "message": "",
           "endpoint": "/nrf/action/message",
@@ -248,29 +217,30 @@
           },
           "output": [
             {
-              "name": "Mobile client (demo)",
+              "name": "Default Mobile Client",
               "endpoint": "/nrf/output/demo_client"
             },
             {
-              "name": "Smart Speaker (demo)",
+              "name": "Default Smart Speaker",
               "endpoint": "/nrf/output/demo_speaker"
             }
           ]
         },
         {
           "id": "checklist-satefy",
+          "version": 1,
           "name": "Confirm Safety Instruction",
+          "category": ["Action"],
           "style": "",
           "always": false,
-          "message": "Your own todos and checklist before evacuation",
+          "message": "Standard instruction for the lab to prevent secondary accidents",
           "endpoint": "/nrf/action/checklist",
           "params": {
             "title": "Safety Instruction Checklist",
             "items": [
               "Check the lab equipment",
               "Turn off the circuit breaker",
-              "Turn off the gas",
-              "Clear Z"
+              "Turn off the gas"
             ],
             "choices": [
               {
@@ -289,17 +259,19 @@
           },
           "output": [
             {
-              "name": "Mobile client (demo)",
+              "name": "Default Mobile Client",
               "endpoint": "/nrf/output/demo_client"
             }
           ]
         },
         {
           "id": "checklist-personal",
+          "version": 1,
           "name": "Confirm Personal Checklist",
+          "category": ["Action"],
           "style": "",
           "always": false,
-          "message": "Your own todos and checklist before evacuation",
+          "message": "Your own to-do checklist before evacuation",
           "endpoint": "/nrf/action/checklist",
           "params": {
             "title": "My Todos",
@@ -308,13 +280,14 @@
           "editableParamKeys": ["items"],
           "output": [
             {
-              "name": "Mobile client (demo)",
+              "name": "Default Mobile Client",
               "endpoint": "/nrf/output/demo_client"
             }
           ]
         },
         {
           "id": "evacuation-site",
+          "version": 1,
           "name": "Navigate to the Nearest Evacuation Site",
           "style": "",
           "always": false,
@@ -326,7 +299,7 @@
           },
           "output": [
             {
-              "name": "Mobile client (demo)",
+              "name": "Default Mobile Client",
               "endpoint": "/nrf/output/demo_client"
             }
           ]

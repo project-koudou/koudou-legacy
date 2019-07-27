@@ -2,7 +2,7 @@
   {
     "id": "eew",
     "version": 1,
-    "name": "Earthquake Early Warning",
+    "name": "Earthquake Early Warning (demo)",
     "style": "is-danger",
     "category": ["Alarm Event"],
     "always": null,
@@ -19,16 +19,16 @@
     "style": "is-danger",
     "category": ["Alarm Event"],
     "always": null,
-    "message": "",
+    "message": "An alert manually issued by operator.",
     "endpoint": "/nrf/trigger/panicbutton"
   },
   {
     "id": "announcement",
     "version": 1,
-    "name": "Check Announcements",
+    "name": "Tune in for Announcements",
     "style": null,
     "category": ["Action"],
-    "always": false,
+    "always": null,
     "message": "",
     "endpoint": "/nrf/action/message",
     "params": {
@@ -38,13 +38,14 @@
     },
     "output": [
       {
-        "name": "Smart Speaker (demo)",
+        "name": "Default Smart Speaker",
         "endpoint": "/nrf/output/demo_speaker"
       }
     ]
   },
   {
     "id": "location-share",
+    "version": 1,
     "name": "Start Sharing Your Location",
     "style": "",
     "category": ["Action"],
@@ -58,25 +59,28 @@
       "choices": [
         {
           "text": "Confirm",
-          "action": {
-            "endpointInternal": "api/feed",
-            "params": {
-              "content": "Started sharing the location<br><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51964.39448180404!2d139.59343731307595!3d35.509849933763036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f7aa399b7cb%3A0xefa06bf3b3934fe3!2z5oW25oeJ576p5aG-5aSn5a2mIOaXpeWQieOCreODo-ODs-ODkeOCueilv-WIpemkqA!5e0!3m2!1sja!2sjp!4v1563592896211!5m2!1sja!2sjp\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>"
+          "actions": [
+            {
+              "endpointInternal": "api/feed",
+              "params": {
+                "content": "Started sharing the location<br><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51964.39448180404!2d139.59343731307595!3d35.509849933763036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f7aa399b7cb%3A0xefa06bf3b3934fe3!2z5oW25oeJ576p5aG-5aSn5a2mIOaXpeWQieOCreODo-ODs-ODkeOCueilv-WIpemkqA!5e0!3m2!1sja!2sjp!4v1563592896211!5m2!1sja!2sjp\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>"
+              }
             }
-          },
+          ],
           "close": true
         }
       ]
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
   },
   {
     "id": "anpi",
+    "version": 1,
     "name": "Respond Personal Safety Confirmation",
     "style": "",
     "category": ["Action"],
@@ -89,36 +93,46 @@
       "choices": [
         {
           "text": "I'm Safe",
-          "action": {
-            "endpointInternal": "api/feed",
-            "params": {
-              "content": "Confirmed safety"
+          "color": "success",
+          "actions": [
+            {
+              "endpointInternal": "api/feed",
+              "params": {
+                "content": "Confirmed safety",
+                "status": "Safe"
+              }
             }
-          },
+          ],
           "close": true
         },
         {
           "text": "I'm in Trouble",
-          "action": {
-            "endpointInternal": "api/feed",
-            "params": {
-              "content": "Reported trouble"
+          "color": "error",
+          "actions": [
+            {
+              "endpointInternal": "api/feed",
+              "params": {
+                "content": "Reported trouble",
+                "status": "In trouble"
+              }
             }
-          },
+          ],
           "close": true
         }
       ]
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
   },
   {
     "id": "anpi-share",
+    "version": 1,
     "name": "Share Personal Safety Confirmation",
+    "disabled": true,
     "category": ["Action"],
     "style": "",
     "always": false,
@@ -130,34 +144,38 @@
       "choices": [
         {
           "text": "Start",
-          "action": {
-            "endpointInternal": "api/feed",
-            "params": {
-              "content": "Sharing Personal Safety Confirmation"
+          "actions": [
+            {
+              "endpointInternal": "api/feed",
+              "params": {
+                "content": "Sharing Personal Safety Confirmation"
+              }
             }
-          },
+          ],
           "close": true
         },
         {
           "text": "Cancel",
-          "action": null,
+          "actions": [],
           "close": true
         }
       ]
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
   },
   {
     "id": "evacuation-wait",
+    "version": 1,
     "name": "Wait Inside until Evacuation Order",
+    "disabled": true,
     "category": ["Note"],
-    "style": "",
-    "always": false,
+    "style": "is-info",
+    "always": null,
     "message": "",
     "endpoint": "/nrf/action/message",
     "params": {
@@ -166,17 +184,18 @@
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
   },
   {
     "id": "message-evacuation",
-    "name": "Get Notified Evacuation Order",
+    "version": 1,
+    "name": "Get Notified of Evacuation Order",
     "category": ["Note"],
-    "style": "",
-    "always": false,
+    "style": "is-info",
+    "always": null,
     "message": "",
     "endpoint": "/nrf/action/message",
     "params": {
@@ -186,27 +205,28 @@
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       },
       {
-        "name": "Smart Speaker (demo)",
+        "name": "Default Smart Speaker",
         "endpoint": "/nrf/output/demo_speaker"
       }
     ]
   },
   {
     "id": "checklist-satefy",
+    "version": 1,
     "name": "Confirm Safety Instruction",
     "category": ["Action"],
     "style": "",
-    "always": false,
-    "message": "Your own todos and checklist before evacuation",
+    "always": null,
+    "message": "Standard instruction for the lab to prevent secondary accidents",
     "endpoint": "/nrf/action/checklist",
     "params": {
       "title": "Safety Instruction Checklist",
       "items": [
-        "Check the lab equipment",
+        "Turn off the lab equipment",
         "Turn off the circuit breaker",
         "Turn off the gas"
       ],
@@ -225,18 +245,19 @@
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
   },
   {
     "id": "checklist-personal",
+    "version": 1,
     "name": "Confirm Personal Checklist",
     "category": ["Action"],
     "style": "",
     "always": false,
-    "message": "Your own todos and checklist before evacuation",
+    "message": "Your own to-do checklist before evacuation",
     "endpoint": "/nrf/action/checklist",
     "params": {
       "title": "My Todos",
@@ -245,13 +266,14 @@
     "editableParamKeys": ["items"],
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
   },
   {
     "id": "evacuation-site",
+    "version": 1,
     "name": "Navigate to the Nearest Evacuation Site",
     "category": ["Action"],
     "style": "",
@@ -264,14 +286,16 @@
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
   },
   {
     "id": "weather",
+    "version": 1,
     "name": "Check Weather Forecast",
+    "disabled": true,
     "category": ["Action"],
     "style": "",
     "always": false,
@@ -283,7 +307,7 @@
     },
     "output": [
       {
-        "name": "Mobile client (demo)",
+        "name": "Default Mobile Client",
         "endpoint": "/nrf/output/demo_client"
       }
     ]
@@ -292,6 +316,7 @@
     "id": "manual",
     "version": 1,
     "name": "Receive Latest Disaster Assitance Manual",
+    "disabled": true,
     "category": ["Action"],
     "endpoint": "/flows/action/message",
     "params": {
@@ -302,6 +327,7 @@
     "id": "health",
     "version": 1,
     "name": "Check Health Condition",
+    "disabled": true,
     "category": ["Action", "Healthcare"]
   }
 ]

@@ -1,15 +1,20 @@
 {
-  "_meta": { "status": 0 },
+  "_meta": {
+    "status": 0
+  },
   "id": "_plan2",
-  "name": "Response Plan for Earthquake 2 (demo)",
-  "description": "A workflow for staff members in case of earthquake.",
+  "name": "Operator Response Plan for Earthquake (demo)",
+  "description": "A workflow for administrative staff members in case of earthquake.",
   "testTrigger": "/api/red/nrf/trigger/panicbutton",
   "phases": [
     {
       "name": "Preparation",
       "trigger": {
         "name": null,
-        "subscribeTo": { "endpoint": null, "params": {} }
+        "subscribeTo": {
+          "endpoint": null,
+          "params": {}
+        }
       },
       "blocks": []
     },
@@ -20,57 +25,45 @@
         "subscribeTo": {
           "id": "eew",
           "version": 1,
-          "name": "Earthquake Early Warning",
+          "name": "Earthquake Early Warning (demo)",
           "style": "is-danger",
           "always": false,
           "message": "An earthquake with a magnitude over 6.0 hits the current location",
           "endpoint": "/nrf/trigger/panicbutton",
-          "params": { "magnitude": 6 }
+          "params": {
+            "magnitude": 6.0
+          }
         }
       },
       "complete": {
         "name": null,
         "invoke": {
           "endpoint": "/nrf/checkpoint/complete",
-          "params": { "phaseId": "_plan1-1" },
+          "params": {
+            "phaseNum": "1"
+          },
           "output": []
         }
       },
       "blocks": [
         {
-          "id": "anpi",
-          "name": "Respond Personal Safety Confirmation",
-          "style": "",
+          "id": "announcement",
+          "version": 1,
+          "name": "Tune in for Announcements",
+          "style": "is-warning",
           "category": ["Action"],
-          "always": false,
+          "always": "Automatically added by ABC Univ.",
           "message": "",
           "endpoint": "/nrf/action/message",
           "params": {
-            "title": "Personal Safety Confirmation",
+            "title": "Announcement",
             "content": "",
-            "choices": [
-              {
-                "text": "I'm Safe",
-                "action": {
-                  "endpointInternal": "api/feed",
-                  "params": { "content": "Confirmed safety" }
-                },
-                "close": true
-              },
-              {
-                "text": "I'm in Trouble",
-                "action": {
-                  "endpointInternal": "api/feed",
-                  "params": { "content": "Reported trouble" }
-                },
-                "close": true
-              }
-            ]
+            "speakContent": "An Earthquake Early Warning went out. Ensure your safety. Follow instructions."
           },
           "output": [
             {
-              "name": "Mobile client (demo)",
-              "endpoint": "/nrf/output/demo_client"
+              "name": "Default Smart Speaker",
+              "endpoint": "/nrf/output/demo_speaker"
             }
           ]
         }
@@ -82,10 +75,13 @@
         "name": null,
         "subscribeTo": {
           "endpoint": "/nrf/checkpoint/complete",
-          "params": { "phaseId": "_plan1-1" }
+          "params": {
+            "phaseNum": "1"
+          }
         }
       },
-      "blocks": []
+      "blocks": [
+      ]
     },
     {
       "name": "Evacuation",
@@ -100,22 +96,9 @@
         }
       },
       "complete": null,
-      "blocks": []
-    },
-    {
-      "name": "Stay at Evacuation Site",
-      "trigger": {
-        "name": "Checkpoint",
-        "subscribeTo": {
-          "name": "Arrived to Evacuation Site",
-          "message": "",
-          "style": "is-info",
-          "endpoint": "/nrf/checkpoint/location_based_checkpoint",
-          "params": {}
-        }
-      },
-      "complete": { "name": "Checkpoint: Confirm Flow End" },
-      "blocks": []
+      "blocks": [
+      ]
     }
-  ]
+  ],
+  "userId": "demo2@example.com"
 }
