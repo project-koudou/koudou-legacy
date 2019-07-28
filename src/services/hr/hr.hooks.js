@@ -11,7 +11,7 @@ const findProxy = async context => {
   let _params = context.params;
   let resp = await context.app
     .service('api/feed')
-    .find(Object.assign(_params, { query: { $select: ['clientId'], $limit: 999999 } }));
+    .find(Object.assign(_params, { query: { $select: ['clientId', 'name'], $limit: 999999 } }));
   let people = _.uniqBy(resp.data, 'clientId');
   // console.log(people);
   let res = await Promise.all(
@@ -21,7 +21,8 @@ const findProxy = async context => {
         query: {
           clientId: v.clientId,
           $select: ['location'],
-          $sort: { date: -1 }
+          $sort: { date: -1 },
+          $limit: 999999,
         }
       });
       let msgs = (await context.app
@@ -35,7 +36,8 @@ const findProxy = async context => {
         query: {
           clientId: v.clientId,
           $select: ['status'],
-          $sort: { date: -1 }
+          $sort: { date: -1 },
+          $limit: 999999,
         }
       });
       msgs = (await context.app
