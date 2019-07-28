@@ -1,0 +1,151 @@
+[
+  {
+    "id": "abea0545.97074",
+    "type": "tab",
+    "label": "output-demo_speaker",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "98ff12eb.9e3ba",
+    "type": "watson-text-to-speech",
+    "z": "abea0545.97074",
+    "name": "",
+    "lang": "en-US",
+    "langhidden": "en-US",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "voice": "en-US_AllisonV3Voice",
+    "voicehidden": "en-US_AllisonV3Voice",
+    "format": "audio/wav",
+    "password": "",
+    "apikey": "",
+    "payload-response": true,
+    "default-endpoint": true,
+    "service-endpoint": "https://stream.watsonplatform.net/text-to-speech/api",
+    "x": 500,
+    "y": 220,
+    "wires": [
+      [
+        "87aeeebc.a282d8",
+        "eb737c05.4be4f8"
+      ]
+    ]
+  },
+  {
+    "id": "87aeeebc.a282d8",
+    "type": "debug",
+    "z": "abea0545.97074",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 670,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "f5a1565e.6d4978",
+    "type": "play audio",
+    "z": "abea0545.97074",
+    "name": "",
+    "voice": "0",
+    "x": 600,
+    "y": 600,
+    "wires": []
+  },
+  {
+    "id": "eb737c05.4be4f8",
+    "type": "websocket out",
+    "z": "abea0545.97074",
+    "name": "",
+    "server": "5ead43ed.099534",
+    "client": "",
+    "x": 620,
+    "y": 340,
+    "wires": []
+  },
+  {
+    "id": "7d767cbd.d5b67c",
+    "type": "http in",
+    "z": "abea0545.97074",
+    "name": "",
+    "url": "/nrf/output/demo_speaker",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 140,
+    "y": 80,
+    "wires": [
+      [
+        "8d6c6234.009e9",
+        "30211b2d.0806ac",
+        "87aeeebc.a282d8"
+      ]
+    ]
+  },
+  {
+    "id": "8d6c6234.009e9",
+    "type": "http response",
+    "z": "abea0545.97074",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 450,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "6fd1e7b5.dc0568",
+    "type": "websocket in",
+    "z": "abea0545.97074",
+    "name": "",
+    "server": "5ead43ed.099534",
+    "client": "",
+    "x": 150,
+    "y": 220,
+    "wires": [
+      [
+        "c5df6a22.dcd35"
+      ]
+    ]
+  },
+  {
+    "id": "c5df6a22.dcd35",
+    "type": "function",
+    "z": "abea0545.97074",
+    "name": "",
+    "func": "delete msg._session;\nreturn msg;\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 370,
+    "y": 280,
+    "wires": [
+      [
+        "eb737c05.4be4f8"
+      ]
+    ]
+  },
+  {
+    "id": "30211b2d.0806ac",
+    "type": "template",
+    "z": "abea0545.97074",
+    "name": "",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "handlebars",
+    "syntax": "mustache",
+    "template": "{{payload.params.speakContent}}",
+    "output": "str",
+    "x": 360,
+    "y": 140,
+    "wires": [
+      [
+        "98ff12eb.9e3ba"
+      ]
+    ]
+  }
+]

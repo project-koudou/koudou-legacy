@@ -1,0 +1,185 @@
+[
+  {
+    "id": "9bbfeeea.fdd2e",
+    "type": "tab",
+    "label": "output-demo_client",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "bffebeb6.8afe08",
+    "type": "http in",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "url": "/demo-client",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 240,
+    "y": 420,
+    "wires": [
+      [
+        "bf4be342.73f34"
+      ]
+    ]
+  },
+  {
+    "id": "bf4be342.73f34",
+    "type": "template",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "handlebars",
+    "syntax": "mustache",
+    "template": "",
+    "x": 460,
+    "y": 420,
+    "wires": [
+      [
+        "a513c237.2ee7e8"
+      ]
+    ]
+  },
+  {
+    "id": "a513c237.2ee7e8",
+    "type": "http response",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 730,
+    "y": 440,
+    "wires": []
+  },
+  {
+    "id": "326c509f.63f64",
+    "type": "websocket out",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "server": "2c8ee2e3.fdea2e",
+    "client": "",
+    "x": 750,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "3ba5394.b5fc3c6",
+    "type": "http in",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "url": "/nrf/output/demo_client",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 230,
+    "y": 80,
+    "wires": [
+      [
+        "49d87d96.0c1054",
+        "326c509f.63f64",
+        "e4f93f03.d6eb9",
+        "4e7384d4.2f6b04"
+      ]
+    ]
+  },
+  {
+    "id": "49d87d96.0c1054",
+    "type": "http response",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 590,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "c9542e66.65c1e8",
+    "type": "websocket in",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "server": "2c8ee2e3.fdea2e",
+    "client": "",
+    "x": 170,
+    "y": 300,
+    "wires": [
+      [
+        "608ed2df.b95994"
+      ]
+    ]
+  },
+  {
+    "id": "608ed2df.b95994",
+    "type": "function",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "func": "delete msg._session;\nreturn msg;\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 390,
+    "y": 220,
+    "wires": [
+      [
+        "326c509f.63f64"
+      ]
+    ]
+  },
+  {
+    "id": "e4f93f03.d6eb9",
+    "type": "debug",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 570,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "4e7384d4.2f6b04",
+    "type": "socketio-out",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "path": "payload.id",
+    "pathType": "msg",
+    "value": "payload",
+    "valueType": "msg",
+    "x": 710,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "4225d793.08de28",
+    "type": "socketio-in",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "path": "socket.io",
+    "output": "payload",
+    "pathType": "str",
+    "x": 390,
+    "y": 360,
+    "wires": [
+      [
+        "aa312240.1e8a3"
+      ]
+    ]
+  },
+  {
+    "id": "aa312240.1e8a3",
+    "type": "debug",
+    "z": "9bbfeeea.fdd2e",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 600,
+    "y": 380,
+    "wires": []
+  }
+]

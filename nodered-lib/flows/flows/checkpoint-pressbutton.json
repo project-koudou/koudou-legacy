@@ -1,0 +1,277 @@
+[
+  {
+    "id": "62508a6d.32b454",
+    "type": "tab",
+    "label": "checkpoint-pressbutton",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "1991c98.229fd37",
+    "type": "http in",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "url": "/nrf/checkpoint/pressbutton",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 290,
+    "y": 220,
+    "wires": [
+      [
+        "db18580c.4bf1d",
+        "174b9b4.1883165",
+        "e6456d69.45a21"
+      ]
+    ]
+  },
+  {
+    "id": "a2223a34.cc3e58",
+    "type": "http request",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": true,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 726,
+    "y": 481,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ccaf51b8.898de",
+    "type": "json",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 510,
+    "y": 80,
+    "wires": [
+      [
+        "d1afb1d4.be05b8"
+      ]
+    ]
+  },
+  {
+    "id": "d1afb1d4.be05b8",
+    "type": "split",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 650,
+    "y": 240,
+    "wires": [
+      [
+        "7f4b250.339a85c",
+        "a7e35141.66c818"
+      ]
+    ]
+  },
+  {
+    "id": "e6456d69.45a21",
+    "type": "debug",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 930,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "db18580c.4bf1d",
+    "type": "http response",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "statusCode": "",
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "x": 510,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "7f4b250.339a85c",
+    "type": "change",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "rules": [
+      {
+        "t": "move",
+        "p": "payload.endpoint",
+        "pt": "msg",
+        "to": "url",
+        "tot": "msg"
+      },
+      {
+        "t": "move",
+        "p": "payload.payload",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 629,
+    "y": 348,
+    "wires": [
+      [
+        "a2223a34.cc3e58",
+        "e6456d69.45a21"
+      ]
+    ]
+  },
+  {
+    "id": "25aedb0f.92026c",
+    "type": "http request",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 350,
+    "y": 80,
+    "wires": [
+      [
+        "ccaf51b8.898de"
+      ]
+    ]
+  },
+  {
+    "id": "482d5750.ced49",
+    "type": "http in",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "url": "/nrf/checkpoint/pressbutton",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 300,
+    "y": 280,
+    "wires": [
+      [
+        "db18580c.4bf1d",
+        "174b9b4.1883165",
+        "e6456d69.45a21"
+      ]
+    ]
+  },
+  {
+    "id": "a7e35141.66c818",
+    "type": "change",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/plan/\" & msg.payload.payload.id & \"/next\"",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 720,
+    "y": 180,
+    "wires": [
+      [
+        "7b36a91.0c05e58"
+      ]
+    ]
+  },
+  {
+    "id": "7b36a91.0c05e58",
+    "type": "http request",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 830,
+    "y": 100,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "174b9b4.1883165",
+    "type": "change",
+    "z": "62508a6d.32b454",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/_plan/flow?subscribedTo=/nrf/checkpoint/pressbutton\"",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 280,
+    "y": 140,
+    "wires": [
+      [
+        "25aedb0f.92026c"
+      ]
+    ]
+  }
+]

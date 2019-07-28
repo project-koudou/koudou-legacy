@@ -1,0 +1,145 @@
+[
+  {
+    "id": "2c9fcfa3.010e8",
+    "type": "tab",
+    "label": "core-output_handler",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "4987a2c5.c4176c",
+    "type": "http in",
+    "z": "2c9fcfa3.010e8",
+    "name": "",
+    "url": "/nrf/core/output_handler",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 200,
+    "y": 320,
+    "wires": [
+      [
+        "7df09130.161db",
+        "f00f9b24.eca978"
+      ]
+    ]
+  },
+  {
+    "id": "9a036397.4155b8",
+    "type": "debug",
+    "z": "2c9fcfa3.010e8",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 730,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "5634e6cd.9149f8",
+    "type": "switch",
+    "z": "2c9fcfa3.010e8",
+    "name": "",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "jsonata_exp",
+        "v": "(\"/nrf/output/demo_client\" in payload.output[].endpoint)",
+        "vt": "jsonata"
+      },
+      {
+        "t": "jsonata_exp",
+        "v": "(\"/nrf/output/demo_speaker\" in payload.output[].endpoint)",
+        "vt": "jsonata"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 410,
+    "y": 380,
+    "wires": [
+      [
+        "a16de96.cb89998",
+        "9a036397.4155b8"
+      ],
+      [
+        "fbbc2cd8.cd63d8"
+      ]
+    ]
+  },
+  {
+    "id": "a16de96.cb89998",
+    "type": "http request",
+    "z": "2c9fcfa3.010e8",
+    "name": "output/demo_client",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "localhost:9000/api/nrf/output/demo_client",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 680,
+    "y": 380,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "7df09130.161db",
+    "type": "http response",
+    "z": "2c9fcfa3.010e8",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 420,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "f00f9b24.eca978",
+    "type": "delay",
+    "z": "2c9fcfa3.010e8",
+    "name": "",
+    "pauseType": "rate",
+    "timeout": "2",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 230,
+    "y": 400,
+    "wires": [
+      [
+        "5634e6cd.9149f8"
+      ]
+    ]
+  },
+  {
+    "id": "fbbc2cd8.cd63d8",
+    "type": "http request",
+    "z": "2c9fcfa3.010e8",
+    "name": "output/demo_speaker",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "localhost:9000/api/nrf/output/demo_speaker",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 680,
+    "y": 500,
+    "wires": [
+      []
+    ]
+  }
+]

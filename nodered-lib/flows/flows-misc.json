@@ -1,0 +1,16 @@
+[
+  {
+    "id": "2c8ee2e3.fdea2e",
+    "type": "websocket-listener",
+    "z": "",
+    "path": "/ws/demo-client",
+    "wholemsg": "false"
+  },
+  {
+    "id": "5ead43ed.099534",
+    "type": "websocket-listener",
+    "z": "",
+    "path": "/ws/demo-speaker",
+    "wholemsg": "false"
+  }
+]

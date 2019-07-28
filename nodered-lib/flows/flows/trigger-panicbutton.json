@@ -1,0 +1,275 @@
+[
+  {
+    "id": "2c48f79e.9df508",
+    "type": "tab",
+    "label": "trigger-panicbutton",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "ee7aae3.6c573d",
+    "type": "http in",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "url": "/nrf/trigger/panicbutton",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 150,
+    "y": 260,
+    "wires": [
+      [
+        "cce87a8b.d920a",
+        "67d319d2.dba018"
+      ]
+    ]
+  },
+  {
+    "id": "79078872.fcc9d",
+    "type": "http request",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": true,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 606,
+    "y": 521,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "f9821123.48d5f",
+    "type": "json",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 390,
+    "y": 120,
+    "wires": [
+      [
+        "375db758.8794d8"
+      ]
+    ]
+  },
+  {
+    "id": "375db758.8794d8",
+    "type": "split",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 530,
+    "y": 280,
+    "wires": [
+      [
+        "5ee9cf3c.f4065",
+        "ac758cdb.0a3618"
+      ]
+    ]
+  },
+  {
+    "id": "ae1f4179.f4881",
+    "type": "debug",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 746,
+    "y": 405,
+    "wires": []
+  },
+  {
+    "id": "cce87a8b.d920a",
+    "type": "http response",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "statusCode": "",
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "x": 390,
+    "y": 320,
+    "wires": []
+  },
+  {
+    "id": "5ee9cf3c.f4065",
+    "type": "change",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "rules": [
+      {
+        "t": "move",
+        "p": "payload.endpoint",
+        "pt": "msg",
+        "to": "url",
+        "tot": "msg"
+      },
+      {
+        "t": "move",
+        "p": "payload.payload",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 509,
+    "y": 388,
+    "wires": [
+      [
+        "79078872.fcc9d",
+        "ae1f4179.f4881"
+      ]
+    ]
+  },
+  {
+    "id": "4b169a4b.d6c1e4",
+    "type": "http request",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 230,
+    "y": 120,
+    "wires": [
+      [
+        "f9821123.48d5f"
+      ]
+    ]
+  },
+  {
+    "id": "a714d27c.9ea8e",
+    "type": "http in",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "url": "/nrf/trigger/panicbutton",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 170,
+    "y": 320,
+    "wires": [
+      [
+        "cce87a8b.d920a",
+        "67d319d2.dba018"
+      ]
+    ]
+  },
+  {
+    "id": "ac758cdb.0a3618",
+    "type": "change",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/plan/\" & msg.payload.payload.id & \"/next\"",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 600,
+    "y": 220,
+    "wires": [
+      [
+        "60995711.e7d02"
+      ]
+    ]
+  },
+  {
+    "id": "60995711.e7d02",
+    "type": "http request",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 710,
+    "y": 140,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "67d319d2.dba018",
+    "type": "change",
+    "z": "2c48f79e.9df508",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/_plan/flow?subscribedTo=/nrf/trigger/panicbutton\"",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 160,
+    "y": 180,
+    "wires": [
+      [
+        "4b169a4b.d6c1e4"
+      ]
+    ]
+  }
+]

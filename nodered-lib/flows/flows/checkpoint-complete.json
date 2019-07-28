@@ -1,0 +1,302 @@
+[
+  {
+    "id": "d32fff8b.cab19",
+    "type": "tab",
+    "label": "checkpoint-complete",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "700abcb.3c4ed44",
+    "type": "http in",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "url": "/nrf/checkpoint/complete",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 140,
+    "y": 320,
+    "wires": [
+      [
+        "bd1b38db.c113d",
+        "8d35a99e.36df08",
+        "c2f65c77.398c"
+      ]
+    ]
+  },
+  {
+    "id": "5c13019a.0056e8",
+    "type": "http request",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": true,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "basic",
+    "x": 586,
+    "y": 481,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "6c206f67.bb35b",
+    "type": "json",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 610,
+    "y": 100,
+    "wires": [
+      [
+        "ddfda952.6280e"
+      ]
+    ]
+  },
+  {
+    "id": "ddfda952.6280e",
+    "type": "split",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 710,
+    "y": 200,
+    "wires": [
+      [
+        "b8c1e35f.41fd",
+        "c2f65c77.398c",
+        "3331cc81.d81204"
+      ]
+    ]
+  },
+  {
+    "id": "c2f65c77.398c",
+    "type": "debug",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 670,
+    "y": 340,
+    "wires": []
+  },
+  {
+    "id": "bd1b38db.c113d",
+    "type": "http response",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 410,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "b8c1e35f.41fd",
+    "type": "change",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "rules": [
+      {
+        "t": "move",
+        "p": "payload.endpoint",
+        "pt": "msg",
+        "to": "url",
+        "tot": "msg"
+      },
+      {
+        "t": "move",
+        "p": "payload.payload",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 440,
+    "y": 400,
+    "wires": [
+      [
+        "5c13019a.0056e8",
+        "c2f65c77.398c"
+      ]
+    ]
+  },
+  {
+    "id": "7d240085.cf975",
+    "type": "http in",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "url": "/nrf/checkpoint/complete",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 140,
+    "y": 280,
+    "wires": [
+      [
+        "bd1b38db.c113d",
+        "8d35a99e.36df08"
+      ]
+    ]
+  },
+  {
+    "id": "40c07d30.f53c84",
+    "type": "change",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "rules": [
+      {
+        "t": "move",
+        "p": "payload.params",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 280,
+    "y": 160,
+    "wires": [
+      [
+        "bea95514.6878a"
+      ]
+    ]
+  },
+  {
+    "id": "bea95514.6878a",
+    "type": "http request",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": true,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 350,
+    "y": 100,
+    "wires": [
+      [
+        "6c206f67.bb35b"
+      ]
+    ]
+  },
+  {
+    "id": "8d35a99e.36df08",
+    "type": "change",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/_plan/flow?subscribedTo=/nrf/checkpoint/complete\"",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      },
+      {
+        "t": "set",
+        "p": "payload.params.id",
+        "pt": "msg",
+        "to": "payload.id",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 240,
+    "y": 220,
+    "wires": [
+      [
+        "40c07d30.f53c84"
+      ]
+    ]
+  },
+  {
+    "id": "3331cc81.d81204",
+    "type": "change",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/plan/\" & msg.payload.payload.id & \"/next\"",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"Accept\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 920,
+    "y": 180,
+    "wires": [
+      [
+        "b6f5c63b.11b2d"
+      ]
+    ]
+  },
+  {
+    "id": "b6f5c63b.11b2d",
+    "type": "http request",
+    "z": "d32fff8b.cab19",
+    "name": "",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 1030,
+    "y": 100,
+    "wires": [
+      []
+    ]
+  }
+]

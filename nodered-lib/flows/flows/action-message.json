@@ -1,0 +1,71 @@
+[
+  {
+    "id": "37ab08cb.d3bfc8",
+    "type": "tab",
+    "label": "action-message",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "a8942268.1ef458",
+    "type": "http in",
+    "z": "37ab08cb.d3bfc8",
+    "name": "",
+    "url": "/nrf/action/message",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 212.5,
+    "y": 200,
+    "wires": [
+      [
+        "310da76.64a7858",
+        "6179eddd.c3b764",
+        "32e300d3.e2581"
+      ]
+    ]
+  },
+  {
+    "id": "310da76.64a7858",
+    "type": "http response",
+    "z": "37ab08cb.d3bfc8",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 431.5,
+    "y": 192,
+    "wires": []
+  },
+  {
+    "id": "32e300d3.e2581",
+    "type": "http request",
+    "z": "37ab08cb.d3bfc8",
+    "name": "",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "http://localhost:9000/api/nrf/core/output_handler",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 590,
+    "y": 440,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "6179eddd.c3b764",
+    "type": "debug",
+    "z": "37ab08cb.d3bfc8",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 570,
+    "y": 320,
+    "wires": []
+  }
+]
