@@ -241,7 +241,7 @@
           }
         },
         countUpdates() {
-          return Math.max(0, this.messages.length - this.messagesToShow);
+          return Math.max(0, this.messages.length - (this.messagesToShow+1));
         },
         async choiceSelected(message, choice) {
           choice.actions.forEach(action => {
