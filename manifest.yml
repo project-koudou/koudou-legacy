@@ -8,3 +8,4 @@ applications:
    memory: 256M
    env:
     NODE_ENV: production
+    DEMO: 1
