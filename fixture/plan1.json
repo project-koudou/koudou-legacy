@@ -78,7 +78,7 @@
           "endpoint": "/nrf/action/message",
           "params": {
             "title": "Start Sharing Your Location",
-            "content": "<iframe v-once src=\"./map.html?getCurrentPosition=1\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen allow=\"geolocation\"></iframe>",
+            "content": "<iframe src=\"./map.html?getCurrentPosition=1\" width=\"100%\" height=\"200\" frameborder=\"0\" style=\"border:0\" allowfullscreen allow=\"geolocation\"></iframe>",
             "footer": "",
             "choices": [
               {
@@ -136,7 +136,7 @@
                   {
                     "endpointInternal": "api/feed",
                     "params": {
-                      "content": "Confirmed safety",
+                      "content": "<span class=\"tag is-success is-medium\">Confirmed safety</span>",
                       "status": "Safe"
                     }
                   }
@@ -150,7 +150,7 @@
                   {
                     "endpointInternal": "api/feed",
                     "params": {
-                      "content": "Reported trouble",
+                      "content": "<span class=\"tag is-danger is-medium\">Reported trouble</span>",
                       "status": "In trouble"
                     }
                   }
@@ -238,9 +238,8 @@
           "params": {
             "title": "Safety Instruction Checklist",
             "items": [
-              "Check the lab equipment",
               "Turn off the circuit breaker",
-              "Turn off the gas"
+              "Turn off the lab equipment"
             ],
             "choices": [
               {
@@ -275,7 +274,7 @@
           "endpoint": "/nrf/action/checklist",
           "params": {
             "title": "My Todos",
-            "items": ["Bring some Aspirin", "Take my passport"]
+            "items": ["Have some aspirin"]
           },
           "editableParamKeys": ["items"],
           "output": [

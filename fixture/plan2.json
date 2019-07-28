@@ -81,6 +81,23 @@
         }
       },
       "blocks": [
+        {
+          "id": "building-safety",
+          "version": 1,
+          "name": "Check Safety of Building",
+          "style": "is-info",
+          "category": ["Note"],
+          "always": null,
+          "message": "",
+          "endpoint": "",
+          "params": {},
+          "output": [
+            {
+              "name": "Default Smart Speaker",
+              "endpoint": "/nrf/output/demo_speaker"
+            }
+          ]
+        }
       ]
     },
     {
@@ -97,6 +114,23 @@
       },
       "complete": null,
       "blocks": [
+        {
+          "id": "student-safety",
+          "version": 1,
+          "name": "Check Safety of Students",
+          "style": "is-info",
+          "category": ["Note"],
+          "always": null,
+          "message": "",
+          "endpoint": "",
+          "params": {},
+          "output": [
+            {
+              "name": "Default Smart Speaker",
+              "endpoint": "/nrf/output/demo_speaker"
+            }
+          ]
+        }
       ]
     }
   ],

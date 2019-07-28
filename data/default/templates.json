@@ -66,7 +66,29 @@
               "output": []
             }
           },
-          "blocks": []
+          "blocks": [
+            {
+              "id": "announcement",
+              "version": 1,
+              "name": "Tune in for Announcements",
+              "style": "is-warning",
+              "category": ["Action"],
+              "always": "Automatically added by ABC Univ.",
+              "message": "",
+              "endpoint": "/nrf/action/message",
+              "params": {
+                "title": "Announcement",
+                "content": "",
+                "speakContent": "An Earthquake Early Warning went out. Ensure your safety. Follow instructions."
+              },
+              "output": [
+                {
+                  "name": "Default Smart Speaker",
+                  "endpoint": "/nrf/output/demo_speaker"
+                }
+              ]
+            }
+          ]
         },
         {
           "name": "Before Evacuation",
@@ -94,7 +116,33 @@
             }
           },
           "complete": null,
-          "blocks": []
+          "blocks": [
+            {
+              "id": "message-evacuation",
+              "version": 1,
+              "name": "Get Notified of Evacuation Order",
+              "category": ["Note"],
+              "style": "is-info",
+              "always": false,
+              "message": "",
+              "endpoint": "/nrf/action/message",
+              "params": {
+                "title": "Evacuation Order went out",
+                "content": "Please evacuate to the nearest evacuation site now.",
+                "speakContent": "Please evacuate to the nearest evacuation site now."
+              },
+              "output": [
+                {
+                  "name": "Default Mobile Client",
+                  "endpoint": "/nrf/output/demo_client"
+                },
+                {
+                  "name": "Default Smart Speaker",
+                  "endpoint": "/nrf/output/demo_speaker"
+                }
+              ]
+            }
+          ]
         },
         {
           "name": "Stay at Evacuation Site",

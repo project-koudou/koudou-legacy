@@ -98,7 +98,7 @@
             {
               "endpointInternal": "api/feed",
               "params": {
-                "content": "Confirmed safety",
+                "content": "<span class=\"tag is-success is-medium\">Confirmed safety</span>",
                 "status": "Safe"
               }
             }
@@ -112,7 +112,7 @@
             {
               "endpointInternal": "api/feed",
               "params": {
-                "content": "Reported trouble",
+                "content": "<span class=\"tag is-danger is-medium\">Reported trouble</span>",
                 "status": "In trouble"
               }
             }
@@ -193,6 +193,7 @@
     "id": "message-evacuation",
     "version": 1,
     "name": "Get Notified of Evacuation Order",
+    "disabled": true,
     "category": ["Note"],
     "style": "is-info",
     "always": null,
@@ -225,11 +226,7 @@
     "endpoint": "/nrf/action/checklist",
     "params": {
       "title": "Safety Instruction Checklist",
-      "items": [
-        "Turn off the lab equipment",
-        "Turn off the circuit breaker",
-        "Turn off the gas"
-      ],
+      "items": ["Turn off the circuit breaker", "Turn off the lab equipment"],
       "choices": [
         {
           "text": "Confirm",
@@ -261,7 +258,7 @@
     "endpoint": "/nrf/action/checklist",
     "params": {
       "title": "My Todos",
-      "items": ["Bring some Aspirin", "Take my passport"]
+      "items": ["Todo 1", "Todo 2"]
     },
     "editableParamKeys": ["items"],
     "output": [
@@ -295,7 +292,7 @@
     "id": "weather",
     "version": 1,
     "name": "Check Weather Forecast",
-    "disabled": true,
+    "disabled": false,
     "category": ["Action"],
     "style": "",
     "always": false,
@@ -326,8 +323,42 @@
   {
     "id": "health",
     "version": 1,
-    "name": "Check Health Condition",
-    "disabled": true,
+    "name": "Do Health Checking",
+    "disabled": false,
     "category": ["Action", "Healthcare"]
+  },
+  {
+    "id": "building-safety",
+    "version": 1,
+    "name": "Check Safety of Building",
+    "style": "is-info",
+    "category": ["Note"],
+    "always": null,
+    "message": "",
+    "endpoint": "",
+    "params": {},
+    "output": [
+      {
+        "name": "Default Smart Speaker",
+        "endpoint": "/nrf/output/demo_speaker"
+      }
+    ]
+  },
+  {
+    "id": "student-safety",
+    "version": 1,
+    "name": "Check Safety of Students",
+    "style": "is-info",
+    "category": ["Note"],
+    "always": null,
+    "message": "",
+    "endpoint": "",
+    "params": {},
+    "output": [
+      {
+        "name": "Default Smart Speaker",
+        "endpoint": "/nrf/output/demo_speaker"
+      }
+    ]
   }
 ]
