@@ -114,11 +114,11 @@
     "name": "",
     "rules": [
       {
-        "t": "move",
-        "p": "payload.endpoint",
+        "t": "set",
+        "p": "url",
         "pt": "msg",
-        "to": "url",
-        "tot": "msg"
+        "to": "$env(\"SYSTEM_URL\") & msg.payload.endpoint",
+        "tot": "jsonata"
       },
       {
         "t": "move",

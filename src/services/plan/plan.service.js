@@ -78,7 +78,7 @@ module.exports = function(app) {
             });
           }
           let query = `$append([], phases.blocks.{
-            "endpoint": "http://localhost:9000/api" & endpoint,
+            "endpoint": "/api/red" & endpoint,
             "payload": {
               "id": $$.id,
               "params": params,
@@ -87,7 +87,7 @@ module.exports = function(app) {
           })`;
           let res1 = jsonata(query).evaluate(filteredPhases);
           query = `$append([], phases.{
-            "endpoint": "http://localhost:9000/api" & complete.invoke.endpoint,
+            "endpoint": "/api/red" & complete.invoke.endpoint,
             "payload": {
               "id": $$.id,
               "params": complete.invoke.params,
