@@ -10,13 +10,13 @@
         <span class="navbar-item">
           <router-link to="/"><h1 class="title is-4 has-text-white">KOUDOU</h1></router-link>
         </span>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <a role="button" @click="burgerOpen = !burgerOpen" class="navbar-burger" :class="{ 'is-active': burgerOpen }" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div class="navbar-menu">
+      <div class="navbar-menu" :class="{ 'is-active': burgerOpen }">
         <div class="navbar-start">
           <router-link to="/" class="navbar-item">
             <span class="icon">
@@ -30,6 +30,12 @@
             </span>&nbsp;
             Prepare a new plan
           </router-link>
+          <a href="#" v-if="isOperator" class="navbar-item">
+            <span class="icon">
+              <i class="fas fa-project-diagram"></i>
+            </span>&nbsp;
+            Node-RED
+          </a>
         </div>
       </div>
     </nav>
@@ -46,6 +52,23 @@
     </section>
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+
+export default {
+  name: 'app',
+  data() {
+    return {
+      isOperator: JSON.parse(localStorage.isOperator),
+      burgerOpen: false,
+    };
+  },
+  updated() {
+    this.isOperator = JSON.parse(localStorage.isOperator);
+  },
+};
+</script>
 
 <style lang="scss">
 $message-background-color: #fcfcfc;
