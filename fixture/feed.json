@@ -6,10 +6,10 @@
     "content": "Example message 1",
     "status": "Safe",
     "location": {
-      "placeName": "Tokyo Station",
+      "placeName": "IBM Thomas J. Watson Research Center",
       "timestamp": "2019-03-01T12:34:00+09:00",
-      "latitude": 35.681236,
-      "longitude": 139.767125
+      "latitude": 41.209752,
+      "longitude": -73.802647
     }
   },
   {
@@ -26,10 +26,10 @@
     "content": "Example message 3",
     "status": "In Trouble",
     "location": {
-      "placeName": "London",
+      "placeName": "IBM Tokyo",
       "timestamp": "2019-03-02T10:09:00+09:00",
-      "latitude": 51.507351,
-      "longitude": -0.127758
+      "latitude": 35.678542,
+      "longitude": 139.787124
     }
   }
 ]
