@@ -35,7 +35,6 @@
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
-    "detect-browser": "^4.6.0",
     "feathers-authentication-hooks": "^0.3.1",
     "feathers-hooks-common": "^4.20.7",
     "feathers-nedb": "^4.0.1",
