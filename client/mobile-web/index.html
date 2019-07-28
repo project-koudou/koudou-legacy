@@ -6,9 +6,14 @@
   <title>KOUDOU Assist</title>
   <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
   <link href="//cdn.jsdelivr.net/npm/vuetify@1.5.16/dist/vuetify.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//unpkg.com/leaflet@1.5.1/dist/leaflet.css" crossorigin="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <style>
+    [v-cloak] {
+      display: none;
+    }
+
     .lds-ripple {
       display: inline-block;
       position: relative;
@@ -79,7 +84,7 @@
 
 <body>
   <div id="app">
-    <v-app class="white">
+    <v-app v-cloak class="white">
       <!-- <v-toolbar>
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title>Notifications</v-toolbar-title>
@@ -100,16 +105,15 @@
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs12 v-for="(message, idx) in messages.slice().reverse()"
-            v-if="messages.length - idx <= messagesToShow" v-show="message.show">
-            <v-card>
+          <v-flex xs12 v-for="(message, idx) in filteredMessages" :key="message.title">
+            <v-card :class="{ 'done': !message.show }">
               <v-card-title primary-title>
                 <div>
                   <div class="headline">{{ message.title }}</div>
                 </div>
               </v-card-title>
               <v-card-text v-if="message.content">
-                <span v-html="message.content"></span>
+                <span v-once v-html="message.content"></span>
               </v-card-text>
               <v-card-text v-if="message.items">
                 <v-list>
@@ -124,17 +128,17 @@
                 </v-list>
               </v-card-text>
               <v-card-actions v-if="!message.choices">
-                <v-btn flat @click="close(message)">Confirm</v-btn>
+                <v-btn depressed block @click="close(message, idx)">Confirm</v-btn>
               </v-card-actions>
               <v-card-actions v-if="message.choices">
-                <v-btn flat v-for="choice in message.choices" 　:color="choice.color"
+                <v-btn depressed block v-for="choice in message.choices" :color="choice.color"
                   @click="choiceSelected(message, choice)">{{ choice.text }}
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
-          <v-flex xs12 v-for="message in archive.slice().reverse()" v-show="!message.show">
-            <v-card color="" class="done">
+          <!-- <v-flex xs12 v-for="message in messages.slice().reverse().filter(x => !x.show)" :key="message.title">
+            <v-card v-once color="" class="done">
               <v-card-title primary-title>
                 <div>
                   <div class="headline">{{ message.title }}</div>
@@ -144,7 +148,7 @@
                 <span v-html="message.content"></span>
               </v-card-text>
               <v-card-text v-if="message.items">
-                <v-list>
+                <v-list v-once>
                   <v-list-tile @click="" v-for="item in message.items">
                     <v-list-tile-action>
                       <v-checkbox></v-checkbox>
@@ -156,7 +160,7 @@
                 </v-list>
               </v-card-text>
             </v-card>
-          </v-flex>
+          </v-flex> -->
         </v-layout>
       </v-container>
     </v-app>
@@ -167,6 +171,10 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
   <script src="//unpkg.com/@feathersjs/client@^3.0.0/dist/feathers.js"></script>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="//unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
   <script>
     const socket = io()  // io('http://localhost:3030')
     const client = feathers()
@@ -174,10 +182,10 @@
 
     let params = (new URL(document.location)).searchParams
     let host = params.get("host") || "localhost:9000"
-    let wsUri = `ws://${host}/api/ws/demo-client`
-    let ioUri = `http://${host}`
+    let ioUri = `${location.protocol}//${host}`
     let subs = JSON.parse(params.get("s")) || [];
 
+    let name = params.get("id") ? null : prompt("Input your name:");
     let tempId = params.get("id") || prompt("Input your email address:");
 
     new Vue({
@@ -187,25 +195,48 @@
           "loaded": false,
           "isReconnecting": false,
           "messages": [],
-          "messagesToShow": 1,
+          "messagesToShow": 0,
           "archive": [],
-          "indicatorValue": ""
+          "indicatorValue": "",
+          "currentIdx": 0,
+        }
+      },
+      computed: {
+        filteredMessages() {
+          this.messages = _.sortBy(this.messages, (x) => x.idx);
+          console.log(this.currentIdx);
+          console.log(this.messages);
+          if (this.messages.length > 0 && this.messages[0].idx === 0) {
+            let nIdx = 0;
+            this.messages.forEach((v, i, a) => {
+              if (i == 0) return;
+              if (this.messages[i].idx - this.messages[i-1].idx === 1) {
+                nIdx++;
+              } else {
+                return;
+              }
+            });
+            this.currentIdx = nIdx;
+          }
+          let filtered = _.sortBy(this.messages.filter(x => this.messages.indexOf(x) <= this.messagesToShow && x.idx <= this.currentIdx), (x) => x.show ? 1 : 0);
+          let reversed = filtered.slice().reverse();
+          return reversed;
         }
       },
       methods: {
         clear() {
           if (this.messagesToShow === 0) {
-            this.archive = [];
+            this.archive.splice(0, this.archive.length);
           }
-          this.messages = [];
+          this.messages.splice(0, this.messages.length);
           this.messagesToShow = 0;
         },
-        async close(message) {
+        async close(message, idx) {
           this.archive.push(message)
-          message.show = false
+          this.messages[this.messages.indexOf(message)].show = false
           let activeLength = this.messagesToShow - this.archive.length
           console.log(activeLength)
-          if (activeLength === 0) {
+          if (activeLength < 0) {
             this.messagesToShow++
           }
         },
@@ -217,20 +248,40 @@
             console.log(tempId);
             let resp = Object.assign(action.params, {
               "clientId": tempId,
+              "name": name,
               "date": moment().format(),
             })
             if (action.sendLocation) {
               // Location
+              // navigator.geolocation.getCurrentPosition((_pos) => {
+              //   let pos = {
+              //     timestamp: moment().format(),
+              //     latitude: _pos.coords.latitude, // 35.681236,
+              //     longitude: _pos.coords.longitude // 139.767125,
+              //   }
+              //   resp = Object.assign(resp, {
+              //     "location": pos,
+              //   })
+              //   console.log(resp);
+              //   client.service(action.endpointInternal).create(resp)
+              // })
+              console.log(window._latlng);
               let pos = {
                 timestamp: moment().format(),
-                latitude: 35.681236,
-                longitude: 139.767125,
+                latitude: window._latlng.lat, // 35.681236,
+                longitude: window._latlng.lng // 139.767125,
               }
               resp = Object.assign(resp, {
                 "location": pos,
               })
+              resp.content = resp.content.replace("LAT", window._latlng.lat)
+              resp.content = resp.content.replace("LNG", window._latlng.lng)
+              resp.content = resp.content.replace("ACC", window._acc)
+              console.log(resp);
+              client.service(action.endpointInternal).create(resp)
+            } else {
+              client.service(action.endpointInternal).create(resp)
             }
-            client.service(action.endpointInternal).create(resp)
           });
           if (choice.close) {
             this.close(message)
@@ -239,11 +290,34 @@
         connect() {
           let socket = io(ioUri, { path: "/api/red/socket.io" })
 
-          socket.on('connect', () => {
+          let connectionHandler = () => {
             this.isReconnecting = false
+            subs.forEach((v) => {
+              console.log(v);
+              socket.on(v, (payload) => {
+                console.log(payload)
+                if (payload.params.items) {
+                }
+                console.log(payload.params);
+                this.messages.push(
+                  {
+                    "idx": payload.params.idx,
+                    "title": payload.params.title,
+                    "content": payload.params.content,
+                    "items": payload.params.items,
+                    "footer": payload.params.footer,
+                    "choices": payload.params.choices,
+                    "show": true,
+                  }
+                )
+              });
+            });
             this.indicatorValue = "Connected"
             setTimeout(() => { this.indicatorValue = "Standby" }, 3000)
-          });
+          }
+
+          socket.on('connect', connectionHandler);
+          // socket.on('reconnect', connectionHandler);
 
           socket.on('disconnect', () => {
             if (this.isReconnecting === false) {
@@ -252,37 +326,7 @@
             subs.forEach((v) => {
               socket.removeAllListeners(v);
             });
-            socket.removeAllListeners('disconnect');
-            socket.removeAllListeners('reconnect');
-            socket.removeAllListeners('connect');
           });
-
-          subs.forEach((v) => {
-            console.log(v);
-            socket.on(v, (payload) => {
-              console.log(payload)
-              if (payload.params.items) {
-              }
-              this.messages.push(
-                {
-                  "title": payload.params.title,
-                  "content": payload.params.content,
-                  "items": payload.params.items,
-                  "footer": payload.params.footer,
-                  "choices": payload.params.choices,
-                  "show": true,
-                }
-              )
-            });
-          });
-
-          // ws.onclose = (ev) => {
-          //   if (this.isReconnecting === false) {
-          //     this.indicatorValue = "Disconnected"
-          //   }
-          //   this.isReconnecting = true
-          //   setTimeout(() => { this.connect() }, 1000)
-          // }
         }
       },
       mounted: function () {
