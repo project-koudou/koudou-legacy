@@ -3,6 +3,7 @@
   "port": 3030,
   "frontend": "../frontend/dist/",
   "noderedBase": "http://localhost:9000",
+  "noderedAPIPath": "/api",
   "paginate": {
     "default": 100,
     "max": 500

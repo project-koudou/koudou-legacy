@@ -28,7 +28,6 @@ app.configure(configuration());
 app.use(helmet());
 app.use(cors());
 app.use(compress());
-app.use(express.urlencoded({ extended: true }));
 // app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/demo-client', express.static('client/mobile-web'));
@@ -41,11 +40,15 @@ app.use('/demo-speaker', express.static('client/smartspeaker-web'));
 // });
 // app.use('/socket.io', pxWs1);
 
+let APIPath = `${app.get('noderedAPIPath')}` || '/api';
+
 const px = proxy('/api/red', {
   target: `${app.get('noderedBase')}`,
   changeOrigin: true,
   ws: true,
-  pathRewrite: { '^/api/red/socket.io': '/socket.io', '^/api/red': '/api' }
+  pathRewrite: { '^/api/red/socket.io': '/socket.io', '^/api/red': APIPath },
+  // headers: app.get('noderedAuthToken') ? { 'Authorization': `Bearer ${app.get('noderedAuthToken')}` } : {},
+  // logLevel: 'debug',
 });
 app.use('/api/red', px);
 
@@ -53,9 +56,12 @@ const px2 = proxy('/red', {
   target: `${app.get('noderedBase')}`,
   changeOrigin: true,
   ws: true,
+  // headers: app.get('noderedAuthToken') ? { 'Authorization': `Bearer ${app.get('noderedAuthToken')}` } : {},
+  // logLevel: 'debug',
 });
 app.use('/red', px2);
 
+app.use(express.urlencoded({ extended: true }));
 app.use(history());
 app.use('/demo-client', express.static('client/mobile-web'));
 app.use('/demo-speaker', express.static('client/smartspeaker-web'));
