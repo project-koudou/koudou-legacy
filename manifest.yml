@@ -3,9 +3,10 @@ applications:
  - name: koudou-demo
    buildpacks:
     - sdk-for-nodejs
-   random-route: false
+   random-route: true
    instances: 1
    memory: 256M
    env:
     NODE_ENV: production
     DEMO: 1
+    NODEREDBASE: "https://plgs-demo1.mybluemix.net"
