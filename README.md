@@ -1,18 +1,27 @@
-# KOUDOU
 
-> KOUDOU supports your flow-based planning and action for crisis response
+<h1 align="center">
+  <br>
+  <img src="docs/assets/logo1.png?raw=true" width="120">
+  <br>
+  KOUDOU
+  <br>
+</h1>
 
-(Screenshot)
+<h4 align="center">KOUDOU supports your flow-based planning and action for crisis response with the Node-RED backend.</h4>
 
-## Table of Contents
+<p align="center">
+<img src="docs/assets/sshot.png?raw=true" height="320">
+</p>
 
-- Getting Started with Demo
-- [Features](#features)
-- About the Project
-- [Install and Set Up](#install-and-set-up)
-- [Authors](#authors)
+<p align="center">
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#features">Features</a> •
+  <a href="#about-the-project">About the Project</a> •
+  <a href="#install-and-set-up">Install and Set Up</a> •
+  <a href="#authors">Authors</a>
+</p>
 
-## Getting Started with Demo
+## Getting Started
 
 ## Features
 
