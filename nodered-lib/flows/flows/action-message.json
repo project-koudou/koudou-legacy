@@ -20,8 +20,7 @@
     "wires": [
       [
         "310da76.64a7858",
-        "6179eddd.c3b764",
-        "32e300d3.e2581"
+        "9616292e.5fb01"
       ]
     ]
   },
@@ -44,7 +43,7 @@
     "method": "POST",
     "ret": "txt",
     "paytoqs": false,
-    "url": "http://localhost:9000/api/nrf/core/output_handler",
+    "url": "",
     "tls": "",
     "proxy": "",
     "authType": "",
@@ -63,9 +62,38 @@
     "tosidebar": true,
     "console": false,
     "tostatus": false,
-    "complete": "false",
-    "x": 570,
+    "complete": "true",
+    "targetType": "full",
+    "x": 550,
     "y": 320,
     "wires": []
+  },
+  {
+    "id": "9616292e.5fb01",
+    "type": "change",
+    "z": "37ab08cb.d3bfc8",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/red/nrf/core/output_handler\"",
+        "tot": "jsonata"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 350,
+    "y": 380,
+    "wires": [
+      [
+        "32e300d3.e2581",
+        "6179eddd.c3b764"
+      ]
+    ]
   }
 ]

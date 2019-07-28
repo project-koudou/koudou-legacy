@@ -64,11 +64,11 @@
     "y": 380,
     "wires": [
       [
-        "a16de96.cb89998",
-        "9a036397.4155b8"
+        "9a036397.4155b8",
+        "6393fd7a.9c3d4c"
       ],
       [
-        "fbbc2cd8.cd63d8"
+        "b6c247d4.73ddc8"
       ]
     ]
   },
@@ -80,12 +80,12 @@
     "method": "POST",
     "ret": "txt",
     "paytoqs": false,
-    "url": "localhost:9000/api/nrf/output/demo_client",
+    "url": "",
     "tls": "",
     "proxy": "",
     "authType": "",
-    "x": 680,
-    "y": 380,
+    "x": 730,
+    "y": 400,
     "wires": [
       []
     ]
@@ -132,7 +132,7 @@
     "method": "POST",
     "ret": "txt",
     "paytoqs": false,
-    "url": "localhost:9000/api/nrf/output/demo_speaker",
+    "url": "",
     "tls": "",
     "proxy": "",
     "authType": "",
@@ -140,6 +140,60 @@
     "y": 500,
     "wires": [
       []
+    ]
+  },
+  {
+    "id": "6393fd7a.9c3d4c",
+    "type": "change",
+    "z": "2c9fcfa3.010e8",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/red/nrf/output/demo_client\"",
+        "tot": "jsonata"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 570,
+    "y": 360,
+    "wires": [
+      [
+        "a16de96.cb89998"
+      ]
+    ]
+  },
+  {
+    "id": "b6c247d4.73ddc8",
+    "type": "change",
+    "z": "2c9fcfa3.010e8",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "url",
+        "pt": "msg",
+        "to": "$env(\"SYSTEM_URL\") & \"/api/red/nrf/output/demo_speaker\"",
+        "tot": "jsonata"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 510,
+    "y": 440,
+    "wires": [
+      [
+        "fbbc2cd8.cd63d8"
+      ]
     ]
   }
 ]
