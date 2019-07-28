@@ -20,15 +20,15 @@
     "format": "audio/wav",
     "password": "",
     "apikey": "",
-    "payload-response": true,
+    "payload-response": false,
     "default-endpoint": true,
     "service-endpoint": "https://stream.watsonplatform.net/text-to-speech/api",
-    "x": 500,
-    "y": 220,
+    "x": 520,
+    "y": 380,
     "wires": [
       [
         "87aeeebc.a282d8",
-        "eb737c05.4be4f8"
+        "2f382103.ace5f6"
       ]
     ]
   },
@@ -43,18 +43,8 @@
     "tostatus": false,
     "complete": "true",
     "targetType": "full",
-    "x": 670,
-    "y": 100,
-    "wires": []
-  },
-  {
-    "id": "f5a1565e.6d4978",
-    "type": "play audio",
-    "z": "abea0545.97074",
-    "name": "",
-    "voice": "0",
-    "x": 600,
-    "y": 600,
+    "x": 710,
+    "y": 260,
     "wires": []
   },
   {
@@ -64,8 +54,8 @@
     "name": "",
     "server": "5ead43ed.099534",
     "client": "",
-    "x": 620,
-    "y": 340,
+    "x": 640,
+    "y": 580,
     "wires": []
   },
   {
@@ -77,13 +67,12 @@
     "method": "post",
     "upload": false,
     "swaggerDoc": "",
-    "x": 140,
-    "y": 80,
+    "x": 180,
+    "y": 240,
     "wires": [
       [
         "8d6c6234.009e9",
-        "30211b2d.0806ac",
-        "87aeeebc.a282d8"
+        "1f65e039.c40a88"
       ]
     ]
   },
@@ -94,8 +83,8 @@
     "name": "",
     "statusCode": "",
     "headers": {},
-    "x": 450,
-    "y": 60,
+    "x": 490,
+    "y": 220,
     "wires": []
   },
   {
@@ -105,8 +94,8 @@
     "name": "",
     "server": "5ead43ed.099534",
     "client": "",
-    "x": 150,
-    "y": 220,
+    "x": 190,
+    "y": 380,
     "wires": [
       [
         "c5df6a22.dcd35"
@@ -121,8 +110,8 @@
     "func": "delete msg._session;\nreturn msg;\n",
     "outputs": 1,
     "noerr": 0,
-    "x": 370,
-    "y": 280,
+    "x": 410,
+    "y": 440,
     "wires": [
       [
         "eb737c05.4be4f8"
@@ -130,21 +119,110 @@
     ]
   },
   {
-    "id": "30211b2d.0806ac",
-    "type": "template",
+    "id": "90f40d09.08d7a8",
+    "type": "change",
     "z": "abea0545.97074",
     "name": "",
-    "field": "payload",
-    "fieldType": "msg",
-    "format": "handlebars",
-    "syntax": "mustache",
-    "template": "{{payload.params.speakContent}}",
-    "output": "str",
-    "x": 360,
-    "y": 140,
+    "rules": [
+      {
+        "t": "move",
+        "p": "speech",
+        "pt": "msg",
+        "to": "payload.audio",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 630,
+    "y": 480,
+    "wires": [
+      [
+        "eb737c05.4be4f8"
+      ]
+    ]
+  },
+  {
+    "id": "1f65e039.c40a88",
+    "type": "change",
+    "z": "abea0545.97074",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload2",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 270,
+    "y": 300,
+    "wires": [
+      [
+        "493af6a0.4626f"
+      ]
+    ]
+  },
+  {
+    "id": "493af6a0.4626f",
+    "type": "change",
+    "z": "abea0545.97074",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.params.speakContent",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 420,
+    "y": 340,
     "wires": [
       [
         "98ff12eb.9e3ba"
+      ]
+    ]
+  },
+  {
+    "id": "2f382103.ace5f6",
+    "type": "change",
+    "z": "abea0545.97074",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload2",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 580,
+    "y": 420,
+    "wires": [
+      [
+        "90f40d09.08d7a8"
       ]
     ]
   }
