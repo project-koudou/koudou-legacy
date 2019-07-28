@@ -1,7 +1,6 @@
 
 <h1 align="center">
-  <br>
-  <img src="docs/assets/logo1.png?raw=true" width="120">
+  <img src="docs/assets/logo1.png?raw=true" width="100">
   <br>
   KOUDOU
   <br>
