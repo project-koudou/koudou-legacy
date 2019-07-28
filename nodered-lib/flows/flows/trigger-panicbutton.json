@@ -143,8 +143,7 @@
     "y": 388,
     "wires": [
       [
-        "79078872.fcc9d",
-        "ae1f4179.f4881"
+        "79078872.fcc9d"
       ]
     ]
   },
@@ -155,7 +154,7 @@
     "name": "",
     "method": "GET",
     "ret": "txt",
-    "paytoqs": false,
+    "paytoqs": true,
     "url": "",
     "tls": "",
     "proxy": "",
@@ -177,8 +176,8 @@
     "method": "get",
     "upload": false,
     "swaggerDoc": "",
-    "x": 170,
-    "y": 320,
+    "x": 130,
+    "y": 340,
     "wires": [
       [
         "cce87a8b.d920a",
@@ -257,6 +256,13 @@
         "pt": "msg",
         "to": "{\"Accept\":\"application/json\"}",
         "tot": "json"
+      },
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "req.query",
+        "tot": "msg"
       }
     ],
     "action": "",
@@ -268,7 +274,8 @@
     "y": 180,
     "wires": [
       [
-        "4b169a4b.d6c1e4"
+        "4b169a4b.d6c1e4",
+        "ae1f4179.f4881"
       ]
     ]
   }

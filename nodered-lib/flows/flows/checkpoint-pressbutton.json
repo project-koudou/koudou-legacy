@@ -156,7 +156,7 @@
     "name": "",
     "method": "GET",
     "ret": "txt",
-    "paytoqs": false,
+    "paytoqs": true,
     "url": "",
     "tls": "",
     "proxy": "",
@@ -259,6 +259,13 @@
         "pt": "msg",
         "to": "{\"Accept\":\"application/json\"}",
         "tot": "json"
+      },
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "req.query",
+        "tot": "msg"
       }
     ],
     "action": "",

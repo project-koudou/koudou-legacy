@@ -5,7 +5,7 @@
   "id": "_plan2",
   "name": "Operator Response Plan for Earthquake (demo)",
   "description": "A workflow for administrative staff members in case of earthquake.",
-  "testTrigger": "/api/red/nrf/trigger/panicbutton",
+  "testTriggers": ["/api/red/nrf/trigger/panicbutton", "/api/red/nrf/checkpoint/pressbutton"],
   "phases": [
     {
       "name": "Preparation",
