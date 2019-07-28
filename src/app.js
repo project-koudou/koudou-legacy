@@ -33,18 +33,29 @@ app.use(express.urlencoded({ extended: true }));
 // Host the public folder
 app.use('/demo-client', express.static('client/mobile-web'));
 app.use('/demo-speaker', express.static('client/smartspeaker-web'));
-const px = proxy({
+
+// const pxWs1 = proxy('/socket.io', {
+//   target: `http://${app.get('host')}:${app.get('port')}/socket.io`,
+//   changeOrigin: true,
+//   ws: true,
+// });
+// app.use('/socket.io', pxWs1);
+
+const px = proxy('/api/red', {
   target: `${app.get('noderedBase')}`,
   changeOrigin: true,
   ws: true,
   pathRewrite: { '^/api/red/socket.io': '/socket.io', '^/api/red': '/api' }
 });
 app.use('/api/red', px);
-const px2 = proxy({
+
+const px2 = proxy('/red', {
   target: `${app.get('noderedBase')}`,
   changeOrigin: true,
+  ws: true,
 });
 app.use('/red', px2);
+
 app.use(history());
 app.use('/demo-client', express.static('client/mobile-web'));
 app.use('/demo-speaker', express.static('client/smartspeaker-web'));
@@ -53,6 +64,7 @@ app.use('/', express.static(app.get('frontend')));
 //   res.redirect('/docs');
 // });
 
+// app.use('/socket.io', pxWs1);
 app.use('/api/red', px);
 app.use('/red', px2);
 
