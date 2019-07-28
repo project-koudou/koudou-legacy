@@ -58,6 +58,9 @@ module.exports = function(app) {
         let plans = resp.data;
         // console.log(plans);
         let resAll = [];
+        if (params.query.id) {
+          plans = plans.filter(json => json.id === params.query.id);
+        }
         plans.forEach((json) => {
           // console.log(json);
           let filteredPhases = json;

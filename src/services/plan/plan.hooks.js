@@ -3,8 +3,28 @@ const {
   associateCurrentUser,
   restrictToOwner
 } = require('feathers-authentication-hooks');
-// const { unless } = require('feathers-hooks-common');
+const { fastJoin } = require('feathers-hooks-common');
 // const tokenAuth = require('../../hooks/tokenAuth');
+
+const planResolvers = {
+  joins: {
+    blockIdx: (...args) => async (plan, context) => {
+      let idx = 0;
+      plan.phases.forEach((phase, pIdx) => {
+        phase.blocks.forEach((v, bIdx) => {
+          if (
+            plan.phases[pIdx].blocks[bIdx].output
+              .map(x => x.endpoint)
+              .includes('/nrf/output/demo_client')
+          ) {
+            plan.phases[pIdx].blocks[bIdx].params.idx = idx++;
+          }
+        });
+      });
+      return plan;
+    }
+  }
+};
 
 module.exports = {
   before: {
@@ -19,8 +39,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [fastJoin(planResolvers, { blockIdx: true })],
+    get: [fastJoin(planResolvers, { blockIdx: true })],
     create: [],
     update: [],
     patch: [],
