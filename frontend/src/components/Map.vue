@@ -1,17 +1,33 @@
 <template>
   <div>
-    <p v-on:click="getNewestPin">Get New Info</p>
-    <p v-on:click="getHereNow">Get Here Now</p>
-    <p v-on:click="setMapHere">Set Map Here</p>
-    <div>
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <router-link to="/">
+            <span class="icon">
+              <i class="fas fa-bars"></i>
+            </span>Back to List
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+    <div class="box">
+      <!-- <p v-on:click="getNewestPin">Get New Info</p>
+      <p v-on:click="getHereNow">Get Here Now</p>-->
+      <div class="field">
+        <div class="control">
+          <p class="button is-primary" v-on:click="setMapHere">Focus on the present area</p>
+        </div>
+      </div>
+      <!-- <div>
       <ul id="people-list">
         <li v-for="(people, indexPeopleList) in peopleList" v-bind:key="people.name">
           <p v-on:click="setMapView(indexPeopleList)">{{people.name}}</p>
         </li>
       </ul>
-    </div>
-    <div id="map"></div>
-    <div>
+      </div>-->
+      <div id="map" v-once></div>
+      <!-- <div>
       <transition
         enter-active-class="animated bounceInLeft"
         leave-active-class="animated bounceOutRight"
@@ -24,6 +40,7 @@
           @timeline="chaseTimeline"
         ></map-info>
       </transition>
+      </div>-->
     </div>
   </div>
 </template>
@@ -103,7 +120,9 @@ export default {
             marker: createdMarker,
             positionList: {}
           };
-          vueComponent.peopleList[response.data[key].clientId].positionList[key] = {
+          vueComponent.peopleList[response.data[key].clientId].positionList[
+            key
+          ] = {
             createdAt: response.data[key].location.timestamp,
             latitude: response.data[key].location.latitude,
             longitude: response.data[key].location.longitude,
@@ -219,10 +238,10 @@ export default {
         var vueComponent = this;
         function setHereSuccess(position) {
           console.log(position);
-          vueComponent.map.setView([
-            position.coords.latitude,
-            position.coords.longitude
-          ]);
+          vueComponent.map.setView(
+            [position.coords.latitude, position.coords.longitude],
+            16
+          );
         }
         function setHereError(error) {
           var errorMessage = {
@@ -258,8 +277,8 @@ export default {
   },
   mounted() {
     var vueComponent = this;
-    this.map = L.map("map");
-    this.map.setView([35.6825, 139.752778], 13);
+    this.map = L.map("map").fitWorld();
+    // this.map.setView([35.6825, 139.752778], 13);
     this.people = L.layerGroup();
     this.stocks = L.layerGroup();
 
@@ -333,7 +352,7 @@ export default {
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 #map {
   width: 100%;
-  height: 800px;
+  height: 500px;
 }
 .marker {
   text-align: center;

@@ -17,10 +17,10 @@
           <p class="title">{{ plan.name }}</p>
           <p class="content">{{ plan.description }}</p>
           <div class="buttons">
-            <button v-on:click="testflow" class="button is-success">Simulate Plan</button>
+            <button v-on:click="testflow" class="button is-success">{{ simulateLabel }}</button>
             <button v-on:click="stopflow" class="button is-danger">Stop</button>
             <router-link tag="button" :to="editUrl" class="button is-link">Edit</router-link>
-            <button class="button is-light">Export as PDF</button>
+            <button @click="exportPDF" class="button is-light">Export as PDF</button>
             <button @click="exportJSON" class="button is-light">Export as JSON</button>
           </div>
         </div>
@@ -90,39 +90,74 @@
 </template>
 
 <script>
+const { detect } = require("detect-browser");
+
 export default {
   data() {
     return {
       plan: {},
-      editUrl: '',
+      editUrl: "",
+      simulateStatus: 0,
+      simulateLabel: "Simulate This Plan"
     };
   },
   methods: {
     testflow() {
-      console.log(this.plan.testTrigger);
-      fetch(this.plan.testTrigger, { headers: { "Accept": "application/json" } });
+      let nextSimulateStatus =
+        (this.simulateStatus + 1) % (this.plan.testTriggers.length + 1);
+      if (this.simulateStatus === this.plan.testTriggers.length) {
+        this.plan.stopEndpoint = `/api/plan/${this.$route.params.id}/complete`;
+        fetch(this.plan.stopEndpoint, {
+          headers: { Accept: "application/json" }
+        });
+        this.simulateLabel = "Simulate This Plan";
+      } else if (this.simulateStatus === this.plan.testTriggers.length - 1) {
+        fetch(this.plan.testTriggers[this.simulateStatus] + `?id=${this.$route.params.id}`, {
+          headers: { Accept: "application/json" }
+        });
+        this.simulateLabel = "Complete";
+      } else {
+        fetch(this.plan.testTriggers[this.simulateStatus] + `?id=${this.$route.params.id}`, {
+          headers: { Accept: "application/json" }
+        });
+        this.simulateLabel = "Next Phase";
+      }
+      this.simulateStatus = nextSimulateStatus;
     },
     stopflow() {
       this.plan.stopEndpoint = `/api/plan/${this.$route.params.id}/complete`;
-      fetch(this.plan.stopEndpoint, { headers: { "Accept": "application/json" } });
+      fetch(this.plan.stopEndpoint, {
+        headers: { Accept: "application/json" }
+      });
+      this.simulateStatus = 0;
+      this.simulateLabel = "Simulate This Plan";
+    },
+    exportPDF() {
+      const browser = detect();
+      if (browser.name === "chrome") {
+        window.print();
+      } else {
+        alert("This feature is available for Google Chrome at the moment.");
+      }
     },
     exportJSON() {
-      const json = encodeURIComponent(JSON.stringify(this.plan, null, ''));
+      const json = encodeURIComponent(JSON.stringify(this.plan, null, ""));
       window.open(`data:application/json,${json}`);
-    },
+    }
   },
   async mounted() {
-    const plan = await $client.service('api/plan').get(this.$route.params.id);
+    const plan = await $client.service("api/plan").get(this.$route.params.id);
     console.log(plan);
     this.plan = plan;
     this.editUrl = `/plan/${this.$route.params.id}/edit`;
-    $client.service('api/plan').on('patched', (msg) => {
+    $client.service("api/plan").on("patched", msg => {
       console.log(msg);
-      if (this.plan.id === msg.id) {  // TODO: Secure
+      if (this.plan.id === msg.id) {
+        // TODO: Secure
         this.plan = msg;
       }
     });
-  },
+  }
 };
 </script>
 

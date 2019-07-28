@@ -46,14 +46,14 @@
               <span class="is-size-6">Item</span>
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link to="/cabinet">
               <span class="icon is-large">
                 <i class="fas fa-2x fa-file-alt"></i>
               </span>
               <span class="is-size-6">Cabinet</span>
             </router-link>
-          </li>
+          </li> -->
           <li>
             <router-link to="/map">
               <span class="icon is-large">

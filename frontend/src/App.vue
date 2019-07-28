@@ -8,9 +8,18 @@
     >
       <div class="navbar-brand">
         <span class="navbar-item">
-          <router-link to="/"><h1 class="title is-4 has-text-white">KOUDOU</h1></router-link>
+          <router-link to="/">
+            <h1 class="title is-4 has-text-white">KOUDOU</h1>
+          </router-link>
         </span>
-        <a role="button" @click="burgerOpen = !burgerOpen" class="navbar-burger" :class="{ 'is-active': burgerOpen }" aria-label="menu" aria-expanded="false">
+        <a
+          role="button"
+          @click="burgerOpen = !burgerOpen"
+          class="navbar-burger"
+          :class="{ 'is-active': burgerOpen }"
+          aria-label="menu"
+          aria-expanded="false"
+        >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -50,6 +59,28 @@
         </div>
       </div>
     </section>
+    <div class="modal" :class="{ 'is-active': modalOpen }">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Optional Setups</p>
+          <button @click="modalOpen = !modalOpen" class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="content">
+            <dl>
+              <dt>Default Smart Speaker (Web Audio API based)</dt>
+              <dd>
+                Open
+                <a :href="speakerUrl" target="_blank">the client</a> on your device with the audio input/output (e.g., Raspberry Pi +
+                ReSpeaker 2-Mics Pi HAT).
+              </dd>
+            </dl>
+          </div>
+        </section>
+        <footer class="modal-card-foot"></footer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -57,16 +88,32 @@
 // @ is an alias to /src
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {
       isOperator: JSON.parse(localStorage.isOperator),
       burgerOpen: false,
+      modalOpen: false,
+      speakerUrl: "",
     };
   },
-  updated() {
+  async updated() {
     this.isOperator = JSON.parse(localStorage.isOperator);
-  },
+    const plans = await $client.service("api/plan").find();
+    console.log(plans.data);
+    let planIds = JSON.stringify(plans.data.map(x => x.id));
+    let host = location.host;
+    console.log(host);
+    this.speakerUrl = `http://${host}/demo-speaker?host=${host}&s=${planIds}`;
+},
+  async mounted() {
+    // const plans = await $client.service("api/plan").find();
+    // console.log(plans.data);
+    // let planIds = JSON.stringify(plans.data.map(x => x.id));
+    // let host = location.host;
+    // console.log(host);
+    // this.speakerUrl = `http://${host}/demo-speaker?host=${host}&s=${planIds}`;
+  }
 };
 </script>
 
@@ -75,6 +122,7 @@ $message-background-color: #fcfcfc;
 
 @import "../node_modules/bulma/bulma.sass";
 @import "../node_modules/bulma-o-steps/bulma-steps.sass";
+@import "../node_modules/bulma-switch/dist/css/bulma-switch.sass";
 
 #app {
   -webkit-font-smoothing: antialiased;
@@ -94,12 +142,14 @@ $message-background-color: #fcfcfc;
   justify-content: center;
 }
 
-.v-enter-active, .v-leave-active {
-  transition: opacity .1s;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.1s;
   transition-timing-function: ease;
 }
 
-.v-enter, .v-leave-to {
+.v-enter,
+.v-leave-to {
   opacity: 0;
 }
 
@@ -110,7 +160,11 @@ $message-background-color: #fcfcfc;
 }
 
 @media print {
-  .navbar, .column-leftside, .buttons, .breadcrumb, .content-output {
+  .navbar,
+  .column-leftside,
+  .buttons,
+  .breadcrumb,
+  .content-output {
     display: none;
   }
   .column-main .card {
