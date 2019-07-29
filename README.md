@@ -81,15 +81,15 @@ NOTE:
 
 ## Self-hosting
 
+### Use a separate Node-RED instance
+
+- Set the environment variable `NODEREDBASE` to your Node-RED **base** URL to use a separate Node-RED instance. (Default: `http://localhost:9000`)
+
 ### Common
 
 - Set the environment variable `DEMO` to `1` in `manifest.yml` or elsewhere to set up the instance as a demo.
 - Set a secret `operatorToken` in `config/default.json` for operator login.
 - Add API keys to related Node-RED nodes to enable Watson AI and other IBM Cloud services (e.g., Watson Text to Speech for speakers)
-
-### Use a separate Node-RED instance
-
-- Set the environment variable `NODEREDBASE` to your Node-RED **base** URL to use a separate Node-RED instance. (Default: `http://localhost:9000`)
 - Import Node-RED flows for KOUDOU:
   - Copy the output of `node nodered-lib/splitter.js --join`
   - [Import it](https://nodered.org/docs/user-guide/editor/workspace/import-export) to your Node-RED instance
