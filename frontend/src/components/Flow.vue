@@ -11,10 +11,10 @@
         </li>
       </ul>
     </nav>
-    <div class="box is-shadowless tile is-vertical is-ancestor">
-      <div class="tile is-child card">
+    <!-- <div class="box is-shadowless"> -->
+      <div class="card">
         <div class="card-content">
-          <p class="title">{{ plan.name }}</p>
+          <p class="title is-size-5-mobile">{{ plan.name }}</p>
           <p class="content">{{ plan.description }}</p>
           <div class="buttons">
             <button v-on:click="testflow" class="button is-success">{{ simulateLabel }}</button>
@@ -33,7 +33,7 @@
               <li class="steps-segment" v-if="phase.trigger.name">
                 <span class="steps-marker"></span>
                 <div class="steps-content">
-                  <p class="title is-4">{{ phase.trigger.name }}</p>
+                  <p class="title is-4 is-size-5-mobile">{{ phase.trigger.name }}</p>
                   <div
                     style="margin: 10px 0px; position: relative; left: -50px; right: -50px; z-index: 9;"
                   >
@@ -42,9 +42,9 @@
                       v-bind:class="['message', 'item', block.style]"
                     >
                       <div class="message-body">
-                        <p class="title is-5">{{ block.name }}</p>
+                        <p class="title is-5 is-size-6-mobile">{{ block.name }}</p>
                         <p v-if="block.always" class="subtitle is-6 is-size-7">{{ block.always }}</p>
-                        <p class="content">
+                        <p class="content is-size-6-mobile">
                           <span v-html="block.message"></span>
                         </p>
                       </div>
@@ -59,7 +59,7 @@
               >
                 <span class="steps-marker"></span>
                 <div class="steps-content">
-                  <p class="title is-4">{{ phase.name }}</p>
+                  <p class="title is-4 is-size-5-mobile">{{ phase.name }}</p>
                   <div style="margin: 10px 0px; position: relative; left: -50px; z-index: 9;">
                     <div
                       v-for="(block, idx) in phase.blocks"
@@ -67,12 +67,12 @@
                       v-bind:class="['message', 'item', block.style]"
                     >
                       <div class="message-body">
-                        <p class="title is-5">{{ block.name }}</p>
+                        <p class="title is-5 is-size-6-mobile">{{ block.name }}</p>
                         <p v-if="block.always" class="subtitle is-6 is-size-7">{{ block.always }}</p>
                         <p class="content">
                           <span v-html="block.message"></span>
                         </p>
-                        <p class="content content-output">
+                        <p class="content content-output is-size-7-mobile">
                           <b>On:</b>
                           {{ block.output.map(x => x.name).join(' · ') }}
                         </p>
@@ -85,7 +85,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 

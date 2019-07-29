@@ -15,6 +15,7 @@
         <a
           role="button"
           @click="burgerOpen = !burgerOpen"
+          @tap="burgerOpen = !burgerOpen"
           class="navbar-burger"
           :class="{ 'is-active': burgerOpen }"
           aria-label="menu"
@@ -39,7 +40,7 @@
             </span>&nbsp;
             Prepare a new plan
           </router-link>
-          <a href="#" v-if="isOperator" class="navbar-item">
+          <a href="/red" v-if="isOperator" class="navbar-item">
             <span class="icon">
               <i class="fas fa-project-diagram"></i>
             </span>&nbsp;
