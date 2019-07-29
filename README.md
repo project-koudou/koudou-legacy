@@ -44,6 +44,8 @@
 
 - <https://koudou-demo.mybluemix.net/>
 
+NOTE:
+
 - Running on a personal IBM Cloud account; please contact the team if the instance is down.
 - Functionalities may have monthly caps and rate limits. (e.g. Text to Speech)
 
