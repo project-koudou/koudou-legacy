@@ -62,7 +62,7 @@ Running on a personal IBM Cloud account; please contact the team if the instance
 5. Drag & Drop Step Blocks to the flow to make a plan
 6. Save
 
-#### Example Case 3: Demonstrate an crisis response operation
+#### Example Case 3: Demonstrate a crisis response operation
 
 1. Open mobile app as `demo1@example.com` on your smartphone (follow example case 1)
 2. On your laptop, log in as `demo2@example.com` by checking "Log in as operator" box
