@@ -26,7 +26,7 @@
       "id": null,
       "name": "My Response Plan for Earthquake",
       "description": "A flow for responding earthquake.",
-      "testTrigger": "/api/red/nrf/trigger/panicbutton",
+      "testTriggers": ["/api/red/nrf/trigger/panicbutton", "/api/red/nrf/checkpoint/pressbutton"],
       "phases": [
         {
           "name": "Preparation",
