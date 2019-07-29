@@ -1,13 +1,10 @@
 FROM node:12-alpine
 
-WORKDIR "/app"
-
 COPY . /app
 
-RUN cd /app; ./build-prod.sh
+WORKDIR /app
 
-ENV NODE_ENV production
-ENV PORT 3030
+RUN ./build-prod.sh
 
 EXPOSE 3030
 
