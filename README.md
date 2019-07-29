@@ -43,6 +43,7 @@
 ### Demo instance
 
 - <https://koudou-demo.mybluemix.net/>
+- Node-RED Backend: <https://koudou-demo.mybluemix.net/red/> (Being public for demo purpose)
 
 NOTE:
 
