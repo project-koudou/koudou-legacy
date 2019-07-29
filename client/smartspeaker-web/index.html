@@ -21,7 +21,8 @@
 
     let ctx = new (window.AudioContext || window.webkitAudioContext)();
     let params = (new URL(document.location)).searchParams;
-    let wsUri = params.get("host") ? `ws://${params.get("host")}/api/red/ws/demo-speaker` : "ws://localhost:9000/api/ws/demo-speaker";
+    let proto = location.protocol === "https:" ? "wss:" : "ws:"
+    let wsUri = params.get("host") ? `${proto}//${params.get("host")}/api/red/ws/demo-speaker` : `${proto}//localhost:9000/api/ws/demo-speaker`;
     let subs = JSON.parse(params.get("s")) || [];
 
     function connect() {
