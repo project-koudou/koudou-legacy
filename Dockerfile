@@ -1,5 +1,8 @@
 FROM node:12-alpine
 
+ARG DEMO
+ENV DEMO ${DEMO:-}
+
 COPY . /app
 
 WORKDIR /app
