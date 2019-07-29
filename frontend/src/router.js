@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Dashboard from './views/Dashboard.vue';
-import AdminDashboard from './views/AdminDashboard.vue';
 import FlowList from './components/FlowList.vue';
 import Person from './components/Person.vue';
 import Map from './components/Map.vue';
@@ -10,6 +9,7 @@ import Item from './components/Item.vue';
 import Feed from './components/Feed.vue';
 import Control from './components/Control.vue';
 import Login from './views/Login.vue';
+import Register from './views/Register.vue';
 import FlowWizard from './views/FlowWizard.vue';
 import FlowSelect from './components/FlowSelect.vue';
 import FlowDescribe from './components/FlowDescribe.vue';
@@ -81,6 +81,14 @@ export default new Router({
         isPublic: true,
       },
       component: Login,
+    },
+    {
+      path: '/register',
+      name: 'register',
+      meta: {
+        isPublic: true,
+      },
+      component: Register,
     },
     // {
     //   path: '/about',

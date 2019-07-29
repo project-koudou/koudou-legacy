@@ -50,7 +50,7 @@
       </div>
       <div class="field">
         <p class="control">
-          <button class="button is-text is-fullwidth">Register</button>
+          <a class="button is-text is-fullwidth" href="/register">Register</a>
         </p>
       </div>
     </div>
