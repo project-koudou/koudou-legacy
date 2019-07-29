@@ -13,6 +13,7 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
+    "preinstall": "cd frontend/; npm install --unsafe-perm; npm run build; cd ..",
     "postinstall": "cd nodered-local/; npm install  --unsafe-perm; cd ..; ./bootstrap-seed.sh",
     "test": "npm run eslint && NODE_ENV= npm run jest",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
