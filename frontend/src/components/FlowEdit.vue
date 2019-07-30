@@ -73,7 +73,7 @@
                     <p class="title is-4">{{ step.trigger.name }}</p>
                     <div
                       style="margin: 10px 0px; position: relative; left: -50px; right: -50px; z-index: 9;"
-                      class="phase-blocks"
+                      class="x-phase-blocks"
                     >
                       <div
                         v-for="(block, idx) in [step.trigger.subscribeTo]"
@@ -119,7 +119,7 @@
                             <p class="content">
                               <span v-html="block.message"></span>
                             </p>
-                            <p class="content">
+                            <p class="content" v-show="block.output.length > 0">
                               <b>On:</b>
                               {{ block.output.map(x => x.name).join(' · ') }}
                             </p>

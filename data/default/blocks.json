@@ -3,6 +3,7 @@
     "id": "eew",
     "version": 1,
     "name": "Earthquake Early Warning (demo)",
+    "disabled": true,
     "style": "is-danger",
     "category": ["Alarm Event"],
     "always": null,
@@ -16,6 +17,7 @@
     "id": "panic-button",
     "version": 1,
     "name": "Manual Alert by Operator",
+    "disabled": true,
     "style": "is-danger",
     "category": ["Alarm Event"],
     "always": null,
@@ -317,15 +319,46 @@
     "category": ["Action"],
     "endpoint": "/flows/action/message",
     "params": {
-      "text": "Check out the latest Disaster Assitance Manual: <a href=\"#\">PDF</a>"
-    }
+      "title": "Manual",
+      "content": "Check out the latest Disaster Assitance Manual: <a href=\"#\">PDF</a>"
+    },
+    "output": [
+      {
+        "name": "Default Mobile Client",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
   },
   {
     "id": "health",
     "version": 1,
     "name": "Do Health Checking",
     "disabled": false,
-    "category": ["Action", "Healthcare"]
+    "category": ["Action", "Healthcare"],
+    "endpoint": "/flows/action/message",
+    "params": {
+      "title": "Health Checking",
+      "content": "<a href=\"http://www.midss.org/sites/default/files/k6_self_admin_updated_08-08-11.pdf\">Answer Questionnaire</a>"
+    },
+    "output": [
+      {
+        "name": "Default Mobile Client",
+        "endpoint": "/nrf/output/demo_client"
+      }
+    ]
+  },
+  {
+    "id": "water",
+    "version": 1,
+    "name": "Prepare Enough Bottles of Drinking Water",
+    "disabled": false,
+    "category": ["Note"],
+    "message": "Link to your IoT devices to monitor the quantity of the stocks",
+    "endpoint": "",
+    "params": {
+    },
+    "output": [
+    ]
   },
   {
     "id": "building-safety",
@@ -335,8 +368,10 @@
     "category": ["Note"],
     "always": null,
     "message": "",
-    "endpoint": "",
-    "params": {},
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "speakContent": "Please check safety of building before evacuation order."
+    },
     "output": [
       {
         "name": "Default Smart Speaker",
@@ -352,8 +387,10 @@
     "category": ["Note"],
     "always": null,
     "message": "",
-    "endpoint": "",
-    "params": {},
+    "endpoint": "/nrf/action/message",
+    "params": {
+      "speakContent": "Please check safety of students."
+    },
     "output": [
       {
         "name": "Default Smart Speaker",
@@ -365,6 +402,7 @@
     "id": "item-request",
     "version": 1,
     "name": "Request Items",
+    "disabled":true,
     "style": "",
     "category": ["Action"],
     "always": false,
