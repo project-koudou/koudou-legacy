@@ -9,7 +9,7 @@
 <h4 align="center">KOUDOU Flow supports your flow-based planning and action for crisis response with Node-RED backend</h4>
 
 <p align="center">
-<img src="docs/assets/sshot.png?raw=true" height="320">
+<a href="https://koudou-demo.mybluemix.net/"><img src="docs/assets/sshot.png?raw=true" height="320"></a>
 </p>
 
 <br>
