@@ -24,6 +24,10 @@
   <a href="#authors">Authors</a>
 </p>
 
+## Updates
+
+- We are working on the new major version at [project-koudou/koudou](https://github.com/project-koudou/koudou).
+
 ## Features
 
 - [x] Block-based planning made easy for every role in crisis response
